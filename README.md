@@ -1,5 +1,5 @@
 # trading-API
-Problem Domain: Finance/Entertainment
+Problem Domain: Finance
 
 Description: We are making an engaging and educational stock trading game that allows players to test their knowledge 
 and skills in the world of finance and investing. There will be two or more prompts on which financial investment 

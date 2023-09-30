@@ -8,8 +8,10 @@ losses.
 
 Link to API document: https://www.alphavantage.co/documentation/
 
-Screenshot: ![HoppScotch Screenshot.png](screenshots%2FHoppScotch%20Screenshot.png)
+Screenshot: ![HoppScotch_Screenshot.png](screenshots%2FHoppScotch%20Screenshot.png)
 
 Example output of running Java code: 
 
 A list of any technical problems blocking progress: 
+- Difficulty in searching through data to obtain specific information needed such as the exchange rate in a specific time
+- Difficulty creating a function that is applicable for different APIs of the same nature such as Stocks and Crypto.

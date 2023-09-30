@@ -42,9 +42,8 @@ public class AlphaVantage {
             }
             reader.close();
 
-            // Print the JSON response
+
             System.out.println(response1.toString());
-            System.out.println(response2.toString());
 
             connection.disconnect();
         } catch (Exception e) {
@@ -52,4 +51,3 @@ public class AlphaVantage {
         }
     }
 }
-

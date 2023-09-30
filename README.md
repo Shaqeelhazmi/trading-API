@@ -13,4 +13,4 @@ Screenshot:
 Example output of running Java code:
 
 A list of any technical problems blocking progress: 
-![HoppScotch Screenshot.png](..%2F..%2FDesktop%2FHoppScotch%20Screenshot.png)
+![HoppScotch Screenshot.png](screenshots/HoppScotch Screenshot.png)

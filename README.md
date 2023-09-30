@@ -8,7 +8,7 @@ losses.
 
 Link to API document: https://www.alphavantage.co/documentation/
 
-Screenshot: ![HoppScotch Screenshot.png](screenshots%2FHoppScotch%20Screenshot.png)
+Screenshot: ![HoppScotch_Screenshot.png](screenshots/HoppScotch_Screenshot.png)
 
 Example output of running Java code: 
 

@@ -8,9 +8,8 @@ losses.
 
 Link to API document: https://www.alphavantage.co/documentation/
 
-Screenshot:
+Screenshot: ![HoppScotch Screenshot.png](screenshots/HoppScotch Screenshot.png)
 
 Example output of running Java code:
 
-A list of any technical problems blocking progress: 
-![HoppScotch Screenshot.png](screenshots/HoppScotch Screenshot.png)
+A list of any technical problems blocking progress:

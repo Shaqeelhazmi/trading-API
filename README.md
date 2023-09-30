@@ -8,8 +8,8 @@ losses.
 
 Link to API document: https://www.alphavantage.co/documentation/
 
-Screenshot:
+Screenshot: 
 
-Example output of running Java code:
+Example output of running Java code: 
 
 A list of any technical problems blocking progress: 

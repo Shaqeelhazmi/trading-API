@@ -13,3 +13,4 @@ Screenshot:
 Example output of running Java code: 
 
 A list of any technical problems blocking progress: 
+![HoppScotch Screenshot.png](screenshots/HoppScotch Screenshot.png)

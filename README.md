@@ -10,7 +10,7 @@ Link to API document: https://www.alphavantage.co/documentation/
 
 Screenshot: ![HoppScotch_Screenshot.png](screenshots/HoppScotch_Screenshot.png)
 
-Example output of running Java code: 
+Example output of running Java code: ![Example_output.png](screenshots%2FExample_output.png)
 
 A list of any technical problems blocking progress: 
 - Difficulty in searching through data to obtain specific information needed such as the exchange rate in a specific time

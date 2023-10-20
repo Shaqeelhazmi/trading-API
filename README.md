@@ -26,5 +26,6 @@ in the stock market.
 
 ## API
 
-We use the Alpha Vantage API for our project. API documentation can be accessed through this link:
+We use the Alpha Vantage API for our project. This API will allow us to get information about the price/price history of stocks, so the accurate stock prices are used in our app.
+API documentation can be accessed through this link:
 https://www.alphavantage.co/documentation/

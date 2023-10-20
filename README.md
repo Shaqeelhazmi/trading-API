@@ -1,17 +1,25 @@
 # trading-API
-Problem Domain: Finance/Entertainment
+Problem Domain: This is a financial literacy and entertainment app that allows users to use fake money and practice investing in the stock market
 
-Description: We are making an engaging and educational stock trading game that allows players to test their knowledge 
-and skills in the world of finance and investing. There will be two or more prompts on which financial investment 
-should a player choose. Players will then choose and by the end of the game, players can compare their earnings and
-losses. 
+Software Specification: 
+- Create an account and login
+- Start with a certain amount of money
+- Be able to see the list of all stocks, then filter stocks by their sectors (tech, biotech, food, etc.)
+- Be able to see the prices of stocks and their history (hour/day/week/month/ytd)
+- Be able to buy shares of any stock they can afford and sell shares of stock they own
+- View their portfolio, see the history of their stock including when they bought it, what price they bought it, and the percent change in price since they bought it.
+- View a summary of their portfolio, net worth, net profit, composite of their portfolio in the form of a pie chart (tech, biotech, food, etc.)
+- Be able to “favourite”/track stocks they are interested in, even if they have not yet bought shares
+- Be able to access a resources page with links to helpful tutorials
+- Be able to do automated buy-ins and exits. Set prices that you automatically buy or sell at
+- Be able to set a default currency (CAD, USD, GBP, etc.) 
 
 Link to API document: https://www.alphavantage.co/documentation/
 
-Screenshot: ![HoppScotch_Screenshot.png](screenshots/HoppScotch_Screenshot.png)
+Entities in Domain: 
+- Account
+- Portfolio
+- Stock
+- Catalogue
+- Transaction History
 
-Example output of running Java code: ![Example_output.png](screenshots%2FExample_output.png)
-
-A list of any technical problems blocking progress: 
-- Difficulty in searching through data to obtain specific information needed such as the exchange rate in a specific time
-- Difficulty creating a function that is applicable for different APIs of the same nature such as Stocks and Crypto.

@@ -22,7 +22,7 @@ in the stock market.
 - Portfolio
 - Stock
 - Catalogue
-- Transaction History
+- TransactionHistory
 
 ## API
 

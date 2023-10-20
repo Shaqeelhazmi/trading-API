@@ -1,7 +1,10 @@
-# trading-API
-Problem Domain: This is a financial literacy and entertainment app that allows users to use fake money and practice investing in the stock market
+# The Wolf of Bay Street Stock Trading App
 
-Software Specification: 
+## Domain
+This is a financial literacy and entertainment app that allows users to use fake money and practice investing 
+in the stock market.
+
+## Software Specification: 
 - Create an account and login
 - Start with a certain amount of money
 - Be able to see the list of all stocks, then filter stocks by their sectors (tech, biotech, food, etc.)
@@ -14,12 +17,14 @@ Software Specification:
 - Be able to do automated buy-ins and exits. Set prices that you automatically buy or sell at
 - Be able to set a default currency (CAD, USD, GBP, etc.) 
 
-Link to API document: https://www.alphavantage.co/documentation/
-
-Entities in Domain: 
+## Proposed Entities for the Domain
 - Account
 - Portfolio
 - Stock
 - Catalogue
 - Transaction History
 
+## API
+
+We use the Alpha Vantage API for our project. API documentation can be accessed through this link:
+https://www.alphavantage.co/documentation/

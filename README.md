@@ -18,11 +18,22 @@ in the stock market.
 - Be able to set a default currency (CAD, USD, GBP, etc.) 
 
 ## Proposed Entities for the Domain
-- Account
-- Portfolio
-- Stock
-- Catalogue
-- TransactionHistory
+### Account
+- Describes the general information about a user and his account. 
+- Has the following attributes: String username, String password, ArrayList<Stock> favourites etc.
+### Portfolio
+- Specifies which stocks a user owns with shares owned described and tells the total worth of stocks owned and liquid cash.
+- Has the following attributes: HashMap<Stock, int> stockList [key = Stock, value = amountOwned], float accountBalance
+### Stock
+- Stores the information about an individual stock. 
+- Has the following attributes: String stockName [stock’s ticker], String category [e.g. tech, finance, energy etc.], HashMap<String, list<float>> priceHistory
+### Catalogue
+- A collection of stocks that’s featured in either the main page or in the user’s favourites list. 
+- Has the following attributes: ArrayList<Stock> defaultStocks, ArrayList<Stock> favouriteStocks
+### TransactionHistory
+- Describes all the information on the user’s past trades. 
+- Has the following attributes: HashMap<datetime, list<Object>> purchaseHistory [key = time of purchase, value = {Stock, pricePerShare, amountShares}], HashMap<datetime, list<Object>> sellingHistory [key = time of selling, value = {Stock, pricePerShare, amountShares}]
+
 
 ## API
 

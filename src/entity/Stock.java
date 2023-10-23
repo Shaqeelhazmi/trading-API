@@ -1,2 +1,5 @@
-package entity;public class stock {
+package entity;
+
+public class Stock {
+
 }

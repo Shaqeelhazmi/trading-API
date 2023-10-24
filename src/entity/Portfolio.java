@@ -2,7 +2,7 @@ package entity;
 
 import java.util.HashMap;
 
-public class Portfolio {
+public class Portfolio implements PortfolioInterface {
     private HashMap<Stock, Integer> portfolio;
     private double accountBalance;
 

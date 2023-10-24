@@ -16,10 +16,12 @@ public class CommonAccount implements AccountInterface {
         this.portfolio = portfolio;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }

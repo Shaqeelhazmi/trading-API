@@ -1,4 +1,5 @@
 package use_case.sell;
 
-public class SellInputInterface {
+public interface SellInputBoundary {
+    void sell(SellInputData sellInputData);
 }

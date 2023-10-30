@@ -1,26 +1,21 @@
 package entity;
 
 public class Stock implements StockInterface {
-    private final String stockName;
-    private final String tickerSymbol;
+    private final String stockSymbol;
     private final String category;
     private PriceHistory priceHistory;
 
-    public Stock(String stockName, String tickerSymbol, String category, PriceHistory priceHistory) {
-        this.stockName = stockName;
-        this.tickerSymbol = tickerSymbol;
+    public Stock(String stockSymbol, String category, PriceHistory priceHistory) {
+        this.stockSymbol = stockSymbol;
         this.category = category;
         this.priceHistory = priceHistory;
     }
 
     @Override
     public String getStockName() {
-        return stockName;
+        return stockSymbol;
     }
 
-    public String getTickerSymbol() {
-        return tickerSymbol;
-    }
 
     @Override
     public String getCategory() {

@@ -1,6 +1,7 @@
 package data_access;
 
 import entity.Stock;
+import entity.StockFactory;
 import use_case.buy.BuyDataAccessInterface;
 import use_case.sell.SellDataAccessInterface;
 
@@ -98,4 +99,8 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
         return stocks.containsKey(identifier);
     }
 
+    @Override
+    public boolean stockExists(String ticker) {
+        return false;
+    }
 }

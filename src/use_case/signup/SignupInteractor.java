@@ -34,7 +34,4 @@ public class SignupInteractor implements SignupInputBoundary {
             userPresenter.prepareSuccessView(signupOutputData);
         }
     }
-
-    }
-
 }

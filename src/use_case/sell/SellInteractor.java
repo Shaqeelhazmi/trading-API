@@ -9,11 +9,13 @@ import java.time.LocalDateTime;
 public class SellInteractor implements SellInputBoundary{
     final SellDataAccessInterface sellDataAccessObject;
     final SellOutputBoundary sellPresenter;
+    CommonAccount commonAccount;
 
     public SellInteractor(SellDataAccessInterface sellDataAccessInterface,
-                          SellOutputBoundary sellOutputBoundary){
+                          SellOutputBoundary sellOutputBoundary, CommonAccount commonAccount){
         this.sellDataAccessObject = sellDataAccessInterface;
         this.sellPresenter = sellOutputBoundary;
+        this.commonAccount = commonAccount;
     }
 
     @Override

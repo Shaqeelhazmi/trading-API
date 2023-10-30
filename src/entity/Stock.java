@@ -2,12 +2,10 @@ package entity;
 
 public class Stock implements StockInterface {
     private final String stockSymbol;
-    private final String category;
     private PriceHistory priceHistory;
 
-    public Stock(String stockSymbol, String category, PriceHistory priceHistory) {
+    public Stock(String stockSymbol, PriceHistory priceHistory) {
         this.stockSymbol = stockSymbol;
-        this.category = category;
         this.priceHistory = priceHistory;
     }
 
@@ -16,11 +14,6 @@ public class Stock implements StockInterface {
         return stockSymbol;
     }
 
-
-    @Override
-    public String getCategory() {
-        return category;
-    }
 
     @Override
     public PriceHistory getPriceHistory() {

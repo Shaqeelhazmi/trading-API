@@ -2,19 +2,22 @@ package entity;
 
 import java.util.HashMap;
 
-public class PriceHistory {
+public class PriceHistory implements PriceHistoryInterface {
     private HashMap<String, Double> dailyPriceHistory;
     private HashMap<String, Double> weeklyPriceHistory;
     private HashMap<String, Double> monthlyPriceHistory;
 
+    @Override
     public HashMap<String, Double> getDailyPriceHistory() {
         return dailyPriceHistory;
     }
 
+    @Override
     public HashMap<String, Double> getWeeklyPriceHistory() {
         return weeklyPriceHistory;
     }
 
+    @Override
     public HashMap<String, Double> getMonthlyPriceHistory() {
         return monthlyPriceHistory;
     }

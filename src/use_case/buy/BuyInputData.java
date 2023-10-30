@@ -11,7 +11,7 @@ public class BuyInputData {
         this.amount = amount;
     }
 
-    String getStockname() {return stock.name;}
+    String getStockname() {return stock.getStockName();}
 
     int getAmount() {return amount;}
 }

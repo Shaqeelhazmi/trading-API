@@ -1,5 +1,6 @@
 package data_access;
 
+import entity.PriceHistory;
 import entity.Stock;
 import entity.StockFactory;
 import use_case.buy.BuyDataAccessInterface;
@@ -39,12 +40,10 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
                 String row;
                 while ((row = reader.readLine()) != null) {
                     String[] col = row.split(",");
-                    String username = String.valueOf(col[headers.get("username")]);
-                    String password = String.valueOf(col[headers.get("password")]);
-                    String creationTimeText = String.valueOf(col[headers.get("creation_time")]);
-                    LocalDateTime ldt = LocalDateTime.parse(creationTimeText);
-                    Stock stock = stockFactory.create();
-                    stocks.put(username, stock);
+                    String stockSymbol = String.valueOf(col[headers.get("username")]);
+                    PriceHistory priceHistory = None; //change!
+                    Stock stock = stockFactory.create(stockSymbol, priceHistory);
+                    stocks.put(stockSymbol, stock);
                 }
             }
         }

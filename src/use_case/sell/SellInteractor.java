@@ -1,9 +1,5 @@
 package use_case.sell;
 
-import entity.CommonAccount;
-import entity.Portfolio;
-import entity.Stock;
-
 import java.time.LocalDateTime;
 
 public class SellInteractor implements SellInputBoundary{

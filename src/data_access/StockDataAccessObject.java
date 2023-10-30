@@ -1,5 +1,7 @@
 package data_access;
 
+import entity.CommonAccount;
+import entity.Portfolio;
 import entity.Stock;
 import use_case.buy.BuyDataAccessInterface;
 import use_case.sell.SellDataAccessInterface;
@@ -85,6 +87,10 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void buy(Portfolio portfolio, int amount, Stock stock) {
+        portfolio.getPortfolio().put(stock, amount);
     }
 
 

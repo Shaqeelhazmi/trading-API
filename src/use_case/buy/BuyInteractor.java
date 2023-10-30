@@ -12,13 +12,16 @@ public class BuyInteractor implements BuyInputBoundary{
 
     CommonAccount commonAccount;
 
+    Stock stock;
+
 
 
     public BuyInteractor(BuyDataAccessInterface buyDataAccessInterface, CommonAccount commonAccount,
-                         BuyOutputBoundary buyOutputBoundary) {
+                         BuyOutputBoundary buyOutputBoundary, Stock stock) {
         this.buyDataAccessObject = buyDataAccessInterface;
         this.userPresenter = buyOutputBoundary;
         this.commonAccount = commonAccount;
+        this.stock = stock;
 
     }
 
@@ -29,7 +32,7 @@ public class BuyInteractor implements BuyInputBoundary{
         else {
             LocalDateTime now = LocalDateTime.now();
             Portfolio portfolio = commonAccount.getPortfolio();
-            buyDataAccessObject.buy(portfolio);
+            buyDataAccessObject.buy(portfolio, buyInputData.getAmount(), stock);
             
             BuyOutputData buyOutputData =  new BuyOutputData();
             userPresenter.prepareSuccessView(buyOutputData);

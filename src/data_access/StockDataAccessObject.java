@@ -1,5 +1,6 @@
 package data_access;
 
+import entity.Portfolio;
 import entity.PriceHistory;
 import entity.Stock;
 import entity.StockFactory;
@@ -83,6 +84,10 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void buy(Portfolio portfolio, ){
+
     }
 
 

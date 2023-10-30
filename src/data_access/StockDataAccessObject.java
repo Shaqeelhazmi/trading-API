@@ -23,9 +23,8 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
 
         csvFile = new File(csvPath);
         //change
-        headers.put("username", 0);
-        headers.put("password", 1);
-        headers.put("creation_time", 2);
+        headers.put("stockSymbol", 0);
+        headers.put("priceHistory", 1);
 
         if (csvFile.length() == 0) {
             save();
@@ -44,7 +43,7 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
                     String password = String.valueOf(col[headers.get("password")]);
                     String creationTimeText = String.valueOf(col[headers.get("creation_time")]);
                     LocalDateTime ldt = LocalDateTime.parse(creationTimeText);
-                    Stock stock = stockFactory.create(username, password, ldt);
+                    Stock stock = stockFactory.create();
                     stocks.put(username, stock);
                 }
             }
@@ -57,13 +56,13 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
 
     @Override
     public void save(Stock stock) {
-        stocks.put(stock.getName(), stock);
+        stocks.put(stock.getStockSymbol(), stock);
         this.save();
     }
 
     @Override
-    public Stock get(String username) {
-        return stocks.get(username);
+    public Stock get(String stockSymbol) {
+        return stocks.get(stockSymbol);
     }
 
     private void save() {
@@ -74,9 +73,8 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
             writer.newLine();
 
             for (Stock stock : stocks.values()) {
-                //change
-                String line = String.format("%s,%s,%s",
-                        stock.getName(), user.getPassword(), user.getCreationTime());
+                String line = String.format("%s,%s",
+                        stock.getStockSymbol(), stock.getPriceHistory());
                 writer.write(line);
                 writer.newLine();
             }
@@ -97,10 +95,5 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
     @Override
     public boolean existsByName(String identifier) {
         return stocks.containsKey(identifier);
-    }
-
-    @Override
-    public boolean stockExists(String ticker) {
-        return false;
     }
 }

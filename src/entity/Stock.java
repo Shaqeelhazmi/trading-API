@@ -10,7 +10,7 @@ public class Stock implements StockInterface {
     }
 
     @Override
-    public String getStockName() {
+    public String getStockSymbol() {
         return stockSymbol;
     }
 

@@ -1,17 +1,20 @@
 package entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class CommonAccount implements AccountInterface {
-    private String username;
-    private String password;
+public class CommonUser implements User {
+    private final String username;
+    private final String password;
+    private final LocalDateTime creationTime;
     private ArrayList<Stock> favourites;
     private Portfolio portfolio;
     private TransactionHistory transactionHistory;
 
-    public CommonAccount(String username, String password, ArrayList<Stock> favourites, Portfolio portfolio) {
+    public CommonUser(String username, String password, LocalDateTime creationTime, ArrayList<Stock> favourites, Portfolio portfolio) {
         this.username = username;
         this.password = password;
+        this.creationTime = creationTime;
         this.favourites = favourites;
         this.portfolio = portfolio;
     }
@@ -24,6 +27,11 @@ public class CommonAccount implements AccountInterface {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public LocalDateTime getCreationTime() {
+        return creationTime;
     }
 
     public Portfolio getPortfolio() {

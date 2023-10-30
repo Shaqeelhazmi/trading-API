@@ -11,7 +11,7 @@ public class SellInputData {
     }
 
     String getStockname() {
-        return stock.getStockName();
+        return stock.getStockSymbol();
     }
 
     int getAmount() {

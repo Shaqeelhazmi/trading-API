@@ -1,8 +1,8 @@
 package data_access;
 
-import entity.CommonAccount;
-import entity.Portfolio;
+import entity.PriceHistory;
 import entity.Stock;
+import entity.StockFactory;
 import use_case.buy.BuyDataAccessInterface;
 import use_case.sell.SellDataAccessInterface;
 
@@ -24,9 +24,8 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
 
         csvFile = new File(csvPath);
         //change
-        headers.put("username", 0);
-        headers.put("password", 1);
-        headers.put("creation_time", 2);
+        headers.put("stockSymbol", 0);
+        headers.put("priceHistory", 1);
 
         if (csvFile.length() == 0) {
             save();
@@ -41,12 +40,10 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
                 String row;
                 while ((row = reader.readLine()) != null) {
                     String[] col = row.split(",");
-                    String username = String.valueOf(col[headers.get("username")]);
-                    String password = String.valueOf(col[headers.get("password")]);
-                    String creationTimeText = String.valueOf(col[headers.get("creation_time")]);
-                    LocalDateTime ldt = LocalDateTime.parse(creationTimeText);
-                    Stock stock = stockFactory.create(username, password, ldt);
-                    stocks.put(username, stock);
+                    String stockSymbol = String.valueOf(col[headers.get("username")]);
+                    PriceHistory priceHistory = None; //change!
+                    Stock stock = stockFactory.create(stockSymbol, priceHistory);
+                    stocks.put(stockSymbol, stock);
                 }
             }
         }
@@ -58,13 +55,13 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
 
     @Override
     public void save(Stock stock) {
-        stocks.put(stock.getName(), stock);
+        stocks.put(stock.getStockSymbol(), stock);
         this.save();
     }
 
     @Override
-    public Stock get(String username) {
-        return stocks.get(username);
+    public Stock get(String stockSymbol) {
+        return stocks.get(stockSymbol);
     }
 
     private void save() {
@@ -75,9 +72,8 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
             writer.newLine();
 
             for (Stock stock : stocks.values()) {
-                //change
-                String line = String.format("%s,%s,%s",
-                        stock.getName(), user.getPassword(), user.getCreationTime());
+                String line = String.format("%s,%s",
+                        stock.getStockSymbol(), stock.getPriceHistory());
                 writer.write(line);
                 writer.newLine();
             }
@@ -87,10 +83,6 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void buy(Portfolio portfolio, int amount, Stock stock) {
-        portfolio.getPortfolio().put(stock, amount);
     }
 
 
@@ -103,5 +95,4 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
     public boolean existsByName(String identifier) {
         return stocks.containsKey(identifier);
     }
-
 }

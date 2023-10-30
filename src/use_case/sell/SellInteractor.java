@@ -1,9 +1,5 @@
 package use_case.sell;
 
-import entity.CommonAccount;
-import entity.Portfolio;
-import entity.Stock;
-
 import java.time.LocalDateTime;
 
 public class SellInteractor implements SellInputBoundary{
@@ -11,7 +7,7 @@ public class SellInteractor implements SellInputBoundary{
     final SellOutputBoundary sellPresenter;
 
     public SellInteractor(SellDataAccessInterface sellDataAccessInterface,
-                          SellOutputBoundary sellOutputBoundary){
+                          SellOutputBoundary sellOutputBoundary, CommonAccount commonAccount){
         this.sellDataAccessObject = sellDataAccessInterface;
         this.sellPresenter = sellOutputBoundary;
     }

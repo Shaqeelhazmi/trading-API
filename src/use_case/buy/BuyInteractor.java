@@ -1,8 +1,7 @@
 package use_case.buy;
 
-import entity.CommonAccount;
+import entity.CommonUser;
 import entity.Portfolio;
-import entity.Stock;
 
 import java.time.LocalDateTime;
 
@@ -10,19 +9,15 @@ public class BuyInteractor implements BuyInputBoundary{
     BuyDataAccessInterface buyDataAccessObject;
     BuyOutputBoundary userPresenter;
 
-    CommonAccount commonAccount;
-
-    Stock stock;
+    CommonUser commonUser;
 
 
 
-    public BuyInteractor(BuyDataAccessInterface buyDataAccessInterface, CommonAccount commonAccount,
-                         BuyOutputBoundary buyOutputBoundary, Stock stock) {
+    public BuyInteractor(BuyDataAccessInterface buyDataAccessInterface, CommonUser commonUser,
+                         BuyOutputBoundary buyOutputBoundary) {
         this.buyDataAccessObject = buyDataAccessInterface;
         this.userPresenter = buyOutputBoundary;
-        this.commonAccount = commonAccount;
-        this.stock = stock;
-
+        this.commonUser = commonUser;
     }
 
     @Override
@@ -31,8 +26,8 @@ public class BuyInteractor implements BuyInputBoundary{
             userPresenter.prepareNotAvailable("Stock Not available: Wrong symbol used for Stock");
         else {
             LocalDateTime now = LocalDateTime.now();
-            Portfolio portfolio = commonAccount.getPortfolio();
-            buyDataAccessObject.buy(portfolio, buyInputData.getAmount(), stock);
+            Portfolio portfolio = commonUser.getPortfolio();
+            buyDataAccessObject.buy(portfolio);
             
             BuyOutputData buyOutputData =  new BuyOutputData();
             userPresenter.prepareSuccessView(buyOutputData);

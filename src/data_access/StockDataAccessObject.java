@@ -86,8 +86,10 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
         }
     }
 
-    private void buy(Portfolio portfolio, ){
-
+    public void buy(Portfolio portfolio, int amount, Stock stock){
+        portfolio.getPortfolio().put(stock, amount);
+        double current_balance_portfolio = portfolio.getAccountBalance();
+        portfolio.setAccountBalance(current_balance_portfolio + stock.getPriceHistory().getDailyPriceHistory().get(stock.getStockSymbol()));
     }
 
 

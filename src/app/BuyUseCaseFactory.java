@@ -4,6 +4,7 @@ import buy.BuyController;
 import buy.BuyPresenter;
 import buy.BuyViewModel;
 import entity.CommonAccount;
+import entity.CommonUser;
 import entity.Stock;
 import use_case.buy.BuyDataAccessInterface;
 import use_case.buy.BuyInputBoundary;
@@ -24,7 +25,7 @@ public class BuyUseCaseFactory {
         return null;
     }
 
-    private static BuyController createBuyUseCase(ViewManagerModel viewManagerModel, BuyViewModel buyViewModel, BuyDataAccessInterface userDataAccessObject, CommonAccount account, Stock stock) throws IOException{
+    private static BuyController createBuyUseCase(ViewManagerModel viewManagerModel, BuyViewModel buyViewModel, BuyDataAccessInterface userDataAccessObject, CommonUser account, Stock stock) throws IOException{
         BuyOutputBoundary buyOutputBoundary = new BuyPresenter(viewManagerModel, buyViewModel);
         UserFactory userFactory = new CommonUserFactory();
         BuyInputBoundary userBuyInteractor = new BuyInteractor(userDataAccessObject, account, buyOutputBoundary, stock);

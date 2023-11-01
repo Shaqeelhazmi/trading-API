@@ -28,18 +28,33 @@ public class BuyInteractor implements BuyInputBoundary{
     public void buy(BuyInputData buyInputData) {
         if (!buyDataAccessObject.existsByName(buyInputData.getStockname()))
             userPresenter.prepareNotAvailable("Stock Not available: Wrong symbol used for Stock");
+
+
         else {
             LocalDateTime now = LocalDateTime.now();
 
             Portfolio portfolio = commonUser.getPortfolio();
-            buyDataAccessObject.buy(portfolio, buyInputData.getAmount(), stock);
+            // If the account has enough money to buy, then they can buy
+            if (portfolio.getAccountBalance() >= amount_used_for_purchase(buyInputData.getAmount())) {
+                buyDataAccessObject.buy(portfolio, buyInputData.getAmount(), stock);
 
-            Portfolio portfolio = commonUser.getPortfolio();
-            buyDataAccessObject.buy(portfolio);
-
-            BuyOutputData buyOutputData =  new BuyOutputData();
-            userPresenter.prepareSuccessView(buyOutputData);
-
+                BuyOutputData buyOutputData = new BuyOutputData(stock.getStockName(), now.toString());
+                userPresenter.prepareSuccessView(buyOutputData);
+            } else {
+                userPresenter.prepareNotEnough("You do not have enough non-liquid balance to make this purchase, you" +
+                        "can only afford " + afford(portfolio, buyInputData.getAmount()) + "stocks");
+            }
         }
+    }
+    public double amount_used_for_purchase(int amount) {
+        return amount * stock.getPriceHistory().getDailyPriceHistory().
+                get(stock.getStockSymbol());
+    }
+
+    public int afford(Portfolio portfolio, int amount) {
+        while (portfolio.getAccountBalance() - amount_used_for_purchase(amount) <= 0) {
+            amount--;
+        }
+        return amount;
     }
 }

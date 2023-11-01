@@ -3,4 +3,6 @@ public interface BuyOutputBoundary {
     void prepareNotAvailable(String message);
 
     void prepareSuccessView(BuyOutputData buyOutputData);
+
+    void prepareNotEnough(String message);
 }

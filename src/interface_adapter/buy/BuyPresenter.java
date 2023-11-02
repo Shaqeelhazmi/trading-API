@@ -1,4 +1,4 @@
-package buy;
+package interface_adapter.buy;
 
 import use_case.buy.BuyOutputBoundary;
 import use_case.buy.BuyOutputData;

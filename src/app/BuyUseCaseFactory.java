@@ -1,8 +1,8 @@
 package app;
 
-import buy.BuyController;
-import buy.BuyPresenter;
-import buy.BuyViewModel;
+import interface_adapter.buy.BuyController;
+import interface_adapter.buy.BuyPresenter;
+import interface_adapter.buy.BuyViewModel;
 import entity.CommonAccount;
 import entity.CommonUser;
 import entity.Stock;

@@ -1,4 +1,4 @@
-package buy;
+package interface_adapter.buy;
 
 import entity.Stock;
 import use_case.buy.BuyInputBoundary;

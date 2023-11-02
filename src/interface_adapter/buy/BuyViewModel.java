@@ -1,4 +1,6 @@
-package buy;
+package interface_adapter.buy;
+
+import interface_adapter.buy.BuyState;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

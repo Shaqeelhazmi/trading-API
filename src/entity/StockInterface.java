@@ -6,4 +6,6 @@ public interface StockInterface {
     public String getStockSymbol();
 
     public PriceHistory getPriceHistory();
+
+    String getStockName();
 }

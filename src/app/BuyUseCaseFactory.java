@@ -1,5 +1,7 @@
 package app;
 
+import entity.UserFactory;
+import interface_adapter.ViewManagerModel;
 import interface_adapter.buy.BuyController;
 import interface_adapter.buy.BuyPresenter;
 import interface_adapter.buy.BuyViewModel;
@@ -10,6 +12,7 @@ import use_case.buy.BuyDataAccessInterface;
 import use_case.buy.BuyInputBoundary;
 import use_case.buy.BuyInteractor;
 import use_case.buy.BuyOutputBoundary;
+import view.BuyView;
 
 import javax.swing.*;
 import java.io.IOException;

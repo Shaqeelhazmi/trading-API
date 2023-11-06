@@ -46,6 +46,8 @@ public class BuyInteractor implements BuyInputBoundary{
             }
         }
     }
+
+    // Helper functions
     public double amount_used_for_purchase(int amount) {
         return amount * stock.getPriceHistory().getDailyPriceHistory().
                 get(stock.getStockSymbol());

@@ -1,5 +1,6 @@
 package interface_adapter.buy;
 
+import interface_adapter.ViewManagerModel;
 import use_case.buy.BuyOutputBoundary;
 import use_case.buy.BuyOutputData;
 
@@ -8,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 public class BuyPresenter implements BuyOutputBoundary {
 
-    private final ViewManagerModel viewManagerModel;
+    private ViewManagerModel viewManagerModel;
 
     private final BuyViewModel buyViewModel;
 
@@ -21,7 +22,7 @@ public class BuyPresenter implements BuyOutputBoundary {
     public void prepareNotAvailable(String message) {
         BuyState buyState = buyViewModel.getBuyState();
         buyState.SetBuyError(message);
-        BuyViewModel.firePropertyChanged();
+        buyViewModel.firePropertyChanged();
     }
 
     @Override
@@ -30,7 +31,7 @@ public class BuyPresenter implements BuyOutputBoundary {
         response.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
         BuyState buyState = buyViewModel.getBuyState();
         buyState.SetBuySuccess();
-        BuyViewModel.firePropertyChanged();
+        buyViewModel.firePropertyChanged();
     }
 
     public void prepareNotEnough(String message) {

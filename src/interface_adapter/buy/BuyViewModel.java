@@ -1,11 +1,12 @@
 package interface_adapter.buy;
 
+import interface_adapter.ViewModel;
 import interface_adapter.buy.BuyState;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class BuyViewModel extends ViewModel{
+public class BuyViewModel extends ViewModel {
     public static final String Buy_Button_Label = "Buy";
 
     private BuyState buyState = new BuyState();

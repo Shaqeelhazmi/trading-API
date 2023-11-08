@@ -35,6 +35,8 @@ public class BuyPresenter implements BuyOutputBoundary {
     }
 
     public void prepareNotEnough(String message) {
-
+        BuyState buyState = buyViewModel.getBuyState();
+        buyState.SetBuyError(message);
+        buyViewModel.firePropertyChanged();
     }
 }

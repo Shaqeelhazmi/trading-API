@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 public class BuyInteractor implements BuyInputBoundary{
     BuyDataAccessInterface buyDataAccessObject;
-    BuyOutputBoundary userPresenter;
+    BuyOutputBoundary buyPresenter;
 
     CommonUser commonUser;
 
@@ -18,7 +18,7 @@ public class BuyInteractor implements BuyInputBoundary{
     public BuyInteractor(BuyDataAccessInterface buyDataAccessInterface, CommonUser commonUser,
                          BuyOutputBoundary buyOutputBoundary, Stock stock) {
         this.buyDataAccessObject = buyDataAccessInterface;
-        this.userPresenter = buyOutputBoundary;
+        this.buyPresenter = buyOutputBoundary;
         this.commonUser = commonUser;
         this.stock = stock;
 
@@ -27,7 +27,7 @@ public class BuyInteractor implements BuyInputBoundary{
     @Override
     public void buy(BuyInputData buyInputData) {
         if (!buyDataAccessObject.existsByName(buyInputData.getStockname()))
-            userPresenter.prepareNotAvailable("Stock Not available: Wrong symbol used for Stock");
+            buyPresenter.prepareNotAvailable("Stock Not available: Wrong symbol used for Stock");
 
 
         else {
@@ -39,9 +39,9 @@ public class BuyInteractor implements BuyInputBoundary{
                 buyDataAccessObject.buy(portfolio, buyInputData.getAmount(), stock);
 
                 BuyOutputData buyOutputData = new BuyOutputData(stock.getStockName(), now.toString());
-                userPresenter.prepareSuccessView(buyOutputData);
+                buyPresenter.prepareSuccessView(buyOutputData);
             } else {
-                userPresenter.prepareNotEnough("You do not have enough non-liquid balance to make this purchase, you" +
+                buyPresenter.prepareNotEnough("You do not have enough non-liquid balance to make this purchase, you" +
                         "can only afford " + afford(portfolio, buyInputData.getAmount()) + "stocks");
             }
         }

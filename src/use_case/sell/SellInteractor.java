@@ -1,33 +1,41 @@
 package use_case.sell;
 
 import entity.CommonUser;
+import entity.Portfolio;
+import entity.Stock;
 
 import java.time.LocalDateTime;
 
 public class SellInteractor implements SellInputBoundary{
     final SellDataAccessInterface sellDataAccessObject;
-    final SellOutputBoundary sellPresenter;
+    final SellOutputBoundary userPresenter;
     CommonUser commonUser;
+    Stock stock;
 
     public SellInteractor(SellDataAccessInterface sellDataAccessInterface,
-                          SellOutputBoundary sellOutputBoundary,  CommonUser commonUser){
+                          CommonUser commonUser, SellOutputBoundary sellOutputBoundary, Stock stock){
         this.sellDataAccessObject = sellDataAccessInterface;
-        this.sellPresenter = sellOutputBoundary;
+        this.userPresenter = sellOutputBoundary;
         this.commonUser = commonUser;
+        this.stock = stock;
     }
 
     @Override
     public void sell(SellInputData sellInputData){
-        String stockName = sellInputData.getStockname();
-        int amount = sellInputData.getAmount();
-        if(!sellDataAccessObject.existsByName(stockName)){
-            sellPresenter.prepareFailView("Stock Not available: Wrong symbol used for Stock");
+        if(!sellDataAccessObject.existsByName(sellInputData.getStockname())){
+            userPresenter.prepareNotAvailable("Stock Not available: Wrong symbol used for Stock");
         }
         else{
             LocalDateTime now = LocalDateTime.now();
+            Portfolio portfolio = commonUser.getPortfolio();
 
-            SellOutputData sellOutputData = new SellOutputData(stockName, amount, now,false);
-            sellPresenter.prepareSuccessView(sellOutputData);
+            if(portfolio.getPortfolio().get(stock) >= sellInputData.getAmount()) {
+
+                SellOutputData sellOutputData = new SellOutputData(stock.getStockName(), sellInputData.getAmount(), now, false);
+                userPresenter.prepareSuccessView(sellOutputData);
+            } else {
+                userPresenter.prepareNotEnough("You do not own enough of the stock to sell this amount.");
+            }
         }
     }
 }

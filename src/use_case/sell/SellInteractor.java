@@ -31,7 +31,7 @@ public class SellInteractor implements SellInputBoundary{
 
             if(portfolio.getPortfolio().get(stock) >= sellInputData.getAmount()) {
 
-                SellOutputData sellOutputData = new SellOutputData(stock.getStockName(), sellInputData.getAmount(), now, false);
+                SellOutputData sellOutputData = new SellOutputData(stock.getStockName(), now.toString(), false);
                 userPresenter.prepareSuccessView(sellOutputData);
             } else {
                 userPresenter.prepareNotEnough("You do not own enough of the stock to sell this amount.");

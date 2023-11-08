@@ -3,22 +3,19 @@ import java.time.LocalDateTime;
 
 public class SellOutputData {
     private final String stockName;
-    private final int amount;
-    private final LocalDateTime timeStamp;
+    private String creationTime;
     private boolean useCaseFailed;
 
-    public SellOutputData(String stockName, int amount, LocalDateTime timeStamp, boolean useCaseFailed) {
+    public SellOutputData(String stockName, String creationTime, boolean useCaseFailed) {
         this.stockName = stockName;
-        this.amount = amount;
-        this.timeStamp = timeStamp;
+        this.creationTime = creationTime;
         this.useCaseFailed = useCaseFailed;
     }
 
     public String getStockName() {
         return stockName;
     }
-    public int getAmount(){
-        return amount;
-    }
-    public LocalDateTime getTimeStamp(){return timeStamp; }
+    public void setCreationTime(String creationTime){ this.creationTime = creationTime;}
+
+    public String getCreationTime(){return creationTime;}
 }

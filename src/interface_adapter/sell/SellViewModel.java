@@ -6,7 +6,10 @@ import interface_adapter.sell.SellState;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 public class SellViewModel extends ViewModel{
-    public static final String Sell_Button_Label = "Sell";
+    public final String TITLE_LABEL = "Sell View";
+    public static final String SELL_BUTTON_LABEL = "Sell";
+    public final String STOCK_LABEL = "Choose stock";
+    public final String AMOUNT_LABEL = "Choose amount";
 
     private SellState sellState = new SellState();
 

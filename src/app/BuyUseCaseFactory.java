@@ -30,7 +30,6 @@ public class BuyUseCaseFactory {
 
     private static BuyController createBuyUseCase(ViewManagerModel viewManagerModel, BuyViewModel buyViewModel, BuyDataAccessInterface userDataAccessObject, CommonUser account, Stock stock) throws IOException{
         BuyOutputBoundary buyOutputBoundary = new BuyPresenter(viewManagerModel, buyViewModel);
-        UserFactory userFactory = new CommonUserFactory();
         BuyInputBoundary userBuyInteractor = new BuyInteractor(userDataAccessObject, account, buyOutputBoundary, stock);
 
         return new BuyController(userBuyInteractor);

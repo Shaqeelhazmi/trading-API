@@ -31,9 +31,15 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(buy)){
+                            SearchingState currentState;
+                            BuyState buyState = currentState.getState();
 
+                            buyController.buy();
                         }
                     }
+                }
+        );
     }
 
     @Override

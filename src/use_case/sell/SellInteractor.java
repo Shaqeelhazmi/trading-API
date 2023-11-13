@@ -16,7 +16,7 @@ public class SellInteractor implements SellInputBoundary{
     public void sell(SellInputData sellInputData){
         String stockName = sellInputData.getStockname();
         int amount = sellInputData.getAmount();
-        if(!sellDataAccessObject.stockExists(stockName)){
+        if(!sellDataAccessObject.existsByName(stockName)){
             sellPresenter.prepareFailView("Stock Not available: Wrong symbol used for Stock");
         }
         else{

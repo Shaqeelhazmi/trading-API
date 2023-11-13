@@ -7,7 +7,6 @@ import use_case.buy.BuyDataAccessInterface;
 import use_case.sell.SellDataAccessInterface;
 
 import java.io.*;
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAccessInterface {

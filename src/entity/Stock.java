@@ -4,9 +4,12 @@ public class Stock implements StockInterface {
     private final String stockSymbol;
     private PriceHistory priceHistory;
 
-    public Stock(String stockSymbol, PriceHistory priceHistory) {
+    private final String name;
+
+    public Stock(String stockSymbol, PriceHistory priceHistory, String name) {
         this.stockSymbol = stockSymbol;
         this.priceHistory = priceHistory;
+        this.name = name;
     }
 
     @Override
@@ -18,6 +21,11 @@ public class Stock implements StockInterface {
     @Override
     public PriceHistory getPriceHistory() {
         return priceHistory;
+    }
+
+    @Override
+    public String getStockName() {
+        return name;
     }
 
     public void setPriceHistory(PriceHistory priceHistory) {

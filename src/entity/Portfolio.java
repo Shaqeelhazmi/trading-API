@@ -17,4 +17,5 @@ public class Portfolio implements PortfolioInterface {
     public void setAccountBalance(double accountBalance) {
         this.accountBalance = accountBalance;
     }
+
 }

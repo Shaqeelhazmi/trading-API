@@ -10,7 +10,6 @@ import java.io.IOException;
 import org.json.simple.JSONObject;
 
 public class AlphaVantage {
-    JSONObject jsonObject = new JSONObject();
     public static void main(String[] args) {
         try {
             // Replace 'your_api_key' with your actual Alpha Vantage API key
@@ -25,12 +24,22 @@ public class AlphaVantage {
             // Read the response
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             StringBuilder response1 = new StringBuilder();
+            JSONObject jsonObject1 = new JSONObject();
             String line;
 
+            Integer current_line = 0;
             while ((line = reader.readLine()) != null) {
                 response1.append(line);
+                // record json key as the date of the stock
+                if ((current_line - 9) % 7 == 0){
+                    String json_key = line;
+                }
+                // record json
+                if ((current_line - 10) % 7 == 0){
+                    String json_value = line;
+                }
+                jsonObject1.put(json_key, json_value);
             }
-
             reader.close();
 
             symbol = "AMZN";
@@ -43,10 +52,20 @@ public class AlphaVantage {
             // Read the response
             BufferedReader reader2 = new BufferedReader(new InputStreamReader(connection2.getInputStream()));
             StringBuilder response2 = new StringBuilder();
+            JSONObject jsonObject2 = new JSONObject();
             String line2;
 
+            current_line = 0;
             while ((line2 = reader2.readLine()) != null) {
                 response2.append(line2);
+                if ((current_line - 9) % 7 == 0){
+                    String json_key = line;
+                }
+                // record json
+                if ((current_line - 10) % 7 == 0){
+                    String json_value = line;
+                }
+                jsonObject2.put(json_key, json_value);
             }
             reader.close();
 

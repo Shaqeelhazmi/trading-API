@@ -1,6 +1,8 @@
 package data_access;
 
 import entity.*;
+import netscape.javascript.JSException;
+import netscape.javascript.JSObject;
 import use_case.buy.BuyDataAccessInterface;
 import use_case.searching.SearchDataAccessInterface;
 import use_case.sell.SellDataAccessInterface;
@@ -10,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAccessInterface, SearchDataAccessInterface {
-    private final File csvFile;
+    private final JSObject jsonFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
@@ -18,19 +20,54 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
 
     private StockFactory stockFactory;
 
-    public StockDataAccessObject(String csvPath, StockFactory stockFactory) throws IOException {
+    public StockDataAccessObject(String JsonPath, StockFactory stockFactory) throws IOException {
         this.stockFactory = stockFactory;
 
-        csvFile = new File(csvPath);
+        jsonFile = new JSObject() {
+            @Override
+            public Object call(String methodName, Object... args) throws JSException {
+                return null;
+            }
+
+            @Override
+            public Object eval(String s) throws JSException {
+                return null;
+            }
+
+            @Override
+            public Object getMember(String name) throws JSException {
+                return null;
+            }
+
+            @Override
+            public void setMember(String name, Object value) throws JSException {
+
+            }
+
+            @Override
+            public void removeMember(String name) throws JSException {
+
+            }
+
+            @Override
+            public Object getSlot(int index) throws JSException {
+                return null;
+            }
+
+            @Override
+            public void setSlot(int index, Object value) throws JSException {
+
+            }
+        };
         //change
         headers.put("stockSymbol", 0);
         headers.put("priceHistory", 1);
 
-        if (csvFile.length() == 0) {
+        if (jsonFile.length() == 0) {
             save();
         } else {
 
-            try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(jsonFile))) {
                 String header = reader.readLine();
 
                 // For later: clean this up by creating a new Exception subclass and handling it in the UI.
@@ -48,8 +85,8 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
         }
     }
 
-    public StockDataAccessObject(File csvFile) {
-        this.csvFile = csvFile;
+    public StockDataAccessObject(File jsonFile) {
+        this.jsonFile = jsonFile;
     }
 
     @Override
@@ -66,7 +103,7 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
     private void save() {
         BufferedWriter writer;
         try {
-            writer = new BufferedWriter(new FileWriter(csvFile));
+            writer = new BufferedWriter(new FileWriter(jsonFile));
             writer.write(String.join(",", headers.keySet()));
             writer.newLine();
 

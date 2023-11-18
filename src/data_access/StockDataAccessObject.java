@@ -1,14 +1,12 @@
 package data_access;
 
-import entity.Portfolio;
-import entity.PriceHistory;
-import entity.Stock;
-import entity.StockFactory;
+import entity.*;
 import use_case.buy.BuyDataAccessInterface;
 import use_case.searching.SearchDataAccessInterface;
 import use_case.sell.SellDataAccessInterface;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAccessInterface, SearchDataAccessInterface {
@@ -86,19 +84,24 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
         }
     }
 
-    public void buy(Portfolio portfolio, int amount, Stock stock){
+    public void buy(int amount, Stock stock, CommonUser user){
         // Change the amount the user have of that stock in portfolio
-        portfolio.getPortfolio().put(stock, portfolio.getPortfolio().get(stock) + amount);
+        user.getPortfolio().getPortfolio().put(stock, user.getPortfolio().getPortfolio().get(stock) + amount);
 
         // Get the amount of money you have in portfolio
-        double current_balance_portfolio = portfolio.getAccountBalance();
+        double current_balance_portfolio = user.getPortfolio().getAccountBalance();
 
         // Get the total price of the stock you are buying
         double amount_used_for_purchase = stock.getPriceHistory().getDailyPriceHistory().get(stock.getStockSymbol()) * amount;
 
         // Updating the amount left in account
-        portfolio.setAccountBalance(current_balance_portfolio - amount_used_for_purchase);
+        user.getPortfolio().setAccountBalance(current_balance_portfolio - amount_used_for_purchase);
 
+        //Updating transaction history
+        double pricePerShare = stock.getPriceHistory().getDailyPriceHistory().get(stock.getStockSymbol());
+        Transaction transaction = new Transaction(LocalDateTime.now(), stock, "Bought" + stock.getStockName(),
+                pricePerShare, amount);
+        user.getTransactionHistory().getPurchaseHistory().add(transaction);
     }
 
     public void search(String stockName) {

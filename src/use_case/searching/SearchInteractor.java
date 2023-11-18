@@ -18,7 +18,7 @@ public class SearchInteractor implements SearchInputBoundary{
     @Override
     public void search(SearchInputData searchInputData) {
         if (!searchingDataAccessObject.existsByName(stock.getStockName())) {
-            searchPresenter.prepareNotAvailable("Stock Not available: No Such Stock");
+            searchPresenter.prepareNotAvailable("Stock is not available");
         } else {
             searchingDataAccessObject.search(searchInputData.getStockName());
 

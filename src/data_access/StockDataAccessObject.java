@@ -99,7 +99,16 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
         portfolio.setAccountBalance(current_balance_portfolio - amount_used_for_purchase);
     }
 
+    public void sell(Portfolio portfolio, int amount, Stock stock){
 
+        portfolio.getPortfolio().put(stock, portfolio.getPortfolio().get(stock) + amount);
+
+        double current_balance_portfolio = portfolio.getAccountBalance();
+
+        double amount_used_for_purchase = stock.getPriceHistory().getDailyPriceHistory().get(stock.getStockSymbol()) * amount;
+
+        portfolio.setAccountBalance(current_balance_portfolio + amount_used_for_purchase);
+    }
     /**
      * Return whether a user exists with username identifier.
      * @param identifier the username to check.

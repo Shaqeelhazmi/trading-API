@@ -2,6 +2,7 @@ package use_case.buy;
 
 import entity.PriceHistory;
 import entity.Stock;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -20,12 +21,12 @@ class BuyInputDataTest {
     Stock stock = new Stock("TSLA",  priceHistory, "TESLA");
     BuyInputData buyInputData = new BuyInputData(stock, 5);
 
+
     @Test
     void getStockname() {
-        assertEquals(buyInputData.getStockname(), stock.getStockName());
+        assertEquals("TESLA", buyInputData.getStockname());
     }
 
     @Test
-    void getAmount() {
-    }
+    void getAmount() {assertEquals(5, buyInputData.getAmount());}
 }

@@ -11,12 +11,14 @@ public class CommonUser implements User {
     private Portfolio portfolio;
     private TransactionHistory transactionHistory;
 
-    public CommonUser(String username, String password, LocalDateTime creationTime, ArrayList<Stock> favourites, Portfolio portfolio) {
+    public CommonUser(String username, String password, LocalDateTime creationTime, ArrayList<Stock> favourites, Portfolio portfolio,
+                      TransactionHistory transactionHistory) {
         this.username = username;
         this.password = password;
         this.creationTime = creationTime;
         this.favourites = favourites;
         this.portfolio = portfolio;
+        this.transactionHistory = transactionHistory;
     }
 
     @Override

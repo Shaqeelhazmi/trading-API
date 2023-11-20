@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.FileWriter;
 import java.io.IOException;
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
 
 public class AlphaVantage {
     JSONObject jsonObject = new JSONObject();
@@ -29,6 +29,17 @@ public class AlphaVantage {
 
             while ((line = reader.readLine()) != null) {
                 response1.append(line);
+                // record json key as the date of the stock
+                String json_key = null;
+                if ((current_line - 9) % 7 == 0) {
+                    json_key = line;
+                }
+                // record json
+                String json_value = null;
+                if ((current_line - 10) % 7 == 0) {
+                    json_value = line;
+                }
+                jsonObject1.put(json_key, json_value);
             }
 
             reader.close();
@@ -47,6 +58,17 @@ public class AlphaVantage {
 
             while ((line2 = reader2.readLine()) != null) {
                 response2.append(line2);
+
+                String json_key = null;
+                if ((current_line - 9) % 7 == 0) {
+                    json_key = line;
+                }
+                // record json
+                String json_value = null;
+                if ((current_line - 10) % 7 == 0) {
+                    json_value = line;
+                }
+                jsonObject2.put(json_key, json_value);
             }
             reader.close();
 

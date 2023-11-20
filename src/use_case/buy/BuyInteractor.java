@@ -36,7 +36,7 @@ public class BuyInteractor implements BuyInputBoundary{
             Portfolio portfolio = commonUser.getPortfolio();
             // If the account has enough money to buy, then they can buy
             if (portfolio.getAccountBalance() >= amount_used_for_purchase(buyInputData.getAmount())) {
-                buyDataAccessObject.buy(portfolio, buyInputData.getAmount(), stock);
+                buyDataAccessObject.buy(buyInputData.getAmount(), stock, commonUser);
 
                 BuyOutputData buyOutputData = new BuyOutputData(stock.getStockName(), now.toString());
                 buyPresenter.prepareSuccessView(buyOutputData);

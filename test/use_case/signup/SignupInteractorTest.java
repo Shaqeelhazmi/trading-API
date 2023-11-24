@@ -2,19 +2,16 @@ package use_case.signup;
 
 import data_access.FileUserDataAccessObject;
 import entity.CommonUserFactory;
-import entity.Portfolio;
-import entity.Transaction;
-import use_case.login.LoginUserDataAccessInterface;
-import use_case.signup.SignupUserDataAccessInterface;
+import org.junit.Test;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import org.json.*;
-import java.time.LocalDateTime;
-import java.util.*;
-public class SignupInteractorTest {
-    public void addUser() {
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class SignupInteractorTest {
+
+    @org.junit.jupiter.api.Test
+    void execute() {
         FileUserDataAccessObject fudao;
         CommonUserFactory uf = new CommonUserFactory();
         try {
@@ -22,15 +19,20 @@ public class SignupInteractorTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        List<String> favourites = new ArrayList<>();
-        favourites.add("TSLA");
-        HashMap<String, Integer> portfolioMap = new HashMap<>();
-        portfolioMap.put("TSLA", 5);
-        Portfolio portfolio = new Portfolio(portfolioMap, 100.00);
-        Transaction transaction = new Transaction(LocalDateTime.now(), "TSLA", "buy", 100.00, 5);
-        ArrayList<Transaction> transactionHistory = new ArrayList<>();
-        transactionHistory.add(transaction);
-        fudao.save(uf.create("bob", "123", LocalDateTime.now(), favourites, portfolio, transactionHistory));
+
+        class TestPresenter implements SignupOutputBoundary {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                System.out.println(user.getUsername());
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                System.out.println(error);
+            }
+        }
+        SignupInputData signupInputData = new SignupInputData("bob", "password", "password");
+        SignupInteractor signupInteractor = new SignupInteractor(fudao, new TestPresenter(), uf);
+        signupInteractor.execute(signupInputData);
     }
 }
-

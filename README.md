@@ -6,6 +6,7 @@ financial literacy and stock trading
 ## Software Specification:
 - Start with a certain amount of money
 - Be able to buy shares of any stock they can afford and sell shares of stock they own
+- Be able to search for stock by name
 - View their portfolio, see the amount of their stock shares
 
 ## Proposed Entities for the Domain

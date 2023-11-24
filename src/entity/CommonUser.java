@@ -2,23 +2,23 @@ package entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CommonUser implements User {
     private final String username;
     private final String password;
     private final LocalDateTime creationTime;
-    private List<String> favourites;
+    private ArrayList<Stock> favourites;
     private Portfolio portfolio;
-    private ArrayList<Transaction> transactionHistory;
+    private final ArrayList<Transaction> transactions;
 
-    public CommonUser(String username, String password, LocalDateTime creationTime, List<String> favourites, Portfolio portfolio, ArrayList<Transaction> transactionHistory) {
+    public CommonUser(String username, String password, LocalDateTime creationTime, ArrayList<Stock> favourites, Portfolio portfolio,
+                      ArrayList<Transaction> transactions) {
         this.username = username;
         this.password = password;
         this.creationTime = creationTime;
         this.favourites = favourites;
         this.portfolio = portfolio;
-        this.transactionHistory = transactionHistory;
+        this.transactions = transactions;
     }
 
     @Override
@@ -44,19 +44,16 @@ public class CommonUser implements User {
         this.portfolio = portfolio;
     }
 
-    public List<String> getFavourites() {
+    public ArrayList<Stock> getFavourites() {
         return favourites;
     }
 
-    public void setFavourites(List<String> favourites) {
+    public void setFavourites(ArrayList<Stock> favourites) {
         this.favourites = favourites;
     }
 
     public ArrayList<Transaction> getTransactionHistory() {
-        return transactionHistory;
+        return transactions;
     }
 
-    public void setTransactionHistory(ArrayList<Transaction> transactionHistory) {
-        this.transactionHistory = transactionHistory;
-    }
 }

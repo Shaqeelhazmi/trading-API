@@ -11,9 +11,9 @@ public class CommonUserFactory implements UserFactory {
      * @return
      */
 
-    @Override
-    public User create(String name, String password, LocalDateTime ltd, ArrayList<Stock> favourites, Portfolio portfolio, ArrayList<Transaction> transactionHistory) {
 
-        return new CommonUser(name, password, ltd, favourites, portfolio, transactionHistory);
+    @Override
+    public User create(String username, String password, LocalDateTime ltd, ArrayList<Stock> favourites, Portfolio portfolio, ArrayList<Transaction> transactions) {
+        return new CommonUser(username, password, ltd, favourites, portfolio, transactions);
     }
 }

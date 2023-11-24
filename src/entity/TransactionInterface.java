@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public interface TransactionInterface {
     public LocalDateTime getTimestamp();
 
-    public Stock getStock();
+    public String getStock();
 
     public String getAction();
 

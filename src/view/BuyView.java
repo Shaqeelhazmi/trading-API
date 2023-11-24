@@ -32,8 +32,8 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
                     @Override
                     public void actionPerformed(ActionEvent evt) {
 
-                        }
                     }
+                });
     }
 
     @Override

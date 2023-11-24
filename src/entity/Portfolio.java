@@ -3,10 +3,16 @@ package entity;
 import java.util.HashMap;
 
 public class Portfolio implements PortfolioInterface {
-    private HashMap<Stock, Integer> portfolio;
+    private HashMap<String, Integer> portfolio;
     private double accountBalance;
 
-    public HashMap<Stock, Integer> getPortfolio() {
+    public Portfolio(HashMap<String, Integer> portfolio, Double accountBalance){
+        this.portfolio = portfolio;
+        this.accountBalance = accountBalance;
+
+    }
+
+    public HashMap<String, Integer> getPortfolio() {
         return portfolio;
     }
 

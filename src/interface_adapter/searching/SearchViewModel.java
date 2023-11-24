@@ -10,11 +10,13 @@ public class SearchViewModel extends ViewModel {
     public final String TITLE_LABEL = "Search View";
     public static final String Search_Button_Label = "Search";
 
+    public static final String STOCKNAME_LABEL = "Search stockname";
+
     private SearchState searchState = new SearchState();
 
     public SearchViewModel() {super("Search Stock"); }
 
-    public void SetState (SearchState searchState) {
+    public void setState (SearchState searchState) {
         this.searchState = searchState;
     }
 

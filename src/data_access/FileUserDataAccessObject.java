@@ -29,7 +29,11 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                 jsonStringBuilder.append(row);
             }
             String jsonString = jsonStringBuilder.toString();
-            this.jsonObject = new JSONObject(jsonString);
+            if (jsonString.isEmpty()) {
+                this.jsonObject = new JSONObject();
+            } else {
+                this.jsonObject = new JSONObject(jsonString);
+            }
         }
         if (jsonObject.isEmpty()) {
             save();
@@ -62,7 +66,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                 CommonUser user = new CommonUser(accountUsername, accountPassword, creationTime, favourites, portfolio, transactionHistory);
                 accounts.put(username, user);
 
-            }
+                }
 
             }
 

@@ -21,7 +21,7 @@ public class InMemoryStockDataAccessObject implements BuyDataAccessInterface {
     @Override
     public void buy(int amount, Stock stock, CommonUser user) {
         // Change the amount the user have of that stock in portfolio
-        user.getPortfolio().getPortfolio().put(stock, user.getPortfolio().getPortfolio().get(stock) + amount);
+        user.getPortfolio().getPortfolio().put(stock.getStockSymbol(), user.getPortfolio().getPortfolio().get(stock.getStockSymbol()) + amount);
 
         // Get the amount of money you have in portfolio
         double current_balance_portfolio = user.getPortfolio().getAccountBalance();

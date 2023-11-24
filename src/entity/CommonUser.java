@@ -9,16 +9,16 @@ public class CommonUser implements User {
     private final LocalDateTime creationTime;
     private ArrayList<Stock> favourites;
     private Portfolio portfolio;
-    private TransactionHistory transactionHistory;
+    private final ArrayList<Transaction> transactions;
 
     public CommonUser(String username, String password, LocalDateTime creationTime, ArrayList<Stock> favourites, Portfolio portfolio,
-                      TransactionHistory transactionHistory) {
+                      ArrayList<Transaction> transactions) {
         this.username = username;
         this.password = password;
         this.creationTime = creationTime;
         this.favourites = favourites;
         this.portfolio = portfolio;
-        this.transactionHistory = transactionHistory;
+        this.transactions = transactions;
     }
 
     @Override
@@ -52,11 +52,8 @@ public class CommonUser implements User {
         this.favourites = favourites;
     }
 
-    public TransactionHistory getTransactionHistory() {
-        return transactionHistory;
+    public ArrayList<Transaction> getTransactionHistory() {
+        return transactions;
     }
 
-    public void setTransactionHistory(TransactionHistory transactionHistory) {
-        this.transactionHistory = transactionHistory;
-    }
 }

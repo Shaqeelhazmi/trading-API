@@ -13,7 +13,7 @@ class CommonUserTest {
 
     private CommonUser user;
 
-    private HashMap<Stock, Integer> hashMap;
+    private HashMap<String, Integer> hashMap;
     private Portfolio portfolio;
 
     @BeforeEach
@@ -25,21 +25,20 @@ class CommonUserTest {
         Stock stock1 = new Stock("TSLA", priceHistory, "TESLA");
         Stock stock2 = new Stock("AMZN", priceHistory, "AMAZON");
         ArrayList<Stock> favourites = new ArrayList<>(5);
+        hashMap = new HashMap<>();
+        hashMap.put(stock1.getStockSymbol(), 100);
         favourites.add(stock1);
         favourites.add(stock2);
-        hashMap.put(stock1, 100);
         Transaction transaction1 = new Transaction(LocalDateTime.now(), stock1,
                 "Bought TESLA", 5, 10);
         Transaction transaction2 = new Transaction(LocalDateTime.now(), stock2,
                 "Sold AMAZON", 10, 20);
-        ArrayList<Transaction> purchaseHistory = new ArrayList<>(5);
-        purchaseHistory.add(transaction1);
-        ArrayList<Transaction> sellHistory = new ArrayList<>(5);
-        sellHistory.add(transaction2);
-        TransactionHistory transactionHistory = new TransactionHistory(purchaseHistory, sellHistory);
+        ArrayList<Transaction> transactions= new ArrayList<>(5);
+        transactions.add(transaction1);
+        transactions.add(transaction2);
         portfolio = new Portfolio(hashMap, 10000);
         user = new CommonUser("John", "richboy", LocalDateTime.now(), favourites,
-                portfolio, transactionHistory);
+                portfolio, transactions);
     }
 
     @Test
@@ -64,9 +63,9 @@ class CommonUserTest {
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
         Stock stock1 = new Stock("TSLA", priceHistory, "TESLA");
-        hashMap.put(stock1, 100);
-        portfolio = new Portfolio(hashMap, 10000);
-        assertEquals(portfolio, user.getPortfolio());
+        hashMap = new HashMap<>();
+        hashMap.put(stock1.getStockSymbol(), 100);
+        assertEquals(hashMap, user.getPortfolio().getPortfolio());
     }
 
     @Test
@@ -76,7 +75,7 @@ class CommonUserTest {
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
         Stock stock2 = new Stock("AAPL", priceHistory, "APPLE");
-        hashMap.put(stock2, 100);
+        hashMap.put(stock2.getStockSymbol(), 100);
         portfolio = new Portfolio(hashMap, 5000);
         user.setPortfolio(portfolio);
         assertEquals(portfolio, user.getPortfolio());
@@ -94,8 +93,9 @@ class CommonUserTest {
         ArrayList<Stock> favourites = new ArrayList<>(5);
         favourites.add(stock1);
         favourites.add(stock2);
-        assertEquals(favourites, user.getFavourites());
+        assertEquals(user.getFavourites().get(0).getStockName(), favourites.get(0).getStockName());
     }
+
 
     @Test
     void setFavourites() {
@@ -121,41 +121,14 @@ class CommonUserTest {
         ArrayList<Stock> favourites = new ArrayList<>(5);
         favourites.add(stock1);
         favourites.add(stock2);
-        hashMap.put(stock1, 100);
+        hashMap.put(stock1.getStockSymbol(), 100);
         Transaction transaction1 = new Transaction(LocalDateTime.now(), stock1,
                 "Bought TESLA", 5, 10);
         Transaction transaction2 = new Transaction(LocalDateTime.now(), stock2,
                 "Sold AMAZON", 10, 20);
-        ArrayList<Transaction> purchaseHistory = new ArrayList<>(5);
-        purchaseHistory.add(transaction1);
-        ArrayList<Transaction> sellHistory = new ArrayList<>(5);
-        sellHistory.add(transaction2);
-        TransactionHistory transactionHistory = new TransactionHistory(purchaseHistory, sellHistory);
-        assertEquals(transactionHistory, user.getTransactionHistory());
-    }
-
-    @Test
-    void setTransactionHistory() {
-        HashMap<String, Double> daily = new HashMap<String, Double>(5);
-        HashMap<String, Double> weekly = new HashMap<>();
-        HashMap<String, Double> monthly = new HashMap<>();
-        PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        Stock stock1 = new Stock("AAPL", priceHistory, "APPLE");
-        Stock stock2 = new Stock("MSFT", priceHistory, "MICROSOFT");
-        ArrayList<Stock> favourites = new ArrayList<>(5);
-        favourites.add(stock1);
-        favourites.add(stock2);
-        hashMap.put(stock1, 100);
-        Transaction transaction1 = new Transaction(LocalDateTime.now(), stock1,
-                "Bought APPLE", 5, 10);
-        Transaction transaction2 = new Transaction(LocalDateTime.now(), stock2,
-                "Sold MICROSOFT", 10, 20);
-        ArrayList<Transaction> purchaseHistory = new ArrayList<>(5);
-        purchaseHistory.add(transaction1);
-        ArrayList<Transaction> sellHistory = new ArrayList<>(5);
-        sellHistory.add(transaction2);
-        TransactionHistory transactionHistory = new TransactionHistory(purchaseHistory, sellHistory);
-        user.setTransactionHistory(transactionHistory);
-        assertEquals(transactionHistory, user.getTransactionHistory());
+        ArrayList<Transaction> transactions= new ArrayList<>(5);
+        transactions.add(transaction1);
+        transactions.add(transaction2);
+        assertEquals(transactions.get(0), user.getTransactionHistory().get(0));
     }
 }

@@ -4,15 +4,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PortfolioInterfaceTest {
 
-    private HashMap<Stock, Integer> hashMap;
+    private HashMap<String, Integer> hashMap;
 
     private Portfolio portfolio;
+
 
 
     @BeforeEach
@@ -22,13 +22,14 @@ class PortfolioInterfaceTest {
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
         Stock stock = new Stock("TSLA", priceHistory, "TESLA");
-        hashMap.put(stock, 100);
+        hashMap  = new HashMap<String, Integer>();
+        hashMap.put(stock.getStockName(), 100);
         portfolio = new Portfolio(hashMap, 10000);
 
     }
     @Test
     void getPortfolio() {
-        assertEquals(hashMap, portfolio.getPortfolio());
+        assertEquals(hashMap ,portfolio.getPortfolio());
     }
 
     @Test

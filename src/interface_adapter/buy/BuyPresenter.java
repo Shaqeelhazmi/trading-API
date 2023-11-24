@@ -19,7 +19,7 @@ public class BuyPresenter implements BuyOutputBoundary {
         this.buyViewModel = buyViewModel;
     }
     @Override
-    public void prepareNotAvailable(String message) {
+    public void prepareFailView(String message) {
         BuyState buyState = buyViewModel.getBuyState();
         buyState.SetBuyError(message);
         buyViewModel.firePropertyChanged();
@@ -31,12 +31,6 @@ public class BuyPresenter implements BuyOutputBoundary {
         response.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
         BuyState buyState = buyViewModel.getBuyState();
         buyState.SetBuySuccess();
-        buyViewModel.firePropertyChanged();
-    }
-
-    public void prepareNotEnough(String message) {
-        BuyState buyState = buyViewModel.getBuyState();
-        buyState.SetBuyError(message);
         buyViewModel.firePropertyChanged();
     }
 }

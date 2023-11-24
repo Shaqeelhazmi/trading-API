@@ -27,7 +27,7 @@ public class BuyInteractor implements BuyInputBoundary{
     @Override
     public void buy(BuyInputData buyInputData) {
         if (!buyDataAccessObject.existsByName(buyInputData.getStockname()))
-            buyPresenter.prepareNotAvailable("Stock Not available: Wrong symbol used for Stock");
+            buyPresenter.prepareFailView("Stock Not available");
 
 
         else {
@@ -35,28 +35,26 @@ public class BuyInteractor implements BuyInputBoundary{
 
             Portfolio portfolio = commonUser.getPortfolio();
             // If the account has enough money to buy, then they can buy
-            if (portfolio.getAccountBalance() >= amount_used_for_purchase(buyInputData.getAmount())) {
-                buyDataAccessObject.buy(portfolio, buyInputData.getAmount(), stock);
+            double amount_used_for_purchase = buyInputData.getAmount() * stock.getPriceHistory().getDailyPriceHistory().
+                    get(stock.getStockSymbol());
+            if (portfolio.getAccountBalance() >= amount_used_for_purchase) {
+                buyDataAccessObject.buy(buyInputData.getAmount(), stock, commonUser);
 
                 BuyOutputData buyOutputData = new BuyOutputData(stock.getStockName(), now.toString());
                 buyPresenter.prepareSuccessView(buyOutputData);
             } else {
-                buyPresenter.prepareNotEnough("You do not have enough non-liquid balance to make this purchase, you" +
-                        "can only afford " + afford(portfolio, buyInputData.getAmount()) + "stocks");
+                int affordable_amount = buyInputData.getAmount();
+                double new_purchase_amount = affordable_amount * stock.getPriceHistory().getDailyPriceHistory().
+                        get(stock.getStockSymbol());
+                do {
+                    affordable_amount--;
+                    new_purchase_amount = new_purchase_amount - (affordable_amount * stock.getPriceHistory().
+                            getDailyPriceHistory().get(stock.getStockSymbol()));
+                } while(portfolio.getAccountBalance() - new_purchase_amount <= 0);
+                buyPresenter.prepareFailView("You do not have enough non-liquid balance to make this purchase, you" +
+                        "can only afford " + affordable_amount + "stocks");
             }
         }
     }
 
-    // Helper functions
-    public double amount_used_for_purchase(int amount) {
-        return amount * stock.getPriceHistory().getDailyPriceHistory().
-                get(stock.getStockSymbol());
-    }
-
-    public int afford(Portfolio portfolio, int amount) {
-        while (portfolio.getAccountBalance() - amount_used_for_purchase(amount) <= 0) {
-            amount--;
-        }
-        return amount;
-    }
 }

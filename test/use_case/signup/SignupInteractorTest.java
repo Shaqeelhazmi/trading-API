@@ -15,7 +15,7 @@ import org.json.*;
 import java.time.LocalDateTime;
 import java.util.*;
 public class SignupInteractorTest {
-    public void addTwoUsers() {
+    public void addUser() {
         FileUserDataAccessObject fudao;
         CommonUserFactory uf = new CommonUserFactory();
         try {

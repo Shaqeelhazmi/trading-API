@@ -21,8 +21,7 @@ public class SearchInteractor implements SearchInputBoundary{
             searchPresenter.prepareNotAvailable("Stock is not available");
         } else {
             searchingDataAccessObject.search(searchInputData.getStockName());
-
-            SearchOutputData searchOutputData = new SearchOutputData();
+            SearchOutputData searchOutputData = new SearchOutputData(searchInputData.getStockName());
             searchPresenter.prepareSuccessView(searchOutputData);
         }
 

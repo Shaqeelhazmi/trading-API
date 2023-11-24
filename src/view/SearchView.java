@@ -35,7 +35,8 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                     @Override
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(search)){
-                            searchController.search();
+                            SearchState currentState = searchViewModel.getSearchState();
+                            searchController.search(currentState.getSearchName());
                         }
                     }
                 }

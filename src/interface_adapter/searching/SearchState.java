@@ -13,4 +13,8 @@ public class SearchState {
     }
 
     public void SetSearchSuccess() {this.success = success; }
+
+    public String getSearchError(){
+        return error;
+    }
 }

@@ -2,7 +2,6 @@ package use_case.signup;
 
 import data_access.FileUserDataAccessObject;
 import entity.CommonUserFactory;
-import entity.CommonUser;
 import entity.Portfolio;
 import entity.Transaction;
 import use_case.login.LoginUserDataAccessInterface;

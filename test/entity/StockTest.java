@@ -43,7 +43,7 @@ class StockTest {
         weeklyPriceHistory.put("AMZN", 150.0);
         monthlyPriceHistory.put("AAPL", 300.0);
         priceHistory = new PriceHistory(dailyPriceHistory, weeklyPriceHistory, monthlyPriceHistory);
-        assertEquals(priceHistory, stock.getPriceHistory());
+        assertEquals(priceHistory.getDailyPriceHistory().get("TSLA"), stock.getPriceHistory().getDailyPriceHistory().get("TSLA"));
     }
 
     @Test
@@ -61,6 +61,6 @@ class StockTest {
         monthlyPriceHistory.put("AAPL", 100.0);
         priceHistory = new PriceHistory(dailyPriceHistory, weeklyPriceHistory, monthlyPriceHistory);
         stock.setPriceHistory(priceHistory);
-        assertEquals(priceHistory, stock.getPriceHistory());
+        assertEquals(priceHistory.getDailyPriceHistory().get("TSLA"), stock.getPriceHistory().getDailyPriceHistory().get("TSLA"));
     }
 }

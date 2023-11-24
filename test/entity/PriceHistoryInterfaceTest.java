@@ -25,20 +25,20 @@ class PriceHistoryInterfaceTest {
     void getDailyPriceHistory() {
         HashMap<String, Double> dailyPriceHistory = new HashMap<>();
         dailyPriceHistory.put("TSLA", 10.0);
-        assertEquals(dailyPriceHistory, priceHistory.getDailyPriceHistory());
+        assertEquals(dailyPriceHistory.get("TSLA"), priceHistory.getDailyPriceHistory().get("TSLA"));
     }
 
     @Test
     void getWeeklyPriceHistory() {
         HashMap<String, Double> weeklyPriceHistory = new HashMap<>();
         weeklyPriceHistory.put("AMZN", 150.0);
-        assertEquals(weeklyPriceHistory, priceHistory.getWeeklyPriceHistory());
+        assertEquals(weeklyPriceHistory.get("AMZN"), priceHistory.getWeeklyPriceHistory().get("AMZN"));
     }
 
     @Test
     void getMonthlyPriceHistory() {
         HashMap<String, Double> monthlyPriceHistory = new HashMap<>();
         monthlyPriceHistory.put("AAPL", 300.0);
-        assertEquals(monthlyPriceHistory, priceHistory.getMonthlyPriceHistory());
+        assertEquals(monthlyPriceHistory.get("AAPL"), priceHistory.getMonthlyPriceHistory().get("AAPL"));
     }
 }

@@ -1,25 +1,38 @@
 package use_case.signup;
 
 import data_access.FileUserDataAccessObject;
-import entity.StockFactory;
-import entity.User;
-import entity.UserFactory;
-import use_case.login.LoginUserDataAccessInterface;
-import use_case.signup.SignupUserDataAccessInterface;
+import entity.CommonUserFactory;
+import org.junit.Test;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import org.json.*;
-import java.time.LocalDateTime;
-import java.util.*;
-public class SignupInteractorTest {
+import java.io.IOException;
 
-    public static void main(String[] args) {
-        File file = new File("./users");
-        JSONObject jo = new JSONObject();
-        jo.put("1", "2");
+import static org.junit.jupiter.api.Assertions.*;
+
+class SignupInteractorTest {
+
+    @org.junit.jupiter.api.Test
+    void execute() {
+        FileUserDataAccessObject fudao;
+        CommonUserFactory uf = new CommonUserFactory();
+        try {
+            fudao = new FileUserDataAccessObject("./users.json");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        class TestPresenter implements SignupOutputBoundary {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                System.out.println(user.getUsername());
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                System.out.println(error);
+            }
+        }
+        SignupInputData signupInputData = new SignupInputData("bob", "password", "password");
+        SignupInteractor signupInteractor = new SignupInteractor(fudao, new TestPresenter(), uf);
+        signupInteractor.execute(signupInputData);
     }
-
 }
-

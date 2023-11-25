@@ -18,20 +18,20 @@ class CommonUserTest {
 
     @BeforeEach
     void init(){
-        HashMap<String, Double> daily = new HashMap<String, Double>(5);
+        HashMap<String, Double> daily = new HashMap<>(5);
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
         Stock stock1 = new Stock("TSLA", priceHistory, "TESLA");
         Stock stock2 = new Stock("AMZN", priceHistory, "AMAZON");
-        ArrayList<Stock> favourites = new ArrayList<>(5);
+        ArrayList<String> favourites = new ArrayList<>(5);
         hashMap = new HashMap<>();
         hashMap.put(stock1.getStockSymbol(), 100);
-        favourites.add(stock1);
-        favourites.add(stock2);
-        Transaction transaction1 = new Transaction(LocalDateTime.now(), stock1,
+        favourites.add(stock1.getStockName());
+        favourites.add(stock2.getStockName());
+        Transaction transaction1 = new Transaction(LocalDateTime.now(), stock1.getStockName(),
                 "Bought TESLA", 5, 10);
-        Transaction transaction2 = new Transaction(LocalDateTime.now(), stock2,
+        Transaction transaction2 = new Transaction(LocalDateTime.now(), stock2.getStockName(),
                 "Sold AMAZON", 10, 20);
         ArrayList<Transaction> transactions= new ArrayList<>(5);
         transactions.add(transaction1);
@@ -58,7 +58,7 @@ class CommonUserTest {
 
     @Test
     void getPortfolio() {
-        HashMap<String, Double> daily = new HashMap<String, Double>(5);
+        HashMap<String, Double> daily = new HashMap<>(5);
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
@@ -70,7 +70,7 @@ class CommonUserTest {
 
     @Test
     void setPortfolio() {
-        HashMap<String, Double> daily = new HashMap<String, Double>(5);
+        HashMap<String, Double> daily = new HashMap<>(5);
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
@@ -84,7 +84,7 @@ class CommonUserTest {
 
     @Test
     void getFavourites() {
-        HashMap<String, Double> daily = new HashMap<String, Double>(5);
+        HashMap<String, Double> daily = new HashMap<>(5);
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
@@ -93,38 +93,35 @@ class CommonUserTest {
         ArrayList<Stock> favourites = new ArrayList<>(5);
         favourites.add(stock1);
         favourites.add(stock2);
-        assertEquals(user.getFavourites().get(0).getStockName(), favourites.get(0).getStockName());
+        assertEquals(user.getFavourites().get(0), favourites.get(0).getStockName());
     }
 
 
     @Test
     void setFavourites() {
-        HashMap<String, Double> daily = new HashMap<String, Double>(5);
+        HashMap<String, Double> daily = new HashMap<>(5);
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
         Stock stock1 = new Stock("AAPL", priceHistory, "APPLE");
-        ArrayList<Stock> favourites = new ArrayList<>(5);
-        favourites.add(stock1);
+        ArrayList<String> favourites = new ArrayList<>(5);
+        favourites.add(stock1.getStockName());
         user.setFavourites(favourites);
         assertEquals(favourites, user.getFavourites());
     }
 
     @Test
     void getTransactionHistory() {
-        HashMap<String, Double> daily = new HashMap<String, Double>(5);
+        HashMap<String, Double> daily = new HashMap<>(5);
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
         Stock stock1 = new Stock("TSLA", priceHistory, "TESLA");
         Stock stock2 = new Stock("AMZN", priceHistory, "AMAZON");
-        ArrayList<Stock> favourites = new ArrayList<>(5);
-        favourites.add(stock1);
-        favourites.add(stock2);
         hashMap.put(stock1.getStockSymbol(), 100);
-        Transaction transaction1 = new Transaction(LocalDateTime.now(), stock1,
+        Transaction transaction1 = new Transaction(LocalDateTime.now(), stock1.getStockName(),
                 "Bought TESLA", 5, 10);
-        Transaction transaction2 = new Transaction(LocalDateTime.now(), stock2,
+        Transaction transaction2 = new Transaction(LocalDateTime.now(), stock2.getStockName(),
                 "Sold AMAZON", 10, 20);
         ArrayList<Transaction> transactions= new ArrayList<>(5);
         transactions.add(transaction1);

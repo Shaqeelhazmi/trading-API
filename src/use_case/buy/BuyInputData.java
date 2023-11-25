@@ -1,6 +1,5 @@
 package use_case.buy;
 
-import entity.Stock;
 
 public class BuyInputData {
     private final String stockName;

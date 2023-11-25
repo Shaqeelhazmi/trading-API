@@ -1,11 +1,8 @@
 package use_case.buy;
 
-import entity.PriceHistory;
-import entity.Stock;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 

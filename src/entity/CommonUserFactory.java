@@ -13,7 +13,7 @@ public class CommonUserFactory implements UserFactory {
 
 
     @Override
-    public User create(String username, String password, LocalDateTime ltd, ArrayList<Stock> favourites, Portfolio portfolio, ArrayList<Transaction> transactions) {
+    public User create(String username, String password, LocalDateTime ltd, ArrayList<String> favourites, Portfolio portfolio, ArrayList<Transaction> transactions) {
         return new CommonUser(username, password, ltd, favourites, portfolio, transactions);
     }
 }

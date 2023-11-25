@@ -26,7 +26,7 @@ class BuyInteractorTest {
     @BeforeEach
     void init(){
         HashMap<String, Double> daily = new HashMap<>(5);
-        daily.put("24", 10.5);
+        daily.put(String.valueOf(LocalDateTime.now().getDayOfMonth()), 10.5);
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);

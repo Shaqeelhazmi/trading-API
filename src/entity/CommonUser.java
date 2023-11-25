@@ -7,11 +7,11 @@ public class CommonUser implements User {
     private final String username;
     private final String password;
     private final LocalDateTime creationTime;
-    private ArrayList<Stock> favourites;
+    private ArrayList<String> favourites;
     private Portfolio portfolio;
     private final ArrayList<Transaction> transactions;
 
-    public CommonUser(String username, String password, LocalDateTime creationTime, ArrayList<Stock> favourites, Portfolio portfolio,
+    public CommonUser(String username, String password, LocalDateTime creationTime, ArrayList<String> favourites, Portfolio portfolio,
                       ArrayList<Transaction> transactions) {
         this.username = username;
         this.password = password;
@@ -44,11 +44,11 @@ public class CommonUser implements User {
         this.portfolio = portfolio;
     }
 
-    public ArrayList<Stock> getFavourites() {
+    public ArrayList<String> getFavourites() {
         return favourites;
     }
 
-    public void setFavourites(ArrayList<Stock> favourites) {
+    public void setFavourites(ArrayList<String> favourites) {
         this.favourites = favourites;
     }
 

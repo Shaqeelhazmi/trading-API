@@ -12,7 +12,7 @@ public class CommonUserFactory implements UserFactory {
      * @return
      */
 
-    public User create(String name, String password, LocalDateTime ltd, List<String> favourites, Portfolio portfolio, ArrayList<Transaction> transactionHistory) {
+    public CommonUser create(String name, String password, LocalDateTime ltd, List<String> favourites, Portfolio portfolio, ArrayList<Transaction> transactionHistory) {
 
         return new CommonUser(name, password, ltd, favourites, portfolio, transactionHistory);
     }

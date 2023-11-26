@@ -16,7 +16,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
     private final JSONObject jsonObject;
     private final File jsonFile;
 
-    private final HashMap<String, User> accounts = new HashMap<>();
+    private final HashMap<String, CommonUser> accounts = new HashMap<>();
 
 
     public FileUserDataAccessObject(String jsonPath) throws IOException {
@@ -38,6 +38,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         if (jsonObject.isEmpty()) {
             save();
         } else {
+            // iterate over every user in jsonObject
             for (String username : jsonObject.keySet()) {
                 JSONObject account = jsonObject.getJSONObject(username);
                 String accountUsername = account.getString("username");
@@ -101,8 +102,8 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         this.save();
     }
 
-    public List<User> getUsers() {
-        List<User> users = new ArrayList<>();
+    public List<CommonUser> getUsers() {
+        List<CommonUser> users = new ArrayList<>();
         for (String username : accounts.keySet()) {
             users.add(accounts.get(username));
         }
@@ -110,7 +111,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
     }
 
     @Override
-    public User get(String username) {
+    public CommonUser get(String username) {
         return accounts.get(username);
     }
 

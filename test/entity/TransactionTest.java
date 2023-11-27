@@ -20,7 +20,7 @@ class TransactionTest {
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
         Stock stock = new Stock("TSLA", priceHistory, "TESLA");
-        transaction = new Transaction(LocalDateTime.now(), stock, "Bought TESLA", 5, 10);
+        transaction = new Transaction(LocalDateTime.now(), stock.getStockName(), "Bought TESLA", 5, 10);
     }
 
     @Test
@@ -35,7 +35,7 @@ class TransactionTest {
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
         Stock stock = new Stock("TSLA", priceHistory, "TESLA");
-        assertEquals(stock, transaction.getStock());
+        assertEquals(stock.getStockName(), transaction.getStock());
     }
 
     @Test

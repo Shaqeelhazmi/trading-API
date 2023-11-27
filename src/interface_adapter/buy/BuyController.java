@@ -11,8 +11,8 @@ public class BuyController {
     public BuyController (BuyInputBoundary buyInteractor){
         this.BuyInteractor = buyInteractor;
     }
-    public void buy(Stock stock, int amount){
-        BuyInputData buyInputData = new BuyInputData(stock, amount);
+    public void buy(String stockName, int amount){
+        BuyInputData buyInputData = new BuyInputData(stockName, amount);
         BuyInteractor.buy(buyInputData);
     }
 }

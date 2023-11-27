@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class InMemoryStockDataAccessObject implements BuyDataAccessInterface {
 
-    private final Map<String, Stock> stocks = new HashMap<>();
+    private Map<String, Stock> stocks;
 
     @Override
     public boolean existsByName(String identifier) {
@@ -19,23 +19,26 @@ public class InMemoryStockDataAccessObject implements BuyDataAccessInterface {
     }
 
     @Override
-    public void buy(int amount, Stock stock, CommonUser user) {
+    public void buy(int amount, Stock stock, CommonUser user, double amount_used_for_purchase) {
         // Change the amount the user have of that stock in portfolio
-        user.getPortfolio().getPortfolio().put(stock.getStockSymbol(), user.getPortfolio().getPortfolio().get(stock.getStockSymbol()) + amount);
+        if (user.getPortfolio().getPortfolio().containsKey(stock.getStockSymbol())) {
+            int old_value = user.getPortfolio().getPortfolio().get(stock.getStockSymbol());
+            int new_value = old_value + amount;
+            user.getPortfolio().getPortfolio().replace(stock.getStockSymbol(),
+                    old_value, new_value);
+        } else {
+            user.getPortfolio().getPortfolio().put(stock.getStockName(), amount);
+        }
 
         // Get the amount of money you have in portfolio
         double current_balance_portfolio = user.getPortfolio().getAccountBalance();
-
-        // Get the total price of the stock you are buying
-        double amount_used_for_purchase = stock.getPriceHistory().getDailyPriceHistory().get(stock.getStockSymbol()) * amount;
 
         // Updating the amount left in account
         user.getPortfolio().setAccountBalance(current_balance_portfolio - amount_used_for_purchase);
 
         //Updating transaction history
-        double pricePerShare = stock.getPriceHistory().getDailyPriceHistory().get(stock.getStockSymbol());
-        Transaction transaction = new Transaction(LocalDateTime.now(), stock, "Bought" + stock.getStockName(),
-                pricePerShare, amount);
-        user.getTransactionHistory().getPurchaseHistory().add(transaction);
+        Transaction transaction = new Transaction(LocalDateTime.now(), stock.getStockName(), "Buy",
+                (amount_used_for_purchase/amount), amount);
+        user.getTransactionHistory().add(transaction);
     }
 }

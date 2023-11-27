@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,14 +25,14 @@ class CommonUserTest {
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
         Stock stock1 = new Stock("TSLA", priceHistory, "TESLA");
         Stock stock2 = new Stock("AMZN", priceHistory, "AMAZON");
-        ArrayList<Stock> favourites = new ArrayList<>(5);
+        List<String> favourites = new ArrayList<>(5);
         hashMap = new HashMap<>();
         hashMap.put(stock1.getStockSymbol(), 100);
-        favourites.add(stock1);
-        favourites.add(stock2);
-        Transaction transaction1 = new Transaction(LocalDateTime.now(), stock1,
+        favourites.add(stock1.getStockSymbol());
+        favourites.add(stock2.getStockSymbol());
+        Transaction transaction1 = new Transaction(LocalDateTime.now(), stock1.getStockName(),
                 "Bought TESLA", 5, 10);
-        Transaction transaction2 = new Transaction(LocalDateTime.now(), stock2,
+        Transaction transaction2 = new Transaction(LocalDateTime.now(), stock2.getStockName(),
                 "Sold AMAZON", 10, 20);
         ArrayList<Transaction> transactions= new ArrayList<>(5);
         transactions.add(transaction1);
@@ -90,10 +91,10 @@ class CommonUserTest {
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
         Stock stock1 = new Stock("TSLA", priceHistory, "TESLA");
         Stock stock2 = new Stock("AMZN", priceHistory, "AMAZON");
-        ArrayList<Stock> favourites = new ArrayList<>(5);
-        favourites.add(stock1);
-        favourites.add(stock2);
-        assertEquals(user.getFavourites().get(0).getStockName(), favourites.get(0).getStockName());
+        List<String> favourites = new ArrayList<>(5);
+        favourites.add(stock1.getStockSymbol());
+        favourites.add(stock2.getStockSymbol());
+        assertEquals(user.getFavourites().get(0), favourites.get(0));
     }
 
 
@@ -104,8 +105,8 @@ class CommonUserTest {
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
         Stock stock1 = new Stock("AAPL", priceHistory, "APPLE");
-        ArrayList<Stock> favourites = new ArrayList<>(5);
-        favourites.add(stock1);
+        List<String> favourites = new ArrayList<>(5);
+        favourites.add(stock1.getStockSymbol());
         user.setFavourites(favourites);
         assertEquals(favourites, user.getFavourites());
     }
@@ -122,9 +123,9 @@ class CommonUserTest {
         favourites.add(stock1);
         favourites.add(stock2);
         hashMap.put(stock1.getStockSymbol(), 100);
-        Transaction transaction1 = new Transaction(LocalDateTime.now(), stock1,
+        Transaction transaction1 = new Transaction(LocalDateTime.now(), stock1.getStockName(),
                 "Bought TESLA", 5, 10);
-        Transaction transaction2 = new Transaction(LocalDateTime.now(), stock2,
+        Transaction transaction2 = new Transaction(LocalDateTime.now(), stock2.getStockName(),
                 "Sold AMAZON", 10, 20);
         ArrayList<Transaction> transactions= new ArrayList<>(5);
         transactions.add(transaction1);

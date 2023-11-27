@@ -11,8 +11,8 @@ public class SellController {
         this.userSellUseCaseInteractor = userSellUseCaseInteractor;
     }
 
-    public void sell(Stock stock, int amount){
-        SellInputData sellInputData = new SellInputData(stock, amount);
+    public void sell(String stockName, int amount){
+        SellInputData sellInputData = new SellInputData(stockName, amount);
         userSellUseCaseInteractor.sell(sellInputData);
     }
 }

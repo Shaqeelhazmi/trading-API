@@ -8,34 +8,33 @@ import java.time.LocalDateTime;
 
 public class SellInteractor implements SellInputBoundary{
     final SellDataAccessInterface sellDataAccessObject;
-    final SellOutputBoundary userPresenter;
+    final SellOutputBoundary sellPresenter;
     CommonUser commonUser;
     Stock stock;
 
     public SellInteractor(SellDataAccessInterface sellDataAccessInterface,
                           CommonUser commonUser, SellOutputBoundary sellOutputBoundary, Stock stock){
         this.sellDataAccessObject = sellDataAccessInterface;
-        this.userPresenter = sellOutputBoundary;
+        this.sellPresenter = sellOutputBoundary;
         this.commonUser = commonUser;
         this.stock = stock;
     }
 
     @Override
     public void sell(SellInputData sellInputData){
-        if(!sellDataAccessObject.existsByName(sellInputData.getStockname())){
-            userPresenter.prepareNotAvailable("Stock Not available: Wrong symbol used for Stock");
-        }
-        else{
-            LocalDateTime now = LocalDateTime.now();
-            Portfolio portfolio = commonUser.getPortfolio();
+        LocalDateTime now = LocalDateTime.now();
+        Portfolio portfolio = commonUser.getPortfolio();
 
-            if(portfolio.getPortfolio().get(stock) >= sellInputData.getAmount()) {
+        double amount_received = sellInputData.getAmount() * stock.getPriceHistory().
+                getDailyPriceHistory().get(String.valueOf(now.getDayOfMonth()));
 
-                SellOutputData sellOutputData = new SellOutputData(stock.getStockName(), now.toString(), false);
-                userPresenter.prepareSuccessView(sellOutputData);
-            } else {
-                userPresenter.prepareNotEnough("You do not own enough of the stock to sell this amount.");
-            }
+        if (sellInputData.getAmount() <= portfolio.getPortfolio().get(stock.getStockSymbol())){
+            sellDataAccessObject.sell(sellInputData.getAmount(), stock, commonUser, amount_received);
+
+            SellOutputData sellOutputData = new SellOutputData(stock.getStockName(), now.toString());
+            sellPresenter.prepareSuccessView(sellOutputData);
+        } else {
+            sellPresenter.prepareFailView("You do not own enough of the stock to sell this amount.");
         }
     }
 }

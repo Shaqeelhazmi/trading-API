@@ -1,6 +1,8 @@
 package entity;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
 
 public class Transaction implements TransactionInterface{
     private final LocalDateTime timestamp;
@@ -40,5 +42,15 @@ public class Transaction implements TransactionInterface{
     @Override
     public int getAmountOfShares() {
         return amountOfShares;
+    }
+
+    public HashMap<String, Object> getTransactionMap() {
+        HashMap<String, Object> transactionMap = new HashMap<>();
+        transactionMap.put("timestamp", timestamp);
+        transactionMap.put("stock", stock);
+        transactionMap.put("action", action);
+        transactionMap.put("pricePerShare", pricePerShare);
+        transactionMap.put("amountOfShares", amountOfShares);
+        return transactionMap;
     }
 }

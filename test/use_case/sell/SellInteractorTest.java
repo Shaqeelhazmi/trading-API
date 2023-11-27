@@ -4,6 +4,7 @@ import data_access.InMemoryStockDataAccessObject;
 import entity.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import use_case.buy.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -64,7 +65,27 @@ class SellInteractorTest {
             }
 
         };
-        SellInputBoundary iterator = new SellInteractor(sellDataAccessInterface, user, successSellPresenter, stock1);
-        iterator.sell(sellInputData);
+        SellInputBoundary interactor = new SellInteractor(sellDataAccessInterface, user, successSellPresenter, stock1);
+        interactor.sell(sellInputData);
+    }
+
+    @Test
+    void failView(){
+        SellInputData sellInputData = new SellInputData(stock1.getStockName(), 500);
+        SellDataAccessInterface sellDataAccessInterface = new InMemoryStockDataAccessObject();
+
+        SellOutputBoundary failurePresenter = new SellOutputBoundary() {
+            @Override
+            public void prepareFailView(String message) {
+                assertEquals("You do not own enough of the stock to sell this amount.", message);
+            }
+
+            @Override
+            public void prepareSuccessView(SellOutputData sellOutputData) {
+                fail("Use Case success is unexpected");
+            }
+        };
+        SellInputBoundary interactor = new SellInteractor(sellDataAccessInterface, user, failurePresenter, stock1);
+        interactor.sell(sellInputData);
     }
 }

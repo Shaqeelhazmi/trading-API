@@ -13,6 +13,7 @@ import java.util.Map;
 public class InMemoryStockDataAccessObject implements BuyDataAccessInterface, SellDataAccessInterface {
 
     private Map<String, Stock> stocks;
+
     @Override
     public boolean existsByName(String identifier) {
         return stocks.containsKey(identifier);

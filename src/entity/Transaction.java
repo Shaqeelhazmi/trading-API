@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 
 public class Transaction implements TransactionInterface{
     private final LocalDateTime timestamp;
-    private final String stockName;
+    private final String stock;
     private final String action;
     private final double pricePerShare;
     private final int amountOfShares;
 
-    public Transaction(LocalDateTime timestamp, String stockName, String action, double pricePerShare, int amountOfShares) {
+    public Transaction(LocalDateTime timestamp, String stock, String action, double pricePerShare, int amountOfShares) {
         this.timestamp = timestamp;
-        this.stockName = stockName;
+        this.stock = stock;
         this.action = action;
         this.pricePerShare = pricePerShare;
         this.amountOfShares = amountOfShares;
@@ -24,7 +24,7 @@ public class Transaction implements TransactionInterface{
 
     @Override
     public String getStock() {
-        return stockName;
+        return stock;
     }
 
     @Override

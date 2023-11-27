@@ -16,7 +16,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
     private final JSONObject jsonObject;
     private final File jsonFile;
 
-    private final HashMap<String, User> accounts = new HashMap<>();
+    private final HashMap<String, CommonUser> accounts = new HashMap<>();
 
 
     public FileUserDataAccessObject(String jsonPath) throws IOException {
@@ -38,9 +38,9 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         if (jsonObject.isEmpty()) {
             save();
         } else {
-            JSONObject users = jsonObject.getJSONObject("users");
+            // iterate over every user in jsonObject
             for (String username : jsonObject.keySet()) {
-                JSONObject account = users.getJSONObject(username);
+                JSONObject account = jsonObject.getJSONObject(username);
                 String accountUsername = account.getString("username");
                 String accountPassword = account.getString("password");
                 LocalDateTime creationTime = LocalDateTime.parse(account.getString("creationTime"));
@@ -48,7 +48,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
                 JSONObject portfolioJsonObject = account.getJSONObject("portfolio");
                 HashMap<String, Integer> portfolioMap = toStringIntMap(portfolioJsonObject.getJSONObject("portfolio"));
-                Double accountBalance = portfolioJsonObject.getDouble("accountBalance");
+                double accountBalance = portfolioJsonObject.getDouble("accountBalance");
                 Portfolio portfolio = new Portfolio(portfolioMap, accountBalance);
 
                 ArrayList<Transaction> transactionHistory = new ArrayList<>();
@@ -73,13 +73,37 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         }
 
     @Override
-    public void save(User user) {
+    public void save(CommonUser user) {
+        JSONObject accountJsonObject = new JSONObject();
+
+        accountJsonObject.put("username", user.getUsername());
+        accountJsonObject.put("password", user.getPassword());
+        accountJsonObject.put("creationTime", user.getCreationTime());
+        accountJsonObject.put("favourites", new JSONArray(user.getFavourites()));
+
+        Portfolio portfolio = user.getPortfolio();
+
+        JSONObject portfolioJsonObject = new JSONObject();
+        portfolioJsonObject.put("portfolio", portfolio.getPortfolio());
+        portfolioJsonObject.put("accountBalance", portfolio.getAccountBalance());
+
+        accountJsonObject.put("portfolio", portfolioJsonObject);
+
+        JSONArray transactionHistoryJsonArray = new JSONArray();
+        for (Transaction transaction : user.getTransactionHistory()) {
+            JSONObject transactionJsonObject = new JSONObject(transaction.getTransactionMap());
+            transactionHistoryJsonArray.put(transactionJsonObject);
+        }
+
+        accountJsonObject.put("transactionHistory", transactionHistoryJsonArray);
+
         accounts.put(user.getUsername(), user);
+        jsonObject.put(user.getUsername(), accountJsonObject);
         this.save();
     }
 
-    public List<User> getUsers() {
-        List<User> users = new ArrayList<>();
+    public List<CommonUser> getUsers() {
+        List<CommonUser> users = new ArrayList<>();
         for (String username : accounts.keySet()) {
             users.add(accounts.get(username));
         }
@@ -87,7 +111,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
     }
 
     @Override
-    public User get(String username) {
+    public CommonUser get(String username) {
         return accounts.get(username);
     }
 

@@ -18,7 +18,7 @@ public class SellPresenter implements SellOutputBoundary {
         this.sellViewModel = sellViewModel;
     }
     @Override
-    public void prepareNotAvailable(String message) {
+    public void prepareFailView(String message) {
         SellState sellState = sellViewModel.getSellState();
         sellState.setSellError(message);
         sellViewModel.firePropertyChanged();
@@ -33,7 +33,4 @@ public class SellPresenter implements SellOutputBoundary {
         sellViewModel.firePropertyChanged();
     }
 
-    public void prepareNotEnough(String message) {
-
-    }
 }

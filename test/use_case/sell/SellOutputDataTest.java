@@ -2,10 +2,8 @@ package use_case.sell;
 
 import entity.PriceHistory;
 import entity.Stock;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.buy.BuyOutputData;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,7 +20,7 @@ class SellOutputDataTest {
 
     PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
 
-    Stock stock = new Stock("TSLA",  priceHistory, "TESLA");
+    Stock stock = new Stock("TSLA", "TESLA", priceHistory);
 
     SellOutputData sellOutputData;
     @BeforeEach

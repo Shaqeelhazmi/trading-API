@@ -23,8 +23,8 @@ class CommonUserTest {
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        Stock stock1 = new Stock("TSLA", priceHistory, "TESLA");
-        Stock stock2 = new Stock("AMZN", priceHistory, "AMAZON");
+        Stock stock1 = new Stock("TSLA", "TESLA", priceHistory);
+        Stock stock2 = new Stock("AMZN", "AMAZON", priceHistory);
         List<String> favourites = new ArrayList<>(5);
         hashMap = new HashMap<>();
         hashMap.put(stock1.getStockSymbol(), 100);
@@ -63,7 +63,7 @@ class CommonUserTest {
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        Stock stock1 = new Stock("TSLA", priceHistory, "TESLA");
+        Stock stock1 = new Stock("TSLA", "TESLA", priceHistory);
         hashMap = new HashMap<>();
         hashMap.put(stock1.getStockSymbol(), 100);
         assertEquals(hashMap, user.getPortfolio().getPortfolio());
@@ -75,7 +75,7 @@ class CommonUserTest {
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        Stock stock2 = new Stock("AAPL", priceHistory, "APPLE");
+        Stock stock2 = new Stock("AAPL", "APPLE", priceHistory);
         hashMap.put(stock2.getStockSymbol(), 100);
         portfolio = new Portfolio(hashMap, 5000);
         user.setPortfolio(portfolio);
@@ -89,8 +89,8 @@ class CommonUserTest {
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        Stock stock1 = new Stock("TSLA", priceHistory, "TESLA");
-        Stock stock2 = new Stock("AMZN", priceHistory, "AMAZON");
+        Stock stock1 = new Stock("TSLA", "TESLA", priceHistory);
+        Stock stock2 = new Stock("AMZN", "AMAZON", priceHistory);
         List<String> favourites = new ArrayList<>(5);
         favourites.add(stock1.getStockSymbol());
         favourites.add(stock2.getStockSymbol());
@@ -104,7 +104,7 @@ class CommonUserTest {
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        Stock stock1 = new Stock("AAPL", priceHistory, "APPLE");
+        Stock stock1 = new Stock("AAPL", "APPLE", priceHistory);
         List<String> favourites = new ArrayList<>(5);
         favourites.add(stock1.getStockSymbol());
         user.setFavourites(favourites);
@@ -117,8 +117,8 @@ class CommonUserTest {
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        Stock stock1 = new Stock("TSLA", priceHistory, "TESLA");
-        Stock stock2 = new Stock("AMZN", priceHistory, "AMAZON");
+        Stock stock1 = new Stock("TSLA", "TESLA", priceHistory);
+        Stock stock2 = new Stock("AMZN", "AMAZON", priceHistory);
         ArrayList<Stock> favourites = new ArrayList<>(5);
         favourites.add(stock1);
         favourites.add(stock2);

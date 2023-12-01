@@ -18,7 +18,11 @@ public class StockDataAccessObject {
 
         try (FileInputStream fileInputStream = new FileInputStream(jsonFile)) {
             String fileText = new String(fileInputStream.readAllBytes());
-            this.jsonObject = new JSONObject(fileText);
+            if (fileText.isEmpty()) {
+                this.jsonObject = new JSONObject();
+            } else {
+                this.jsonObject = new JSONObject(fileText);
+            }
         }
         if (jsonObject.isEmpty()) {
             save();
@@ -67,6 +71,7 @@ public class StockDataAccessObject {
 
         stocks.put(stockSymbol, stock);
         jsonObject.put(stockSymbol, stockJsonObject);
+        this.save();
     }
 
     private void save() {

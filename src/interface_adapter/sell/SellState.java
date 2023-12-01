@@ -4,10 +4,12 @@ public class SellState {
     private String error;
 
     private String success;
+    private int amount = 0;
 
     public SellState(SellState copy){
         error = copy.error;
         success = copy.success;
+        amount = copy.amount;
     }
     public SellState(){}
 
@@ -16,6 +18,13 @@ public class SellState {
         return error;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 
     @Override
     public String toString(){

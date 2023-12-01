@@ -29,6 +29,7 @@ public class SellPresenter implements SellOutputBoundary {
         LocalDateTime responseTime = LocalDateTime.parse(response.getCreationTime());
         response.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
         SellState sellState = sellViewModel.getSellState();
+        // We change to another view after a successful transaction, not added yet.
         sellState.setSellSuccess();
         sellViewModel.firePropertyChanged();
     }

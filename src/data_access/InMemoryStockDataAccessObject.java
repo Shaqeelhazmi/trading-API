@@ -16,6 +16,16 @@ public class InMemoryStockDataAccessObject implements BuyDataAccessInterface, Se
 
     private  Map<String, Stock> stocks = new HashMap<>();
 
+    public InMemoryStockDataAccessObject(){
+        HashMap<String, Double> daily = new HashMap<>(5);
+        daily.put(String.valueOf(LocalDateTime.now().getDayOfMonth()), 10.5);
+        HashMap<String, Double> weekly = new HashMap<>();
+        HashMap<String, Double> monthly = new HashMap<>();
+        PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
+        Stock stock1 = new Stock("TSLA", priceHistory, "TESLA");
+        stocks.put(stock1.getStockSymbol(), stock1);
+    }
+
 
     @Override
     public boolean existsByName(String identifier) {
@@ -24,14 +34,9 @@ public class InMemoryStockDataAccessObject implements BuyDataAccessInterface, Se
 
     @Override
     public Stock getStockObject(String stockSymbol) {
-        //Cannot extra a stock using a stockSymbol hence using a dummy data
-        HashMap<String, Double> daily = new HashMap<>(5);
-        daily.put(String.valueOf(LocalDateTime.now().getDayOfMonth()), 10.5);
-        HashMap<String, Double> weekly = new HashMap<>();
-        HashMap<String, Double> monthly = new HashMap<>();
-        PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        Stock stock1 = new Stock("TSLA", priceHistory, "TESLA");
-        return stock1;
+//        Cannot extra a stock using a stockSymbol hence using a dummy data
+
+        return stocks.get(stockSymbol);
     }
 
 }

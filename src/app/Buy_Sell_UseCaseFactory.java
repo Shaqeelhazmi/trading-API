@@ -17,7 +17,7 @@
 //import use_case.sell.SellInputBoundary;
 //import use_case.sell.SellInteractor;
 //import use_case.sell.SellOutputBoundary;
-//import view.Buy_Sell_View;
+
 //
 //import javax.swing.*;
 //import java.io.IOException;
@@ -39,9 +39,7 @@
 //        return null;
 //    }
 //
-//    private static BuyController createBuyUseCase(ViewManagerModel viewManagerModel, BuyViewModel buyViewModel, BuyDataAccessInterface userDataAccessObject, CommonUser account, Stock stock) throws IOException{
-//        BuyOutputBoundary buyOutputBoundary = new BuyPresenter(viewManagerModel, buyViewModel);
-//        BuyInputBoundary userBuyInteractor = new BuyInteractor(userDataAccessObject, account, buyOutputBoundary, stock);
+
 //
 //        return new BuyController(userBuyInteractor);
 //    }

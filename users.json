@@ -1,1 +1,1 @@
-{"test":{"password":"1234","creationTime":"2023-11-25T17:27:02.239028800","favourites":["TSLA", "AAPL"],"portfolio":{"portfolio":{"TSLA": 5, "AAPL":  10},"accountBalance":100},"transactionHistory":[{"timestamp": "2023-11-25T17:27:02.239028800", "stock":  "TSLA", "action":  "buy", "pricePerShare":  100.00, "amountOfShares":  5}],"username":"test"}}
+{"billy":{"password":"password","creationTime":"2023-11-27T14:35:39.015976900","favourites":[],"portfolio":{"portfolio":{},"accountBalance":10000},"transactionHistory":[],"username":"billy"}}

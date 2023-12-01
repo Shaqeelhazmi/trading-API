@@ -1,0 +1,39 @@
+package app;
+
+import data_access.FileUserDataAccessObject;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.buy.BuyController;
+import interface_adapter.buy.BuyPresenter;
+import interface_adapter.buy.BuyViewModel;
+import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.searching.SearchViewModel;
+import use_case.buy.BuyDataAccessInterface;
+import use_case.buy.BuyInputBoundary;
+import use_case.buy.BuyInteractor;
+import use_case.buy.BuyOutputBoundary;
+import view.BuyView;
+
+import javax.swing.*;
+import java.io.IOException;
+
+public class BuyUseCaseFactory {
+
+    public static BuyView create(ViewManagerModel viewManagerModel, BuyViewModel buyViewModel,
+                                 BuyDataAccessInterface buyDataAccessObject, LoggedInViewModel loggedInViewModel, SearchViewModel searchViewModel,
+                                 FileUserDataAccessObject userDataAccessObject) {
+        try {
+            BuyController buyController =  createBuyUseCase(viewManagerModel, buyViewModel, buyDataAccessObject, userDataAccessObject);
+            return new BuyView(buyController, buyViewModel, loggedInViewModel, searchViewModel);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Failed to create");
+        }
+        return null;
+    }
+    private static BuyController createBuyUseCase(ViewManagerModel viewManagerModel, BuyViewModel buyViewModel,
+                                                  BuyDataAccessInterface buyDataAccessInterface, FileUserDataAccessObject userDataAccessObject) throws IOException{
+        BuyOutputBoundary buyOutputBoundary = new BuyPresenter(viewManagerModel, buyViewModel);
+        BuyInputBoundary userBuyInteractor = new BuyInteractor(buyDataAccessInterface, buyOutputBoundary, userDataAccessObject);
+
+        return new BuyController(userBuyInteractor);
+    }
+}

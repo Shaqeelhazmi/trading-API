@@ -31,12 +31,13 @@ class BuyOutputDataTest {
 
     @Test
     void setCreationTime() {
-        assert true;
+        buyOutputData.setCreationTime(LocalDateTime.now().toString());
+        assertNotNull(buyOutputData.getCreationTime());
     }
 
     @Test
     void getCreationTime() {
-        assert true;
+        assertNotNull(buyOutputData.getCreationTime());
     }
 
     @Test

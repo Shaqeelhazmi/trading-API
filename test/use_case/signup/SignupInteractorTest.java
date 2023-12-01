@@ -31,7 +31,7 @@ class SignupInteractorTest {
                 System.out.println(error);
             }
         }
-        SignupInputData signupInputData = new SignupInputData("billy", "password", "password");
+        SignupInputData signupInputData = new SignupInputData("billy", "password", "password", 10000);
         SignupInteractor signupInteractor = new SignupInteractor(fudao, new TestPresenter(), uf);
         signupInteractor.execute(signupInputData);
     }

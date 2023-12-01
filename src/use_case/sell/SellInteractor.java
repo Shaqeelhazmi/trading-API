@@ -29,7 +29,10 @@ public class SellInteractor implements SellInputBoundary{
                 getDailyPriceHistory().get(String.valueOf(now.getDayOfMonth()));
 
         if (sellInputData.getAmount() <= portfolio.getPortfolio().get(stock.getStockSymbol())){
-            sellDataAccessObject.sell(sellInputData.getAmount(), stock, commonUser, amount_received);
+            int amount = sellInputData.getAmount();
+            portfolio.getPortfolio().put(stock.getStockSymbol(), portfolio.getPortfolio().get(stock.getStockSymbol()) - amount);
+            double current_balance_portfolio = portfolio.getAccountBalance();
+            portfolio.setAccountBalance(current_balance_portfolio + amount_received);
 
             SellOutputData sellOutputData = new SellOutputData(stock.getStockName(), now.toString());
             sellPresenter.prepareSuccessView(sellOutputData);

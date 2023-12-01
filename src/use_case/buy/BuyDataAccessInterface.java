@@ -7,6 +7,5 @@ import entity.Stock;
 public interface BuyDataAccessInterface {
     boolean existsByName(String identifier);
 
-    void buy(int amount, Stock stock, CommonUser user, double amount_used_for_purchase);
-
+    Stock getStockObject(String stockSymbol);
 }

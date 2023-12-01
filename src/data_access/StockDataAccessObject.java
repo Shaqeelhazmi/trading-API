@@ -13,6 +13,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
+
 public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAccessInterface, SearchDataAccessInterface {
     private final File jsonFile;
 
@@ -104,6 +105,7 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
 
         portfolio.setAccountBalance(current_balance_portfolio + amount_received);
     }
+
     /**
      * Return whether a user exists with username identifier.
      * @param identifier the username to check.

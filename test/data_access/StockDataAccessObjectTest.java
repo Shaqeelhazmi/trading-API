@@ -38,5 +38,15 @@ class StockDataAccessObjectTest {
     }
     @Test
     void getStock() {
+        StockDataAccessObject sdao;
+        try {
+            sdao = new StockDataAccessObject("./stocks.json");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Stock stock = sdao.getStock("TSLA");
+        System.out.println(stock.getStockName());
+        System.out.println(stock.getStockSymbol());
+        System.out.println(stock.getPriceHistory());
     }
 }

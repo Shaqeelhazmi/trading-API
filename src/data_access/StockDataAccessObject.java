@@ -31,7 +31,7 @@ public class StockDataAccessObject {
             for (String stockSymbol : jsonObject.keySet()) {
                 JSONObject stockJsonObject = jsonObject.getJSONObject(stockSymbol);
 
-                String name = jsonObject.getString("name");
+                String name = stockJsonObject.getString("name");
 
                 JSONObject priceHistoryJsonObject = stockJsonObject.getJSONObject("priceHistory");
                 HashMap<String, Double> dailyPriceHistory = toStringDoubleMap(priceHistoryJsonObject.getJSONObject("dailyPriceHistory"));

@@ -1,0 +1,9 @@
+{"TSLA": {
+    "stockSymbol": "TSLA",
+    "name": "Tesla",
+    "priceHistory": {
+        "dailyPriceHistory": {"2023-11-30": 156.95},
+        "weeklyPriceHistory": {"2023-11-30": 156.95},
+        "monthlyPriceHistory": {"2023-11-30": 156.95}
+    }
+}}

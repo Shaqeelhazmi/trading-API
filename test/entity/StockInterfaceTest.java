@@ -20,7 +20,7 @@ class StockInterfaceTest {
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         priceHistory = new PriceHistory(daily, weekly, monthly);
-        stock = new Stock("TSLA", priceHistory, "TESLA");
+        stock = new Stock("TSLA", "TESLA", priceHistory);
     }
     @Test
     void getStockSymbol() {

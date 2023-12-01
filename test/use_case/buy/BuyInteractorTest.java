@@ -30,7 +30,9 @@ class BuyInteractorTest {
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        stock1 = new Stock("TSLA", priceHistory, "TESLA");
+        stock1 = new Stock("TSLA", "TESLA", priceHistory);
+        
+
         ArrayList<String> favourites = new ArrayList<>(5);
         favourites.add(stock1.getStockName());
         HashMap<String, Integer> hashMap =  new HashMap<>();

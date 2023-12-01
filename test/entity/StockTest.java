@@ -22,7 +22,7 @@ class StockTest {
         priceHistory = new PriceHistory(dailyPriceHistory, weeklyPriceHistory, monthlyPriceHistory);
         String stockSymbol = "TSLA";
         String stockName = "Tesla";
-        stock = new Stock(stockSymbol, priceHistory, stockName);
+        stock = new Stock(stockSymbol, stockName, priceHistory);
     }
 
     @AfterEach

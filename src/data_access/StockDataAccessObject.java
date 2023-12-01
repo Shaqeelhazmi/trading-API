@@ -90,8 +90,8 @@ public class StockDataAccessObject {
         return stocks.containsKey(identifier);
     }
 
-    public Stock getStock(String stockName) {
-        return stocks.get(stockName);
+    public Stock getStock(String stockSymbol) {
+        return stocks.get(stockSymbol);
     }
 
     public static HashMap<String, Double> toStringDoubleMap(JSONObject jsonobj) throws JSONException {

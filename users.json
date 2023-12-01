@@ -1,1 +1,11 @@
-{"billy":{"password":"password","creationTime":"2023-11-27T14:35:39.015976900","favourites":[],"portfolio":{"portfolio":{},"accountBalance":10000},"transactionHistory":[],"username":"billy"}}
+{"test": {
+    "password": "1234",
+    "creationTime": "2023-12-01T17:14:57.182972800",
+    "favourites": [],
+    "portfolio": {
+        "portfolio": {},
+        "accountBalance": 100
+    },
+    "transactionHistory": [],
+    "username": "test"
+}}

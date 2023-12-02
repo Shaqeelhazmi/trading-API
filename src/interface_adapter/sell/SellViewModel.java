@@ -8,8 +8,7 @@ import java.beans.PropertyChangeSupport;
 public class SellViewModel extends ViewModel{
     public final String TITLE_LABEL = "Sell View";
     public static final String SELL_BUTTON_LABEL = "Sell";
-    public final String STOCK_LABEL = "Choose stock";
-    public final String AMOUNT_LABEL = "Choose amount";
+    public final String AMOUNT_LABEL = "Amount";
 
     private SellState sellState = new SellState();
 

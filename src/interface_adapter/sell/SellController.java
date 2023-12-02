@@ -13,8 +13,8 @@ public class SellController {
         this.userSellUseCaseInteractor = userSellUseCaseInteractor;
     }
 
-    public void sell(String stockName, int amount, String userName) throws IOException {
-        SellInputData sellInputData = new SellInputData(stockName, amount, userName);
+    public void sell(String stockSymbol, int amount, String userName) throws IOException {
+        SellInputData sellInputData = new SellInputData(stockSymbol, amount, userName);
         userSellUseCaseInteractor.sell(sellInputData);
     }
 }

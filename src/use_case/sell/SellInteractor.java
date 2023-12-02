@@ -1,10 +1,13 @@
 package use_case.sell;
 
+import data_access.FileUserDataAccessObject;
+import data_access.InMemoryStockDataAccessObject;
 import entity.CommonUser;
 import entity.Portfolio;
 import entity.Stock;
 import entity.Transaction;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class SellInteractor implements SellInputBoundary{
@@ -22,7 +25,11 @@ public class SellInteractor implements SellInputBoundary{
     }
 
     @Override
-    public void sell(SellInputData sellInputData){
+    public void sell(SellInputData sellInputData) throws IOException {
+        FileUserDataAccessObject fileUserDataAccessObject = new FileUserDataAccessObject("user.json");
+
+        commonUser = fileUserDataAccessObject.get(sellInputData.getUserName());
+
         LocalDateTime now = LocalDateTime.now();
         Portfolio portfolio = commonUser.getPortfolio();
 

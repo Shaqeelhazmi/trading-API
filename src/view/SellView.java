@@ -12,6 +12,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
+
 public class SellView extends JPanel implements ActionListener, PropertyChangeListener{
     public final String viewName = "sell";
     private final SellViewModel sellViewModel;
@@ -45,7 +47,11 @@ public class SellView extends JPanel implements ActionListener, PropertyChangeLi
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(sell)){
-                            sellController.sell(stockName, Integer.parseInt(amountInputField.getText()), userName);
+                            try {
+                                sellController.sell(stockName, Integer.parseInt(amountInputField.getText()), userName);
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
                         }
                     }
                 }

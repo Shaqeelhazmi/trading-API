@@ -28,7 +28,7 @@
 //
 //    private static SearchController createSearchUseCase(ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, SearchDataAccessInterface userDataAccessObject, Stock stock) throws IOException{
 //        SearchOutputBoundary searchOutputBoundary = new SearchPresenter(viewManagerModel, searchViewModel);
-//        SearchInputBoundary userSearchInteractor = new SearchInteractor(stock, userDataAccessObject, searchOutputBoundary);
+//        SearchInputBoundary userSearchInteractor = new SearchInteractor(userDataAccessObject, searchOutputBoundary);
 //
 //        return new SearchController(userSearchInteractor);
 //    }

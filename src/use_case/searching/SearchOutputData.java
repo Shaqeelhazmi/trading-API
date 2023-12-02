@@ -1,13 +1,21 @@
 package use_case.searching;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Set;
+
 public class SearchOutputData {
-    private final String stock;
+    private final HashMap<String, String> stocks;
 
-    public SearchOutputData(String stock) {
-        this.stock = stock;
+    public SearchOutputData(HashMap<String, String> stocks) {
+        this.stocks = stocks;
     }
 
-    public String getStockName() {
-        return stock;
+    public HashMap<String, String> getStocks() {
+        return stocks;
     }
+
+    public Set<String> getStocksSymbols() {return stocks.keySet();}
+
+    public Collection<String> getStocksNames() {return stocks.values();}
 }

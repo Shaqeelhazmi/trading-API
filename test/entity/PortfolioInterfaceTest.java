@@ -21,7 +21,7 @@ class PortfolioInterfaceTest {
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        Stock stock = new Stock("TSLA", priceHistory, "TESLA");
+        Stock stock = new Stock("TSLA", "TESLA", priceHistory);
         hashMap  = new HashMap<String, Integer>();
         hashMap.put(stock.getStockName(), 100);
         portfolio = new Portfolio(hashMap, 10000);

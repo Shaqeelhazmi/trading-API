@@ -6,7 +6,7 @@ public class Stock implements StockInterface {
 
     private final String name;
 
-    public Stock(String stockSymbol, PriceHistory priceHistory, String name) {
+    public Stock(String stockSymbol, String name, PriceHistory priceHistory) {
         this.stockSymbol = stockSymbol;
         this.priceHistory = priceHistory;
         this.name = name;

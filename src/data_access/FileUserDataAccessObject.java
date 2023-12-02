@@ -22,18 +22,9 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
     public FileUserDataAccessObject(String jsonPath) throws IOException {
         this.jsonFile = new File(jsonPath);
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(jsonFile))) {
-            StringBuilder jsonStringBuilder = new StringBuilder();
-            String row;
-            while ((row = reader.readLine()) != null) {
-                jsonStringBuilder.append(row);
-            }
-            String jsonString = jsonStringBuilder.toString();
-            if (jsonString.isEmpty()) {
-                this.jsonObject = new JSONObject();
-            } else {
-                this.jsonObject = new JSONObject(jsonString);
-            }
+        try (FileInputStream fileInputStream = new FileInputStream(jsonFile)) {
+            String fileText = new String(fileInputStream.readAllBytes());
+            this.jsonObject = new JSONObject(fileText);
         }
         if (jsonObject.isEmpty()) {
             save();
@@ -118,7 +109,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
     private void save() {
         try {
             FileWriter file = new FileWriter(jsonFile);
-            String jsonString = jsonObject.toString();
+            String jsonString = jsonObject.toString(4);
             file.write(jsonString);
             file.close();
 

@@ -20,7 +20,7 @@ class BuyOutputDataTest {
 
     PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
 
-    Stock stock = new Stock("TSLA",  priceHistory, "TESLA");
+    Stock stock = new Stock("TSLA", "TESLA", priceHistory);
 
     BuyOutputData buyOutputData;
 
@@ -31,12 +31,13 @@ class BuyOutputDataTest {
 
     @Test
     void setCreationTime() {
-        assert true;
+        buyOutputData.setCreationTime(LocalDateTime.now().toString());
+        assertNotNull(buyOutputData.getCreationTime());
     }
 
     @Test
     void getCreationTime() {
-        assert true;
+        assertNotNull(buyOutputData.getCreationTime());
     }
 
     @Test

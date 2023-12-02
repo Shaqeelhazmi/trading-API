@@ -9,13 +9,11 @@ import java.beans.PropertyChangeSupport;
 public class BuyViewModel extends ViewModel {
     public static final String Buy_Button_Label = "Buy";
 
+    public static final String Amount_Label = "Amount";
+
     private BuyState buyState = new BuyState();
 
     public BuyViewModel() {super("Buy Stock"); }
-
-    public void SetState (BuyState buyState) {
-        this.buyState = buyState;
-    }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
@@ -32,4 +30,7 @@ public class BuyViewModel extends ViewModel {
         return buyState;
     }
 
+    public void setBuyState(BuyState currentState) {
+        this.buyState = currentState;
+    }
 }

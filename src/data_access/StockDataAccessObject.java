@@ -1,131 +1,161 @@
 package data_access;
 
+import api.AlphaVantage;
 import entity.*;
-import netscape.javascript.JSException;
-import netscape.javascript.JSObject;
-import use_case.buy.BuyDataAccessInterface;
-import use_case.searching.SearchDataAccessInterface;
-import use_case.sell.SellDataAccessInterface;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.*;
-import java.time.LocalDateTime;
 import java.util.*;
 
-public class StockDataAccessObject implements SellDataAccessInterface, SearchDataAccessInterface, BuyDataAccessInterface {
-    private final JSObject jsonFile;
-
-    private final Map<String, Integer> headers = new LinkedHashMap<>();
+public class StockDataAccessObject {
+    private final File jsonFile;
+    private final JSONObject jsonObject;
 
     private final Map<String, Stock> stocks = new HashMap<>();
 
-    public StockDataAccessObject(String JsonPath) throws IOException {
+    public StockDataAccessObject(String jsonPath) throws IOException {
+        this.jsonFile = new File(jsonPath);
 
-        jsonFile = new JSObject() {
-            @Override
-            public Object call(String methodName, Object... args) throws JSException {
-                return null;
+        try (FileInputStream fileInputStream = new FileInputStream(jsonFile)) {
+            String fileText = new String(fileInputStream.readAllBytes());
+            if (fileText.isEmpty()) {
+                this.jsonObject = new JSONObject();
+            } else {
+                this.jsonObject = new JSONObject(fileText);
             }
-
-            @Override
-            public Object eval(String s) throws JSException {
-                return null;
-            }
-
-            @Override
-            public Object getMember(String name) throws JSException {
-                return null;
-            }
-
-            @Override
-            public void setMember(String name, Object value) throws JSException {
-
-            }
-
-            @Override
-            public void removeMember(String name) throws JSException {
-
-            }
-
-            @Override
-            public Object getSlot(int index) throws JSException {
-                return null;
-            }
-
-            @Override
-            public void setSlot(int index, Object value) throws JSException {
-
-            }
-        };
-        //change
-        headers.put("stockSymbol", 0);
-        headers.put("priceHistory", 1);
-
-        if (jsonFile.length() == 0) {
+        }
+        if (jsonObject.isEmpty()) {
             save();
         } else {
+            for (String stockSymbol : jsonObject.keySet()) {
+                JSONObject stockJsonObject = jsonObject.getJSONObject(stockSymbol);
 
-            try (BufferedReader reader = new BufferedReader(new FileReader(jsonFile))) {
-                String header = reader.readLine();
+                String name = stockJsonObject.getString("name");
 
-                // For later: clean this up by creating a new Exception subclass and handling it in the UI.
-                assert header.equals("username,password,creation_time");
+                JSONObject priceHistoryJsonObject = stockJsonObject.getJSONObject("priceHistory");
+                HashMap<String, Double> dailyPriceHistory = toStringDoubleMap(priceHistoryJsonObject.getJSONObject("dailyPriceHistory"));
+                HashMap<String, Double> weeklyPriceHistory = toStringDoubleMap(priceHistoryJsonObject.getJSONObject("weeklyPriceHistory"));
+                HashMap<String, Double> monthlyPriceHistory = toStringDoubleMap(priceHistoryJsonObject.getJSONObject("monthlyPriceHistory"));
 
-                String row;
-                while ((row = reader.readLine()) != null) {
-                    String[] col = row.split(",");
-                    String stockSymbol = String.valueOf(col[headers.get("username")]);
-                    PriceHistory priceHistory = None; //change!
-                    Stock stock = stockFactory.create(stockSymbol, priceHistory);
-                    stocks.put(stockSymbol, stock);
-                }
+                PriceHistory priceHistory = new PriceHistory(dailyPriceHistory, weeklyPriceHistory, monthlyPriceHistory);
+
+                Stock stock = new Stock(stockSymbol, name, priceHistory);
+                stocks.put(stockSymbol, stock);
             }
         }
     }
 
-    public StockDataAccessObject(File jsonFile) {
-        this.jsonFile = jsonFile;
-    }
-
-
     public void save(Stock stock) {
-        stocks.put(stock.getStockSymbol(), stock);
+        JSONObject stockJsonObject = new JSONObject();
+
+        String stockSymbol = stock.getStockSymbol();
+        String name = stock.getStockName();
+
+        JSONObject priceHistoryJsonObject = new JSONObject();
+        PriceHistory priceHistory = stock.getPriceHistory();
+        priceHistoryJsonObject.put("dailyPriceHistory", new JSONObject(priceHistory.getDailyPriceHistory()));
+        priceHistoryJsonObject.put("weeklyPriceHistory", new JSONObject(priceHistory.getWeeklyPriceHistory()));
+        priceHistoryJsonObject.put("monthlyPriceHistory", new JSONObject(priceHistory.getMonthlyPriceHistory()));
+
+        stockJsonObject.put("stockSymbol", stockSymbol);
+        stockJsonObject.put("name", name);
+        stockJsonObject.put("priceHistory", priceHistoryJsonObject);
+
+        stocks.put(stockSymbol, stock);
+        jsonObject.put(stockSymbol, stockJsonObject);
         this.save();
     }
 
-
-    public Stock getStockObject(String stockSymbol) {
-        return stocks.get(stockSymbol);
-    }
-
     private void save() {
-        BufferedWriter writer;
         try {
-            writer = new BufferedWriter(new FileWriter(jsonFile));
-            writer.write(String.join(",", headers.keySet()));
-            writer.newLine();
-
-            for (Stock stock : stocks.values()) {
-                String line = String.format("%s,%s",
-                        stock.getStockSymbol(), stock.getPriceHistory());
-                writer.write(line);
-                writer.newLine();
-            }
-
-            writer.close();
+            FileWriter file = new FileWriter(jsonFile);
+            String jsonString = jsonObject.toString(4);
+            file.write(jsonString);
+            file.close();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-
-    /**
-     * Return whether a user exists with username identifier.
-     * @param identifier the username to check.
-     * @return whether a user exists with username identifier
-     */
-    @Override
     public boolean existsByName(String identifier) {
         return stocks.containsKey(identifier);
+    }
+
+    public void addNewStock(String stockSymbol) {
+
+        JSONObject responseJsonObjectName = new AlphaVantage("SYMBOL_SEARCH", stockSymbol).getJsonObject();
+        JSONObject bestMatch = responseJsonObjectName.getJSONArray("bestMatches").getJSONObject(0);
+        String name = bestMatch.getString("2. name");
+
+        HashMap<String, Double> dailyPriceHistory = new HashMap<>();
+        HashMap<String, Double> weeklyPriceHistory = new HashMap<>();
+        HashMap<String, Double> monthlyPriceHistory = new HashMap<>();
+
+        JSONObject responseJsonObjectDaily = new AlphaVantage("TIME_SERIES_DAILY", stockSymbol).getJsonObject();
+        JSONObject responseJsonObjectWeekly = new AlphaVantage("TIME_SERIES_WEEKLY", stockSymbol).getJsonObject();
+        JSONObject responseJsonObjectMonthly = new AlphaVantage("TIME_SERIES_MONTHLY", stockSymbol).getJsonObject();
+
+        JSONObject timeSeriesDaily = responseJsonObjectDaily.getJSONObject("Time Series (Daily)");
+        JSONObject timeSeriesWeekly = responseJsonObjectWeekly.getJSONObject("Weekly Time Series");
+        JSONObject timeSeriesMonthly = responseJsonObjectMonthly.getJSONObject("Monthly Time Series");
+
+        for (String date : timeSeriesDaily.keySet()) {
+            dailyPriceHistory.put(date, timeSeriesDaily.getJSONObject(date).getDouble("1. open"));
+        }
+        for (String date : timeSeriesWeekly.keySet()) {
+            weeklyPriceHistory.put(date, timeSeriesWeekly.getJSONObject(date).getDouble("1. open"));
+        }
+        for (String date : timeSeriesMonthly.keySet()) {
+            monthlyPriceHistory.put(date, timeSeriesMonthly.getJSONObject(date).getDouble("1. open"));
+        }
+
+        PriceHistory priceHistory = new PriceHistory(dailyPriceHistory, weeklyPriceHistory, monthlyPriceHistory);
+        Stock stock = new Stock(stockSymbol, name, priceHistory);
+        this.save(stock);
+    }
+
+    public Stock getStock(String stockSymbol) {
+        if (this.existsByName(stockSymbol)) {
+            return stocks.get(stockSymbol);
+        } else {
+            this.addNewStock(stockSymbol);
+            return stocks.get(stockSymbol);
+        }
+    }
+
+    public static HashMap<String, Double> toStringDoubleMap(JSONObject jsonobj) throws JSONException {
+        HashMap<String, Double> map = new HashMap<String, Double>();
+        Iterator<String> keys = jsonobj.keys();
+        while (keys.hasNext()) {
+            String key = keys.next();
+            Double value = jsonobj.getDouble(key);
+            map.put(key, value);
+        }
+        return map;
+    }
+
+    private static ArrayList<String> sortDateStrings(Set<String> keyset) {
+        ArrayList<Integer> datesAsIntegers = new ArrayList<>();
+        for (String date : keyset) {
+            int intValueDate = Integer.parseInt(date.replace("-", ""));
+            datesAsIntegers.add(intValueDate);
+        }
+        Collections.sort(datesAsIntegers);
+
+        ArrayList<String> sortedDateStrings = new ArrayList<>();
+        for (int intValueDate : datesAsIntegers) {
+            StringBuilder tempStringBuilder = new StringBuilder(Integer.toString(intValueDate));
+            tempStringBuilder.insert(4, "-");
+            tempStringBuilder.insert(7, "-");
+
+            String finalString = tempStringBuilder.toString();
+            sortedDateStrings.add(finalString);
+            if (sortedDateStrings.size() == 100) {break;}
+        }
+
+        return sortedDateStrings;
     }
 }

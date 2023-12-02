@@ -2,15 +2,20 @@ package use_case.buy;
 
 
 public class BuyInputData {
-    private final String stockName;
+    private final String stockSymbol;
     private final int amount;
 
-    public BuyInputData(String stockName, int amount){
-        this.stockName = stockName;
+    private final String userName;
+
+    public BuyInputData(String stockSymbol, int amount, String userName){
+        this.stockSymbol = stockSymbol;
         this.amount = amount;
+        this.userName = userName;
     }
 
-    String getStockname() {return stockName;}
+    String getStockSymbol() {return stockSymbol;}
 
     int getAmount() {return amount;}
+
+    String getUserName() {return userName;}
 }

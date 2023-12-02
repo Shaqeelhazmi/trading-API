@@ -12,31 +12,28 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
-
 public class SellView extends JPanel implements ActionListener, PropertyChangeListener{
     public final String viewName = "sell";
     private final SellViewModel sellViewModel;
+    private final JTextField stockInputField = new JTextField(15);
     private final JTextField amountInputField = new JTextField(15);
     private final SellController sellController;
     private final JButton sell;
-    private final String stockName;
 
-    private final String userName;
-
-    public SellView(SellController controller, SellViewModel sellViewModel, String stockName, int amount, String userName){
+    public SellView(SellController controller, SellViewModel sellViewModel){
         this.sellController = controller;
         this.sellViewModel = sellViewModel;
-        this.stockName = stockName;
-        this.userName = userName;
-
         sellViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(sellViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        LabelTextPanel amountInfo = new LabelTextPanel(
+        // Cannot resolve LabelTextPanel for an unknown reason
+        LabelTextPanel  stockInfo = new LabelTextPanel(
+                new JLabel(sellViewModel.STOCK_LABEL), stockInputField);
+        LabelTextPanel  amountInfo = new LabelTextPanel(
                 new JLabel(sellViewModel.AMOUNT_LABEL), amountInputField);
+
 
         JPanel buttons = new JPanel();
         sell = new JButton(sellViewModel.SELL_BUTTON_LABEL);
@@ -47,23 +44,19 @@ public class SellView extends JPanel implements ActionListener, PropertyChangeLi
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(sell)){
-                            try {
-                                sellController.sell(stockName, Integer.parseInt(amountInputField.getText()), userName);
-                            } catch (IOException ex) {
-                                throw new RuntimeException(ex);
-                            }
+                            // Need to figure out how to match the given string to Stock object
+                            sellController.sell(stockInputField.getText(), Integer.parseInt(amountInputField.getText()));
                         }
                     }
                 }
         );
 
-        amountInputField.addKeyListener(
+        stockInputField.addKeyListener(
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent e) {
                         SellState currentState = sellViewModel.getSellState();
-                        currentState.setAmount(Integer.parseInt(amountInputField.getText()) + e.getKeyChar());
-                        sellViewModel.setState(currentState);
+
                     }
 
                     @Override
@@ -78,11 +71,12 @@ public class SellView extends JPanel implements ActionListener, PropertyChangeLi
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
+        this.add(stockInfo);
         this.add(amountInfo);
         this.add(buttons);
     }
     public void actionPerformed(ActionEvent e) {
-        System.out.println("actionPerformed");
+        System.out.println("Cancel not implemented yet.");
     }
 
     @Override
@@ -92,4 +86,5 @@ public class SellView extends JPanel implements ActionListener, PropertyChangeLi
             JOptionPane.showMessageDialog(this, state.getSellError());
         }
     }
+
 }

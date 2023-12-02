@@ -29,7 +29,7 @@ public class SignupInteractor implements SignupInputBoundary {
 
             LocalDateTime now = LocalDateTime.now();
             CommonUser user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword(), now,
-                    new ArrayList<>(), new Portfolio(new HashMap<>(), 10000),
+                    new ArrayList<>(), new Portfolio(new HashMap<>(), signupInputData.getBalance()),
                     new ArrayList<>());
             userDataAccessObject.save(user);
 

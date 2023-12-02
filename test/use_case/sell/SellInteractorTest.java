@@ -4,7 +4,6 @@ import data_access.InMemoryStockDataAccessObject;
 import entity.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.buy.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,8 +29,8 @@ class SellInteractorTest {
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        stock1 = new Stock("TSLA", priceHistory, "TESLA");
-        stock2 = new Stock("AMXN", priceHistory, "AMAXON");
+        stock1 = new Stock("TSLA", "TESLA", priceHistory);
+        stock2 = new Stock("AMXN", "AMAXON", priceHistory);
         ArrayList<String> favourites = new ArrayList<>(5);
         favourites.add(stock1.getStockName());
         favourites.add(stock2.getStockName());

@@ -22,7 +22,7 @@ public class InMemoryStockDataAccessObject implements BuyDataAccessInterface, Se
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        Stock stock1 = new Stock("TSLA", priceHistory, "TESLA");
+        Stock stock1 = new Stock("TSLA", "TESLA", priceHistory);
         stocks.put(stock1.getStockSymbol(), stock1);
     }
 

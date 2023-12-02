@@ -9,15 +9,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SellInputDataTest {
 
-    SellInputData sellInputData = new SellInputData("TSLA", 10);
+    SellInputData sellInputData = new SellInputData("TSLA", 10, "bill");
 
     @Test
-    void getStockname() {
-        assertEquals("TSLA", sellInputData.getStockname());
+    void getStockSymbol() {
+        assertEquals("TSLA", sellInputData.getStockSymbol());
     }
 
     @Test
     void getAmount() {
         assertEquals(10, sellInputData.getAmount());
     }
+    @Test
+    void getUserName() {assertEquals("bill", sellInputData.getUserName()); }
 }

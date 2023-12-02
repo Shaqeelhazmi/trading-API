@@ -1,10 +1,12 @@
 package use_case.sell;
 
+import data_access.FileUserDataAccessObject;
 import data_access.InMemoryStockDataAccessObject;
 import entity.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +32,7 @@ class SellInteractorTest {
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
         stock1 = new Stock("TSLA", "TESLA", priceHistory);
-        stock2 = new Stock("AMXN", "AMAXON", priceHistory);
+        stock2 = new Stock("AAPL", "APPLE", priceHistory);
         ArrayList<String> favourites = new ArrayList<>(5);
         favourites.add(stock1.getStockName());
         favourites.add(stock2.getStockName());
@@ -39,18 +41,19 @@ class SellInteractorTest {
         transaction1 = new Transaction(LocalDateTime.now(), stock1.getStockName(),
                 "Bought TESLA", 5, 10);
         transaction2 = new Transaction(LocalDateTime.now(), stock2.getStockName(),
-                "Sold AMAXON", 10, 20);
+                "Sold GOOGLE", 10, 20);
         ArrayList<Transaction> transactions= new ArrayList<>(5);
         transactions.add(transaction1);
         transactions.add(transaction2);
         Portfolio portfolio = new Portfolio(hashMap, 10000);
-        user = new CommonUser("John", "richboy", LocalDateTime.now(), favourites, portfolio, transactions);
+        user = new CommonUser("test", "1234", LocalDateTime.now(), favourites, portfolio, transactions);
     }
 
     @Test
-    void successView() {
-        SellInputData sellInputData = new SellInputData(stock1.getStockName(), 5);
+    void successView() throws IOException {
+        SellInputData sellInputData = new SellInputData(stock1.getStockSymbol(), 1, user.getUsername());
         SellDataAccessInterface sellDataAccessInterface = new InMemoryStockDataAccessObject();
+        FileUserDataAccessObject userDataAccessObject = new FileUserDataAccessObject("./testUsers.json");
 
         SellOutputBoundary successSellPresenter = new SellOutputBoundary() {
             @Override
@@ -64,14 +67,16 @@ class SellInteractorTest {
             }
 
         };
-        SellInputBoundary interactor = new SellInteractor(sellDataAccessInterface, user, successSellPresenter, stock1);
+        SellInputBoundary interactor = new SellInteractor(sellDataAccessInterface, successSellPresenter, userDataAccessObject);
         interactor.sell(sellInputData);
     }
 
     @Test
-    void failView(){
-        SellInputData sellInputData = new SellInputData(stock1.getStockName(), 500);
+    void failView() throws IOException {
+        SellInputData sellInputData = new SellInputData(stock1.getStockSymbol(), 500, user.getUsername());
         SellDataAccessInterface sellDataAccessInterface = new InMemoryStockDataAccessObject();
+        FileUserDataAccessObject userDataAccessObject = new FileUserDataAccessObject("./testUsers.json");
+        userDataAccessObject.get("test").getPortfolio().setAccountBalance(90000);
 
         SellOutputBoundary failurePresenter = new SellOutputBoundary() {
             @Override
@@ -84,7 +89,7 @@ class SellInteractorTest {
                 fail("Use Case success is unexpected");
             }
         };
-        SellInputBoundary interactor = new SellInteractor(sellDataAccessInterface, user, failurePresenter, stock1);
+        SellInputBoundary interactor = new SellInteractor(sellDataAccessInterface, failurePresenter, userDataAccessObject);
         interactor.sell(sellInputData);
     }
 }

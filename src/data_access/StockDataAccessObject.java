@@ -1,6 +1,8 @@
 package data_access;
 
+import api.AlphaVantage;
 import entity.*;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,7 +29,6 @@ public class StockDataAccessObject {
         if (jsonObject.isEmpty()) {
             save();
         } else {
-            // iterate over every user in jsonObject
             for (String stockSymbol : jsonObject.keySet()) {
                 JSONObject stockJsonObject = jsonObject.getJSONObject(stockSymbol);
 
@@ -46,13 +47,6 @@ public class StockDataAccessObject {
         }
     }
 
-
-    /**
-     * Return whether a user exists with username identifier.
-     *
-     * @param identifier the username to check.
-     * @return whether a user exists with username identifier
-     */
     public void save(Stock stock) {
         JSONObject stockJsonObject = new JSONObject();
 
@@ -90,8 +84,46 @@ public class StockDataAccessObject {
         return stocks.containsKey(identifier);
     }
 
+    public void addNewStock(String stockSymbol) {
+
+        JSONObject responseJsonObjectName = new AlphaVantage("SYMBOL_SEARCH", stockSymbol).getJsonObject();
+        JSONObject bestMatch = responseJsonObjectName.getJSONArray("bestMatches").getJSONObject(0);
+        String name = bestMatch.getString("2. name");
+
+        HashMap<String, Double> dailyPriceHistory = new HashMap<>();
+        HashMap<String, Double> weeklyPriceHistory = new HashMap<>();
+        HashMap<String, Double> monthlyPriceHistory = new HashMap<>();
+
+        JSONObject responseJsonObjectDaily = new AlphaVantage("TIME_SERIES_DAILY", stockSymbol).getJsonObject();
+        JSONObject responseJsonObjectWeekly = new AlphaVantage("TIME_SERIES_WEEKLY", stockSymbol).getJsonObject();
+        JSONObject responseJsonObjectMonthly = new AlphaVantage("TIME_SERIES_MONTHLY", stockSymbol).getJsonObject();
+
+        JSONObject timeSeriesDaily = responseJsonObjectDaily.getJSONObject("Time Series (Daily)");
+        JSONObject timeSeriesWeekly = responseJsonObjectWeekly.getJSONObject("Weekly Time Series");
+        JSONObject timeSeriesMonthly = responseJsonObjectMonthly.getJSONObject("Monthly Time Series");
+
+        for (String date : timeSeriesDaily.keySet()) {
+            dailyPriceHistory.put(date, timeSeriesDaily.getJSONObject(date).getDouble("1. open"));
+        }
+        for (String date : timeSeriesWeekly.keySet()) {
+            weeklyPriceHistory.put(date, timeSeriesWeekly.getJSONObject(date).getDouble("1. open"));
+        }
+        for (String date : timeSeriesMonthly.keySet()) {
+            monthlyPriceHistory.put(date, timeSeriesMonthly.getJSONObject(date).getDouble("1. open"));
+        }
+
+        PriceHistory priceHistory = new PriceHistory(dailyPriceHistory, weeklyPriceHistory, monthlyPriceHistory);
+        Stock stock = new Stock(stockSymbol, name, priceHistory);
+        this.save(stock);
+    }
+
     public Stock getStock(String stockSymbol) {
-        return stocks.get(stockSymbol);
+        if (this.existsByName(stockSymbol)) {
+            return stocks.get(stockSymbol);
+        } else {
+            this.addNewStock(stockSymbol);
+            return stocks.get(stockSymbol);
+        }
     }
 
     public static HashMap<String, Double> toStringDoubleMap(JSONObject jsonobj) throws JSONException {
@@ -103,5 +135,27 @@ public class StockDataAccessObject {
             map.put(key, value);
         }
         return map;
+    }
+
+    private static ArrayList<String> sortDateStrings(Set<String> keyset) {
+        ArrayList<Integer> datesAsIntegers = new ArrayList<>();
+        for (String date : keyset) {
+            int intValueDate = Integer.parseInt(date.replace("-", ""));
+            datesAsIntegers.add(intValueDate);
+        }
+        Collections.sort(datesAsIntegers);
+
+        ArrayList<String> sortedDateStrings = new ArrayList<>();
+        for (int intValueDate : datesAsIntegers) {
+            StringBuilder tempStringBuilder = new StringBuilder(Integer.toString(intValueDate));
+            tempStringBuilder.insert(4, "-");
+            tempStringBuilder.insert(7, "-");
+
+            String finalString = tempStringBuilder.toString();
+            sortedDateStrings.add(finalString);
+            if (sortedDateStrings.size() == 100) {break;}
+        }
+
+        return sortedDateStrings;
     }
 }

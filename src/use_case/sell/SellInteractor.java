@@ -13,22 +13,22 @@ import java.time.LocalDateTime;
 public class SellInteractor implements SellInputBoundary{
     final SellDataAccessInterface sellDataAccessObject;
     final SellOutputBoundary sellPresenter;
-    CommonUser commonUser;
-    Stock stock;
+    FileUserDataAccessObject userDataAccessObject;
 
-    public SellInteractor(SellDataAccessInterface sellDataAccessInterface,
-                          CommonUser commonUser, SellOutputBoundary sellOutputBoundary, Stock stock){
+    public SellInteractor(SellDataAccessInterface sellDataAccessInterface, SellOutputBoundary sellPresenter,
+                          FileUserDataAccessObject userDataAccessObject){
         this.sellDataAccessObject = sellDataAccessInterface;
-        this.sellPresenter = sellOutputBoundary;
-        this.commonUser = commonUser;
-        this.stock = stock;
+        this.sellPresenter = sellPresenter;
+        this.userDataAccessObject = userDataAccessObject;
     }
 
     @Override
     public void sell(SellInputData sellInputData) throws IOException {
-        FileUserDataAccessObject fileUserDataAccessObject = new FileUserDataAccessObject("user.json");
 
-        commonUser = fileUserDataAccessObject.get(sellInputData.getUserName());
+        InMemoryStockDataAccessObject stockDataAccessObject = new InMemoryStockDataAccessObject();
+        CommonUser commonUser = userDataAccessObject.get(sellInputData.getUserName());
+        Stock stock = stockDataAccessObject.getStockObject(sellInputData.getStockSymbol());
+
 
         LocalDateTime now = LocalDateTime.now();
         Portfolio portfolio = commonUser.getPortfolio();
@@ -55,6 +55,8 @@ public class SellInteractor implements SellInputBoundary{
             Transaction transaction = new Transaction(LocalDateTime.now(), stock.getStockName(), "Sell",
                     (amount_received/amount), amount);
             commonUser.getTransactionHistory().add(transaction);
+
+            userDataAccessObject.save(commonUser);
 
             SellOutputData sellOutputData = new SellOutputData(stock.getStockName(), now.toString());
             sellPresenter.prepareSuccessView(sellOutputData);

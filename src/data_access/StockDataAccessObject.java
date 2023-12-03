@@ -85,6 +85,11 @@ public class StockDataAccessObject implements BuyDataAccessInterface {
         return stocks.containsKey(identifier);
     }
 
+    @Override
+    public Stock getStockObject(String stockSymbol) {
+        return null;
+    }
+
     public void addNewStock(String stockSymbol) {
 
         JSONObject responseJsonObjectName = new AlphaVantage("SYMBOL_SEARCH", stockSymbol).getJsonObject();

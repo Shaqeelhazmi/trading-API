@@ -11,6 +11,10 @@ public class BuyViewModel extends ViewModel {
 
     public static final String Amount_Label = "Amount";
 
+    public static final String HOME = "Go to Main Menu";
+
+    public static final String GOBACK = "Back";
+
     private BuyState buyState = new BuyState();
 
     public BuyViewModel() {super("Buy Stock"); }

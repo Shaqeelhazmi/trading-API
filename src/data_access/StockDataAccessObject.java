@@ -14,7 +14,6 @@ import java.util.*;
 public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAccessInterface {
     private final File jsonFile;
     private final JSONObject jsonObject;
-
     private final Map<String, Stock> stocks = new HashMap<>();
 
     public StockDataAccessObject(String jsonPath) throws IOException {
@@ -120,12 +119,10 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
     }
 
     public Stock getStock(String stockSymbol) {
-        if (this.existsByName(stockSymbol)) {
-            return stocks.get(stockSymbol);
-        } else {
+        if (!this.existsByName(stockSymbol)) {
             this.addNewStock(stockSymbol);
-            return stocks.get(stockSymbol);
         }
+        return stocks.get(stockSymbol);
     }
 
     public void updateStockDatabase() {
@@ -134,7 +131,8 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
         }
     }
 
-    public static HashMap<String, Double> toStringDoubleMap(JSONObject jsonobj) throws JSONException {
+    private static HashMap<String, Double> toStringDoubleMap(JSONObject jsonobj) throws JSONException {
+
         HashMap<String, Double> map = new HashMap<String, Double>();
         Iterator<String> keys = jsonobj.keys();
         while (keys.hasNext()) {

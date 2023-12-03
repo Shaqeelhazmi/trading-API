@@ -1,9 +1,7 @@
 package interface_adapter.buy;
 
-import entity.Stock;
 import use_case.buy.BuyInputBoundary;
 import use_case.buy.BuyInputData;
-import use_case.buy.BuyInteractor;
 
 import java.io.IOException;
 

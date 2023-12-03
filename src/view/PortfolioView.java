@@ -1,11 +1,13 @@
 package view;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.portfolio.PortfolioController;
 import interface_adapter.portfolio.PortfolioState;
 import interface_adapter.portfolio.PortfolioViewModel;
 
+import interface_adapter.searching.SearchState;
 import interface_adapter.searching.SearchViewModel;
 
 import javax.swing.*;
@@ -27,6 +29,9 @@ public class PortfolioView extends JPanel implements ActionListener, PropertyCha
     private final PortfolioViewModel portfolioViewModel;
 
     private final JButton goBack;
+    private JButton stock1 = new JButton();
+
+    JLabel username;
 
     public PortfolioView(PortfolioController portfolioController, PortfolioViewModel portfolioViewModel,
                          ViewManagerModel viewManagerModel, LoggedInViewModel loggedInViewModel) {
@@ -39,6 +44,10 @@ public class PortfolioView extends JPanel implements ActionListener, PropertyCha
         buttons.add(goBack);
         buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        portfolioViewModel.getState().getStocksOwned();
+        double accountBalance = portfolioViewModel.getState().getAccountBalance();
+        stock1.setText(username);
+        stock1.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         goBack.addActionListener(
                 new ActionListener() {
@@ -46,6 +55,20 @@ public class PortfolioView extends JPanel implements ActionListener, PropertyCha
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(goBack)){
                             viewManagerModel.setActiveView(loggedInViewModel.getViewName());
+                            viewManagerModel.firePropertyChanged();
+                        }
+                    }
+                }
+        );
+
+        stock1.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(stock1)){
+                            PortfolioState state = portfolioViewModel.getState();
+                            state.se(stock1.getText());
+                            viewManagerModel.setActiveView(stockViewModel.getViewName);
                             viewManagerModel.firePropertyChanged();
                         }
                     }
@@ -61,12 +84,6 @@ public class PortfolioView extends JPanel implements ActionListener, PropertyCha
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getSource().equals(portfolioViewModel)) {
-            PortfolioState state = (PortfolioState) evt.getNewValue();
-
-            if (state.getError() != null) {
-                JOptionPane.showMessageDialog(this, state.getError());
-            }
-        }
+        PortfolioState state = (PortfolioState) evt.getNewValue();
     }
 }

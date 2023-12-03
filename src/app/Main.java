@@ -6,6 +6,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.buy.BuyViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.portfolio.PortfolioViewModel;
 import interface_adapter.searching.SearchViewModel;
 import interface_adapter.sell.SellViewModel;
 import interface_adapter.signup.SignupViewModel;
@@ -50,6 +51,7 @@ public class Main {
         BuyViewModel buyViewModel = new BuyViewModel();
         SellViewModel sellViewModel = new SellViewModel();
         SearchViewModel searchViewModel = new SearchViewModel();
+        PortfolioViewModel portfolioViewModel = new PortfolioViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -71,7 +73,7 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject, signupViewModel);
         views.add(loginView, loginView.viewName);
 
-        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, viewManagerModel, signupViewModel, searchViewModel);
+        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, viewManagerModel, signupViewModel, searchViewModel, portfolioViewModel);
         views.add(loggedInView, loggedInView.viewName);
 
         BuyView buyView = BuyUseCaseFactory.create(viewManagerModel, buyViewModel, stockDataAccessObject,
@@ -80,6 +82,9 @@ public class Main {
 
         SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, loggedInViewModel);
         views.add(searchView, searchView.viewName);
+
+        PortfolioView portfolioView = PortfolioUseCaseFactory.create(viewManagerModel, portfolioViewModel, loggedInViewModel, userDataAccessObject);
+        views.add(portfolioView, portfolioView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();

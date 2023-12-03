@@ -5,6 +5,7 @@ import interface_adapter.buy.BuyViewModel;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginState;
+import interface_adapter.portfolio.PortfolioViewModel;
 import interface_adapter.searching.SearchViewModel;
 import interface_adapter.signup.SignupViewModel;
 
@@ -26,6 +27,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     private final SignupViewModel signupViewModel;
 
     private final SearchViewModel searchViewModel;
+    private final PortfolioViewModel portfolioViewModel;
 
     private final JButton search_stock;
 
@@ -40,11 +42,12 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     /**
      * A window with a title and a JButton.
      */
-    public LoggedInView(LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, SearchViewModel searchViewModel) {
+    public LoggedInView(LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, SearchViewModel searchViewModel, PortfolioViewModel portfolioViewModel) {
         this.loggedInViewModel = loggedInViewModel;
         this.viewManagerModel = viewManagerModel;
         this.signupViewModel = signupViewModel;
         this.searchViewModel = searchViewModel;
+        this.portfolioViewModel = portfolioViewModel;
         loggedInViewModel.addPropertyChangeListener(this);
         this.setBackground(new Color(199, 0, 57));
 
@@ -78,6 +81,17 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(search_stock)){
                             switch_to_search();
+                        }
+                    }
+                }
+        );
+
+        portfolio.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(portfolio)){
+                            switch_to_portfolio();
                         }
                     }
                 }
@@ -129,6 +143,13 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         SearchViewModel searchViewModel = new SearchViewModel();
         searchViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(searchViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
+    private void switch_to_portfolio(){
+        PortfolioViewModel portfolioViewModel = new PortfolioViewModel();
+        portfolioViewModel.firePropertyChanged();
+        viewManagerModel.setActiveView(portfolioViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }

@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PasswordValidatorServiceTest {
     private PasswordValidatorService passwordValidator;
+
     @BeforeEach
     void setUp() {
         passwordValidator = new PasswordValidatorService();
@@ -15,7 +16,11 @@ class PasswordValidatorServiceTest {
 
     @Test
     void passwordIsValid() {
-        String password = "Pw1234";
-        assertTrue(passwordValidator.passwordIsValid(password));
+        String password1 = "Pw1234";
+        assertTrue(passwordValidator.passwordIsValid(password1));
+        String password2 = "";
+        assertFalse(passwordValidator.passwordIsValid(password2));
+        String password3 = "123";
+        assertFalse(passwordValidator.passwordIsValid(password3));
     }
 }

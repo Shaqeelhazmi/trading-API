@@ -17,15 +17,14 @@ public class Stock implements StockInterface {
         return stockSymbol;
     }
 
+    @Override
+    public String getStockName() {
+        return name;
+    }
 
     @Override
     public PriceHistory getPriceHistory() {
         return priceHistory;
-    }
-
-    @Override
-    public String getStockName() {
-        return name;
     }
 
     public void setPriceHistory(PriceHistory priceHistory) {

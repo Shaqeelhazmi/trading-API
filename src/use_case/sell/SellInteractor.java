@@ -37,32 +37,37 @@ public class SellInteractor implements SellInputBoundary{
         double amount_received = amount * stock.getPriceHistory().
                 getDailyPriceHistory().get(String.valueOf(now.getDayOfMonth()));
 
-        if (amount <= portfolio.getPortfolio().get(stock.getStockSymbol())){
+        if (portfolio.getPortfolio().containsKey(stock.getStockSymbol())){
+            if (amount <= portfolio.getPortfolio().get(stock.getStockSymbol())){
 
-            if (amount < portfolio.getPortfolio().get(stock.getStockSymbol())){
+                if (amount < portfolio.getPortfolio().get(stock.getStockSymbol())){
 
-                int old_value = commonUser.getPortfolio().getPortfolio().get(stock.getStockSymbol());
-                int new_value = old_value - amount;
-                portfolio.getPortfolio().replace(stock.getStockSymbol(), old_value, new_value);
+                    int old_value = commonUser.getPortfolio().getPortfolio().get(stock.getStockSymbol());
+                    int new_value = old_value - amount;
+                    portfolio.getPortfolio().replace(stock.getStockSymbol(), old_value, new_value);
+
+                } else {
+                    portfolio.getPortfolio().remove(stock.getStockSymbol());
+                }
+
+                double current_balance_portfolio = portfolio.getAccountBalance();
+                portfolio.setAccountBalance(current_balance_portfolio + amount_received);
+
+                Transaction transaction = new Transaction(LocalDateTime.now(), stock.getStockName(), "Sell",
+                        (amount_received/amount), amount);
+                commonUser.getTransactionHistory().add(transaction);
+
+                userDataAccessObject.save(commonUser);
+
+                SellOutputData sellOutputData = new SellOutputData(stock.getStockName(), now.toString());
+                sellPresenter.prepareSuccessView(sellOutputData);
 
             } else {
-                portfolio.getPortfolio().remove(stock.getStockSymbol());
+                sellPresenter.prepareFailView("You do not own enough of the stock to sell this amount.");
             }
-
-            double current_balance_portfolio = portfolio.getAccountBalance();
-            portfolio.setAccountBalance(current_balance_portfolio + amount_received);
-
-            Transaction transaction = new Transaction(LocalDateTime.now(), stock.getStockName(), "Sell",
-                    (amount_received/amount), amount);
-            commonUser.getTransactionHistory().add(transaction);
-
-            userDataAccessObject.save(commonUser);
-
-            SellOutputData sellOutputData = new SellOutputData(stock.getStockName(), now.toString());
-            sellPresenter.prepareSuccessView(sellOutputData);
-
         } else {
             sellPresenter.prepareFailView("You do not own enough of the stock to sell this amount.");
         }
+
     }
 }

@@ -7,6 +7,6 @@ import entity.Stock;
 public interface SellDataAccessInterface {
     boolean existsByName(String identifier);
 
-    Stock getStockObject(String stockSymbol);
+    Stock getStock(String stockSymbol);
 
 }

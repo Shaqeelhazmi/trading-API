@@ -23,8 +23,8 @@ public class BuyUseCaseFactory {
                                  BuyDataAccessInterface buyDataAccessObject, LoggedInViewModel loggedInViewModel, SearchViewModel searchViewModel,
                                  FileUserDataAccessObject userDataAccessObject) {
         try {
-            BuyController buyController =  createBuyUseCase(viewManagerModel, buyViewModel, buyDataAccessObject, userDataAccessObject);
-            return new BuyView(buyController, buyViewModel, loggedInViewModel, searchViewModel);
+            BuyController buyController =  createBuyUseCase(viewManagerModel, buyViewModel, buyDataAccessObject, userDataAccessObject, searchViewModel);
+            return new BuyView(buyController, buyViewModel, loggedInViewModel, searchViewModel, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Failed to create");
         }
@@ -32,8 +32,8 @@ public class BuyUseCaseFactory {
     }
     private static BuyController createBuyUseCase(ViewManagerModel viewManagerModel, BuyViewModel buyViewModel,
                                                   BuyDataAccessInterface buyDataAccessInterface,
-                                                  FileUserDataAccessObject userDataAccessObject) throws IOException{
-        BuyOutputBoundary buyOutputBoundary = new BuyPresenter(viewManagerModel, buyViewModel);
+                                                  FileUserDataAccessObject userDataAccessObject, SearchViewModel searchViewModel) throws IOException{
+        BuyOutputBoundary buyOutputBoundary = new BuyPresenter(viewManagerModel, buyViewModel, searchViewModel);
         BuyInputBoundary userBuyInteractor = new BuyInteractor(buyDataAccessInterface, buyOutputBoundary, userDataAccessObject);
 
         return new BuyController(userBuyInteractor);

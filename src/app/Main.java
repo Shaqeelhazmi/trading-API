@@ -78,12 +78,11 @@ public class Main {
                 loggedInViewModel, searchViewModel, userDataAccessObject);
         views.add(buyView, buyView.viewName);
 
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel);
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, loggedInViewModel);
         views.add(searchView, searchView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();
-
 
         application.pack();
         application.setVisible(true);

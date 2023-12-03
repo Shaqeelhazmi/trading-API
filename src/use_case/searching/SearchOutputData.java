@@ -1,9 +1,7 @@
 package use_case.searching;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Set;
 
 public class SearchOutputData {
     private final HashMap<String, ArrayList<String>> stocks;
@@ -16,7 +14,19 @@ public class SearchOutputData {
         return stocks;
     }
 
-    public Set<String> getStocksSymbols() {return stocks.keySet();}
+    public ArrayList<String> getStocksSymbols() {
+        ArrayList<String> stocksSymbols = new ArrayList<>();
+        for (String stockSymbol: stocks.keySet()){
+            stocksSymbols.add(stockSymbol);
+        }
+        return stocksSymbols;
+    }
 
-
+    public ArrayList<String> getStocksNames() {
+        ArrayList<String>stocksNames = new ArrayList<>();
+        for (ArrayList<String> stockName: stocks.values()){
+            stocksNames.add(stockName.get(0));
+        }
+        return stocksNames;
+    }
 }

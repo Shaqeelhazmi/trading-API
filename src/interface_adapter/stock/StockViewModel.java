@@ -1,11 +1,12 @@
 package interface_adapter.stock;
 
+import interface_adapter.ViewModel;
 import interface_adapter.buy.BuyState;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class StockViewModel {
+public class StockViewModel extends ViewModel{
     public static final String Buy_Button_Label = "Buy";
     public static final String Sell_Button_Label = "Sell";
     public static final String Amount_Label_Buy = "Amount";
@@ -19,6 +20,9 @@ public class StockViewModel {
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
+    public StockViewModel(){
+        super("Stock");
+    }
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.stockState);
     }

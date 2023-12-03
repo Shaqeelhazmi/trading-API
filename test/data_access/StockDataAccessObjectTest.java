@@ -90,9 +90,16 @@ class StockDataAccessObjectTest {
             String finalString = tempStringBuilder.toString();
             System.out.println(finalString);
         }
+    }
 
-
-
-
+    @Test
+    void updateStockDatabase() {
+        StockDataAccessObject sdao;
+        try {
+            sdao = new StockDataAccessObject("./stocks.json");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        sdao.updateStockDatabase();
     }
 }

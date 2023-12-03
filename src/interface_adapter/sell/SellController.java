@@ -1,6 +1,5 @@
 package interface_adapter.sell;
 
-import entity.Stock;
 import use_case.sell.SellInputBoundary;
 import use_case.sell.SellInputData;
 

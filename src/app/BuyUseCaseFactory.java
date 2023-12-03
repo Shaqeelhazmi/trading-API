@@ -1,6 +1,7 @@
 package app;
 
 import data_access.FileUserDataAccessObject;
+import data_access.StockDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.buy.BuyController;
 import interface_adapter.buy.BuyPresenter;
@@ -30,7 +31,8 @@ public class BuyUseCaseFactory {
         return null;
     }
     private static BuyController createBuyUseCase(ViewManagerModel viewManagerModel, BuyViewModel buyViewModel,
-                                                  BuyDataAccessInterface buyDataAccessInterface, FileUserDataAccessObject userDataAccessObject) throws IOException{
+                                                  BuyDataAccessInterface buyDataAccessInterface,
+                                                  FileUserDataAccessObject userDataAccessObject) throws IOException{
         BuyOutputBoundary buyOutputBoundary = new BuyPresenter(viewManagerModel, buyViewModel);
         BuyInputBoundary userBuyInteractor = new BuyInteractor(buyDataAccessInterface, buyOutputBoundary, userDataAccessObject);
 

@@ -1,5 +1,6 @@
 package interface_adapter.searching;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,14 +9,18 @@ public class SearchState {
 
     private String error = null;
 
+    private ArrayList<String> information = null;
 
-    private HashMap<String, String> stocks;
+    private HashMap<String, ArrayList<String>> stocks;
+
+
 
 
     public SearchState(SearchState copy) {
         search_name = copy.search_name;
         error = copy.error;
         stocks = copy.stocks;
+        information = copy.information;
 
     }
 
@@ -33,6 +38,9 @@ public class SearchState {
 
     public void setSearchName(String search_name) {this.search_name = search_name;}
 
+    public void setInformation(ArrayList<String> information) {this.information = information;}
+
+    public ArrayList<String> getInformation(){ return information;}
 
     public String toString(){
         return "Search Name: " + search_name;
@@ -41,8 +49,8 @@ public class SearchState {
     public void SetSearchSuccess() {
     }
 
-    public void updatedStoredStocks(HashMap<String, String> stocks){this.stocks = stocks;}
+    public void updatedStoredStocks(HashMap<String, ArrayList<String>> stocks){this.stocks = stocks;}
 
 
-    public HashMap<String, String> getStoredStocks(){return stocks;}
+    public HashMap<String, ArrayList<String>> getStoredStocks(){return stocks;}
 }

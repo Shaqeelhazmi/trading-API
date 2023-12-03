@@ -1,11 +1,12 @@
 package use_case.login;
 
-import data_access.InMemoryUserDataAccessObject;
+import data_access.FileUserDataAccessObject;
 import entity.CommonUser;
 import entity.Portfolio;
 import entity.Transaction;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,9 +17,9 @@ class LoginInteractorTest {
 
 
     @Test
-    void successTest(){
+    void successTest() throws IOException {
         LoginInputData inputData = new LoginInputData("Bob", "123");
-        LoginUserDataAccessInterface loginUserDataAccessInterface = new InMemoryUserDataAccessObject();
+        LoginUserDataAccessInterface loginUserDataAccessInterface = new FileUserDataAccessObject("./testUsers.json");
         CommonUser user = new CommonUser("Bob", "123", LocalDateTime.now(), new ArrayList<String>(),
                 new Portfolio(new HashMap<>(), 10000), new ArrayList<Transaction>());
         loginUserDataAccessInterface.save(user);
@@ -39,9 +40,9 @@ class LoginInteractorTest {
         interactor.execute(inputData);
     }
     @Test
-    void failureAccountTest(){
-        LoginInputData inputData = new LoginInputData("Bob", "123");
-        LoginUserDataAccessInterface loginUserDataAccessInterface = new InMemoryUserDataAccessObject();
+    void failureAccountTest() throws IOException {
+        LoginInputData inputData = new LoginInputData("George", "123");
+        LoginUserDataAccessInterface loginUserDataAccessInterface = new FileUserDataAccessObject("./testUsers.json");
         CommonUser user = new CommonUser("Billy", "123", LocalDateTime.now(), new ArrayList<String>(),
                 new Portfolio(new HashMap<>(), 10000), new ArrayList<Transaction>());
         loginUserDataAccessInterface.save(user);
@@ -54,7 +55,7 @@ class LoginInteractorTest {
 
             @Override
             public void prepareFailView(String error) {
-                assertEquals("Bob: Account does not exist.", error);
+                assertEquals("George: Account does not exist.", error);
             }
         };
 
@@ -63,9 +64,9 @@ class LoginInteractorTest {
     }
 
     @Test
-    void failurePasswordTest(){
+    void failurePasswordTest() throws IOException {
         LoginInputData inputData = new LoginInputData("Bob", "1234");
-        LoginUserDataAccessInterface loginUserDataAccessInterface = new InMemoryUserDataAccessObject();
+        LoginUserDataAccessInterface loginUserDataAccessInterface = new FileUserDataAccessObject("./testUsers.json");
         CommonUser user = new CommonUser("Bob", "123", LocalDateTime.now(), new ArrayList<String>(),
                 new Portfolio(new HashMap<>(), 10000), new ArrayList<Transaction>());
         loginUserDataAccessInterface.save(user);

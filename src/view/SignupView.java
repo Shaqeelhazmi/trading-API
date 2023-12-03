@@ -1,7 +1,6 @@
 package view;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.buy.BuyState;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
@@ -26,13 +25,12 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JPasswordField passwordInputField = new JPasswordField(15);
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
 
-    private final JTextField starting_balance = new JTextField();
+    private final JTextField starting_balance = new JTextField(15);
     private final SignupController signupController;
 
     private final JButton signUp;
-    private final JButton cancel;
+    private final JButton quit;
 
-    private final JButton clear;
 
     private final JButton login;
 
@@ -42,32 +40,56 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.signupController = controller;
         this.signupViewModel = signupViewModel;
         this.viewManagerModel = viewManagerModel;
-
+        this.setBackground(new Color(199, 0, 57));
         signupViewModel.addPropertyChangeListener(this);
 
 
         JLabel title = new JLabel(SignupViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setFont(new Font("Times New Roman", Font.BOLD, 100));
 
+        JLabel username = new JLabel(SignupViewModel.USERNAME_LABEL);
+        username.setFont(new Font("Cambria", Font.ITALIC, 50));
         LabelTextPanel usernameInfo = new LabelTextPanel(
-                new JLabel(SignupViewModel.USERNAME_LABEL), usernameInputField);
+                username, usernameInputField);
+        usernameInfo.setBackground(new Color(199, 0, 57));
+        usernameInputField.setFont(new Font("Helvetica", Font.ITALIC, 50));
+
+
+        JLabel password = new JLabel(SignupViewModel.PASSWORD_LABEL);
+        password.setFont(new Font("Cambria", Font.ITALIC, 50));
         LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel(SignupViewModel.PASSWORD_LABEL), passwordInputField);
+                password, passwordInputField);
+        passwordInfo.setBackground(new Color(199, 0, 57));
+        passwordInputField.setFont(new Font("Helvetica", Font.ITALIC, 50));
+
+        JLabel repeatpassword = new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL);
+        repeatpassword.setFont(new Font("Cambria", Font.ITALIC, 50));
         LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
-                new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
+                repeatpassword, repeatPasswordInputField);
+        repeatPasswordInfo.setBackground(new Color(199, 0, 57));
+        repeatPasswordInputField.setFont(new Font("Helvetica", Font.ITALIC, 50));
+
+        JLabel balance = new JLabel(SignupViewModel.STARTING_AMOUNT);
+        balance.setFont(new Font("Cambria", Font.ITALIC, 50));
         LabelTextPanel startingBalanceInfo = new LabelTextPanel(
-                new JLabel(SignupViewModel.STARTING_AMOUNT), starting_balance);
+                balance, starting_balance);
+        startingBalanceInfo.setBackground(new Color(199, 0, 57));
+        starting_balance.setFont(new Font("Helvetica", Font.ITALIC, 50));
+
 
         JPanel buttons = new JPanel();
+        buttons.setBackground(new Color(218, 247, 166  ));
         signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
-        cancel = new JButton(SignupViewModel.CANCEL_BUTTON_LABEL);
-        buttons.add(cancel);
+        signUp.setFont(new Font("Helvetica", Font.ITALIC, 30));
+        quit = new JButton(SignupViewModel.QUIT_BUTTON_LABEL);
+        buttons.add(quit);
+        quit.setFont(new Font("Helvetica", Font.ITALIC, 30));
         login = new JButton(SignupViewModel.LOGIN_LABEL);
         buttons.add(login);
+        login.setFont(new Font("Helvetica", Font.ITALIC, 30));
 
-        clear = new JButton(SignupViewModel.CLEAR_BUTTON_LABEL);
-        buttons.add(clear);
 
         signUp.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -87,7 +109,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-        cancel.addActionListener(this);
+        quit.addActionListener(this);
 
         login.addActionListener(
                 new ActionListener() {
@@ -95,6 +117,17 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(login)) {
                             switch_to_login();
+                        }
+                    }
+                }
+        );
+
+        quit.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(quit)){
+                            System.exit(0);
                         }
                     }
                 }
@@ -171,7 +204,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     public void keyTyped(KeyEvent e) {
                         SignupState currentState = signupViewModel.getState();
                         char c = e.getKeyChar();
-                        if (Character.isDigit(c)){
+                        if (!Character.isDigit(c)){
                             e.consume();
                         } else {
                             double balance = Integer.parseInt(starting_balance.getText() + e.getKeyChar());
@@ -199,16 +232,14 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.add(usernameInfo);
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
-        this.add(buttons);
         this.add(startingBalanceInfo);
+        this.add(buttons);
     }
 
     /**
      * React to a button click that results in evt.
      */
-    public void actionPerformed(ActionEvent evt) {
-        JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
-    }
+    public void actionPerformed(ActionEvent evt) {System.out.println("Click" + evt.getActionCommand());}
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
@@ -218,6 +249,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 JOptionPane.showMessageDialog(this, state.getUsernameError()); }
             }
         }
+
     private void switch_to_login() {
         LoginViewModel loginViewModel = new LoginViewModel();
         loginViewModel.firePropertyChanged();

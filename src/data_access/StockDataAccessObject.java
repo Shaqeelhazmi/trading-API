@@ -5,11 +5,12 @@ import entity.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import use_case.buy.BuyDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class StockDataAccessObject {
+public class StockDataAccessObject implements BuyDataAccessInterface {
     private final File jsonFile;
     private final JSONObject jsonObject;
 

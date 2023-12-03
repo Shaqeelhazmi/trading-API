@@ -62,8 +62,6 @@ class FileUserDataAccessObjectTest {
         System.out.println(testUser.getFavourites());
         System.out.println(testUser.getPortfolio().getPortfolio());
         System.out.println(testUser.getPortfolio().getAccountBalance());
-        System.out.println(testUser.getTransactionHistory().get(0).getTransactionMap());
-
     }
 
     @Test

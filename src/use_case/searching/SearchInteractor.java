@@ -13,12 +13,10 @@ import java.util.List;
 
 public class SearchInteractor implements SearchInputBoundary{
 
-    private final SearchDataAccessInterface searchingDataAccessObject;
 
     private final SearchOutputBoundary searchPresenter;
 
-    public SearchInteractor(SearchDataAccessInterface searchingDataAccessObject, SearchOutputBoundary searchPresenter) {
-        this.searchingDataAccessObject = searchingDataAccessObject;
+    public SearchInteractor(SearchOutputBoundary searchPresenter) {
         this.searchPresenter = searchPresenter;
     }
     @Override
@@ -35,7 +33,8 @@ public class SearchInteractor implements SearchInputBoundary{
             ArrayList name_list = new ArrayList<String>();
             HashMap<String, String> stock_list = new HashMap<String, String>();
             for (Object primary_result: result_list){
-                HashMap result = toMap(new JSONObject(primary_result));
+
+                HashMap<String, Object> result = (HashMap<String, Object>) primary_result;
                 String stocksymbol = result.get("1. symbol").toString();
                 String stockname = result.get("2. name").toString();
                 symbol_list.add(stocksymbol);

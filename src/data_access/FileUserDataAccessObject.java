@@ -2,6 +2,7 @@ package data_access;
 
 import entity.*;
 import use_case.login.LoginUserDataAccessInterface;
+import use_case.portfolio.PortfolioDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.io.*;
@@ -12,7 +13,7 @@ import org.json.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface {
+public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, PortfolioDataAccessInterface {
     private final JSONObject jsonObject;
     private final File jsonFile;
 
@@ -105,6 +106,8 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
     public CommonUser get(String username) {
         return accounts.get(username);
     }
+
+    public Portfolio pullPortfolio(String username) { return accounts.get(username).getPortfolio(); }
 
     private void save() {
         try {

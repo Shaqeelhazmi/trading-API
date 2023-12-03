@@ -1,2 +1,10 @@
-package use_case.portfolio;public interface PortfolioDataAccessInterface {
+package use_case.portfolio;
+
+import entity.Portfolio;
+
+public interface PortfolioDataAccessInterface
+{
+    boolean existsByName(String identifier);
+
+    Portfolio pullPortfolio(String username);
 }

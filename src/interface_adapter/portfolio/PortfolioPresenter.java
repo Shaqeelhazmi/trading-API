@@ -24,10 +24,4 @@ public class PortfolioPresenter implements PortfolioOutputBoundary{
         portfolioViewModel.firePropertyChanged();
     }
 
-    @Override
-    public void prepareFailView(String message) {
-        PortfolioState portfolioState = portfolioViewModel.getState();
-        portfolioState.setError(message);
-        portfolioViewModel.firePropertyChanged();
-    }
 }

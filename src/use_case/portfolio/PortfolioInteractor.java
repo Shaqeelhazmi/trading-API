@@ -23,12 +23,8 @@ public class PortfolioInteractor implements PortfolioInputBoundary{
         HashMap<String, Integer> stocksOwned = portfolio.getPortfolio();
         double accountBalance = portfolio.getAccountBalance();
 
-        if (stocksOwned.isEmpty()){
-            portfolioPresenter.prepareFailView("You do not own any stocks. Your account balance is:" + accountBalance);
-        } else {
-            PortfolioOutputData portfolioOutputData = new PortfolioOutputData(stocksOwned, accountBalance);
-            portfolioPresenter.prepareSuccessView(portfolioOutputData);
-        }
+        PortfolioOutputData portfolioOutputData = new PortfolioOutputData(stocksOwned, accountBalance);
+        portfolioPresenter.prepareSuccessView(portfolioOutputData);
 
     }
 }

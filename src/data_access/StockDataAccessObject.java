@@ -6,11 +6,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.buy.BuyDataAccessInterface;
+import use_case.sell.SellDataAccessInterface;
+
 
 import java.io.*;
 import java.util.*;
 
-public class StockDataAccessObject implements BuyDataAccessInterface {
+public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAccessInterface {
     private final File jsonFile;
     private final JSONObject jsonObject;
 

@@ -1,7 +1,7 @@
 package use_case.sell;
 
 import data_access.FileUserDataAccessObject;
-import data_access.InMemoryStockDataAccessObject;
+import data_access.StockDataAccessObject;
 import entity.CommonUser;
 import entity.Portfolio;
 import entity.Stock;
@@ -25,17 +25,22 @@ public class SellInteractor implements SellInputBoundary{
     @Override
     public void sell(SellInputData sellInputData) throws IOException {
 
-        InMemoryStockDataAccessObject stockDataAccessObject = new InMemoryStockDataAccessObject();
         CommonUser commonUser = userDataAccessObject.get(sellInputData.getUserName());
-        Stock stock = stockDataAccessObject.getStockObject(sellInputData.getStockSymbol());
+        Stock stock = sellDataAccessObject.getStock(sellInputData.getStockSymbol());
 
 
         LocalDateTime now = LocalDateTime.now();
         Portfolio portfolio = commonUser.getPortfolio();
 
         int amount = sellInputData.getAmount();
+        String date = now.toLocalDate().toString();
+
+        if (!stock.getPriceHistory().getDailyPriceHistory().containsKey(now.toLocalDate().toString())){
+            date = now.toLocalDate().minusDays(1).toString();
+        }
+
         double amount_received = amount * stock.getPriceHistory().
-                getDailyPriceHistory().get(String.valueOf(now.getDayOfMonth()));
+                getDailyPriceHistory().get(date);
 
         if (portfolio.getPortfolio().containsKey(stock.getStockSymbol())){
             if (amount <= portfolio.getPortfolio().get(stock.getStockSymbol())){

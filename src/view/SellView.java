@@ -16,7 +16,7 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
 public class SellView extends JPanel implements ActionListener, PropertyChangeListener{
-    public final String viewName = "sell";
+    public final String viewName = "Sell View";
     private final SellViewModel sellViewModel;
     private final LoggedInViewModel loggedInViewModel;
     private final JTextField amountInputField = new JTextField(15);

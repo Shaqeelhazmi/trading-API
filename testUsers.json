@@ -8,10 +8,10 @@
     "portfolio": {
         "portfolio": {
             "AAPL": 10,
-            "TSLA": 9,
+            "TSLA": 2,
             "TESLA": 500
         },
-        "accountBalance": 4865.5
+        "accountBalance": 6497.4800000000005
     },
     "transactionHistory": [
         {
@@ -153,6 +153,41 @@
             "pricePerShare": 10.5,
             "stock": "TESLA",
             "timestamp": "2023-12-02T15:14:26.470609"
+        },
+        {
+            "amountOfShares": 1,
+            "action": "Sell",
+            "pricePerShare": 233.14,
+            "stock": "Tesla Inc",
+            "timestamp": "2023-12-02T22:40:44.415538"
+        },
+        {
+            "amountOfShares": 1,
+            "action": "Sell",
+            "pricePerShare": 233.14,
+            "stock": "Tesla Inc",
+            "timestamp": "2023-12-02T22:41:40.892418"
+        },
+        {
+            "amountOfShares": 2,
+            "action": "Sell",
+            "pricePerShare": 233.14,
+            "stock": "Tesla Inc",
+            "timestamp": "2023-12-02T22:48:57.860353"
+        },
+        {
+            "amountOfShares": 2,
+            "action": "Sell",
+            "pricePerShare": 233.14,
+            "stock": "Tesla Inc",
+            "timestamp": "2023-12-02T22:49:09.225831"
+        },
+        {
+            "amountOfShares": 1,
+            "action": "Sell",
+            "pricePerShare": 233.14,
+            "stock": "Tesla Inc",
+            "timestamp": "2023-12-02T22:50:18.656085"
         }
     ],
     "username": "test"

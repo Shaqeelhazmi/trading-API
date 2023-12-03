@@ -11,15 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TransactionInterfaceTest {
     private Transaction transaction;
 
-
     @BeforeEach
-    void init(){
-        HashMap<String, Double> daily = new HashMap<String, Double>(5);
-        HashMap<String, Double> weekly = new HashMap<>();
-        HashMap<String, Double> monthly = new HashMap<>();
-        PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        Stock stock = new Stock("TSLA", "Tesla Inc", priceHistory);
-        transaction = new Transaction(LocalDateTime.now(), stock.getStockName(), "Bought Tesla Inc", 5, 10);
+    void init() {
+        transaction = new Transaction(LocalDateTime.now(), "Tesla Inc", "Bought Tesla Inc", 5, 10);
     }
 
     @Test
@@ -29,12 +23,7 @@ public class TransactionInterfaceTest {
 
     @Test
     void getStock() {
-        HashMap<String, Double> daily = new HashMap<String, Double>(5);
-        HashMap<String, Double> weekly = new HashMap<>();
-        HashMap<String, Double> monthly = new HashMap<>();
-        PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        Stock stock1 = new Stock("TSLA", "Tesla Inc", priceHistory);
-        assertEquals(stock1.getStockName(), transaction.getStock());
+        assertEquals("Tesla Inc", transaction.getStock());
     }
 
     @Test
@@ -51,4 +40,5 @@ public class TransactionInterfaceTest {
     void getAmountOfShares() {
         assertEquals(10, transaction.getAmountOfShares());
     }
+
 }

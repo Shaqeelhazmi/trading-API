@@ -27,4 +27,20 @@ public class StockState {
     public void setStockName(String stockName) {
         this.stockName = stockName;
     }
+
+    public ArrayList<String> getDailyPriceHistoryDates() {
+        return dailyPriceHistoryDates;
+    }
+
+    public ArrayList<Double> getDailyPriceHistoryPrices() {
+        return dailyPriceHistoryPrices;
+    }
+
+    public void setDailyPriceHistoryDates(ArrayList<String> dailyPriceHistoryDates) {
+        this.dailyPriceHistoryDates = dailyPriceHistoryDates;
+    }
+
+    public void setDailyPriceHistoryPrices(ArrayList<Double> dailyPriceHistoryPrices) {
+        this.dailyPriceHistoryPrices = dailyPriceHistoryPrices;
+    }
 }

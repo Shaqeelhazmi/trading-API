@@ -4,6 +4,7 @@ package app;
 import data_access.StockDataAccessObject;
 import entity.Stock;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.searching.SearchController;
 import interface_adapter.searching.SearchPresenter;
 import interface_adapter.searching.SearchViewModel;
@@ -17,10 +18,10 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class SearchUseCaseFactory {
-    public static SearchView create(ViewManagerModel viewManagerModel, SearchViewModel searchViewModel) {
+    public static SearchView create(ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, LoggedInViewModel loggedInViewModel) {
         try {
             SearchController searchController =  createSearchUseCase(viewManagerModel, searchViewModel);
-            return new SearchView(searchController, searchViewModel);
+            return new SearchView(searchController, searchViewModel, viewManagerModel, loggedInViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open file");
         }

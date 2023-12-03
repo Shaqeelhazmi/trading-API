@@ -46,7 +46,7 @@ public class PortfolioView extends JPanel implements ActionListener, PropertyCha
 
         portfolioViewModel.getState().getStocksOwned();
         double accountBalance = portfolioViewModel.getState().getAccountBalance();
-        stock1.setText(username);
+        // stock1.setText(username);
         stock1.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         goBack.addActionListener(
@@ -67,8 +67,8 @@ public class PortfolioView extends JPanel implements ActionListener, PropertyCha
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(stock1)){
                             PortfolioState state = portfolioViewModel.getState();
-                            state.se(stock1.getText());
-                            viewManagerModel.setActiveView(stockViewModel.getViewName);
+                            // state.s(stock1.getText());
+                            // viewManagerModel.setActiveView(stockViewModel.getViewName);
                             viewManagerModel.firePropertyChanged();
                         }
                     }

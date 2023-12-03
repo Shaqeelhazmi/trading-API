@@ -5,6 +5,7 @@ import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.searching.SearchController;
 import interface_adapter.searching.SearchState;
 import interface_adapter.searching.SearchViewModel;
+import interface_adapter.stock.StockViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -24,6 +26,8 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     private final SearchController searchController;
 
     private final SearchViewModel searchViewModel;
+
+    private final StockViewModel stockViewModel;
 
     private JTextField stocknameInputField = new JTextField(15);
 
@@ -40,13 +44,15 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     private JButton stock4 = new JButton();
 
     private JButton stock5 = new JButton();
-    private JPanel panel1;
     private JLabel Search;
 
 
-    public SearchView(SearchController controller, SearchViewModel searchViewModel, ViewManagerModel viewManagerModel, LoggedInViewModel loggedInViewModel) {
+
+    public SearchView(SearchController controller, SearchViewModel searchViewModel, ViewManagerModel viewManagerModel,
+                      LoggedInViewModel loggedInViewModel, StockViewModel stockViewModel) {
         this.searchController = controller;
         this.searchViewModel = searchViewModel;
+        this.stockViewModel = stockViewModel;
         searchViewModel.addPropertyChangeListener(this);
 
 
@@ -149,7 +155,6 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-
         stocknameInputField.addKeyListener(
                 new KeyListener() {
                     @Override
@@ -160,7 +165,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                         searchViewModel.setState(currentState);
                         SearchState current = searchViewModel.getSearchState();
                         searchController.search(current.getSearchName());
-                        HashMap<String, String> storedStock = searchViewModel.getSearchState().getStoredStocks();
+                        HashMap<String, ArrayList<String>> storedStock = searchViewModel.getSearchState().getStoredStocks();
                         Set<String> stockSet = storedStock.keySet();
                         List<String> stockList = stockSet.stream().toList();
                         stock1.setText(stockList.get(0));

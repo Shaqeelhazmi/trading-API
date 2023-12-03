@@ -13,8 +13,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.HashMap;
 
 public class SearchView extends JPanel implements ActionListener, PropertyChangeListener {
+
+    public final String viewName = "Search Stock";
     private final SearchController searchController;
 
     private final SearchViewModel searchViewModel;
@@ -22,6 +25,9 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     private final JTextField stocknameInputField = new JTextField(15);
 
     private final JButton search;
+
+    private JPanel stocks = new JPanel();
+
 
     public SearchView(SearchController controller, SearchViewModel searchViewModel) {
         this.searchController = controller;
@@ -38,14 +44,19 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         search = new JButton(SearchViewModel.Search_Button_Label);
         buttons.add(search);
 
+
+
         search.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(search)){
+                        if (evt.getSource().equals(search)) {
                             SearchState currentState = searchViewModel.getSearchState();
                             searchController.search(currentState.getSearchName());
                         }
+                        HashMap<String, String> storedStock = searchViewModel.getSearchState().getStoredStocks();
+                        JCheckBoxMenuItem stock = new JCheckBoxMenuItem(storedStock.keySet().toString());
+                        stocks.add(stock);
                     }
                 }
         );
@@ -58,6 +69,8 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                         String text = stocknameInputField.getText() + e.getKeyChar();
                         currentState.setSearchName(text);
                         searchViewModel.setState(currentState);
+                        SearchState current = searchViewModel.getSearchState();
+                        searchController.search(current.getSearchName());
                     }
 
                     @Override
@@ -68,18 +81,28 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                     public void keyReleased(KeyEvent e) {
                     }
                 });
+
+
+    this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+    this.add(title);
+    this.add(stocknameInfo);
+    this.add(buttons);
     }
+
+
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
+    public void actionPerformed(ActionEvent e) {System.out.println("Click" + e.getActionCommand());}
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        SearchState state = (SearchState) evt.getNewValue();
-        if (state.getSearchError() != null) {
-            JOptionPane.showMessageDialog(this, state.getSearchError());
+        if (evt.getSource().equals(searchViewModel)) {
+            SearchState state = (SearchState) evt.getNewValue();
+
+            if (state.getSearchError() != null) {
+                JOptionPane.showMessageDialog(this, state.getSearchError());
+            }
+                }
+            }
         }
-    }
-}

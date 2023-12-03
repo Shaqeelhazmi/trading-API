@@ -1,14 +1,22 @@
 package interface_adapter.searching;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class SearchState {
     private String search_name = null;
 
     private String error = null;
 
 
+    private HashMap<String, String> stocks;
+
+
     public SearchState(SearchState copy) {
         search_name = copy.search_name;
         error = copy.error;
+        stocks = copy.stocks;
+
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
@@ -27,6 +35,14 @@ public class SearchState {
 
 
     public String toString(){
-        return "Error: " + error;
+        return "Search Name: " + search_name;
     }
+
+    public void SetSearchSuccess() {
+    }
+
+    public void updatedStoredStocks(HashMap<String, String> stocks){this.stocks = stocks;}
+
+
+    public HashMap<String, String> getStoredStocks(){return stocks;}
 }

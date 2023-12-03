@@ -12,6 +12,8 @@ public class SearchViewModel extends ViewModel {
 
     public static final String STOCKNAME_LABEL = "Search stockname";
 
+    public static final String STOCK = "Buy Stock";
+
     private SearchState searchState = new SearchState();
 
     public SearchViewModel() {super("Search Stock"); }

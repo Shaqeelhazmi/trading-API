@@ -12,6 +12,9 @@ public class LoggedInViewModel extends ViewModel {
     private LoggedInState state = new LoggedInState();
 
     public static final String LOGOUT_BUTTON_LABEL = "Log out";
+    public static final String SEARCH_STOCK = "Search For Stock";
+
+    public static final String PORTFOLIO = "Open Portfolio";
     private String loggedInUser;
 
     public LoggedInViewModel() {

@@ -1,8 +1,7 @@
 package use_case.buy;
 
 import data_access.FileUserDataAccessObject;
-import data_access.InMemoryStockDataAccessObject;
-import data_access.InMemoryUserDataAccessObject;
+
 import data_access.StockDataAccessObject;
 import entity.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,7 +49,7 @@ class BuyInteractorTest {
     @Test
     void failureNotEnough() throws IOException {
         BuyInputData buyInputData = new BuyInputData(stock1.getStockSymbol(), 2500, user.getUsername());
-        BuyDataAccessInterface buyDataAccessInterface = new StockDataAccessObject("./stocks.json");
+        StockDataAccessObject stockDataAccessObject = new StockDataAccessObject("./stocks.json");
         FileUserDataAccessObject userDataAccessObject = new FileUserDataAccessObject("./testUsers.json");
         userDataAccessObject.get("test").getPortfolio().setAccountBalance(10000);
 
@@ -67,14 +66,14 @@ class BuyInteractorTest {
                 fail("Use Case success is unexpected");
             }
         };
-        BuyInputBoundary interactor = new BuyInteractor(buyDataAccessInterface, failurePresenter, userDataAccessObject);
+        BuyInputBoundary interactor = new BuyInteractor(stockDataAccessObject, failurePresenter, userDataAccessObject);
         interactor.buy(buyInputData);
     }
 
     @Test
     void successView() throws IOException {
         BuyInputData buyInputData = new BuyInputData(stock1.getStockSymbol(), 5, user.getUsername());
-        BuyDataAccessInterface buyDataAccessInterface = new StockDataAccessObject("./stocks.json");
+        BuyDataAccessInterface buyDataAccessInterface = new StockDataAccessObject("./teststocks.json");
         FileUserDataAccessObject userDataAccessObject = new FileUserDataAccessObject("./testUsers.json");
 
 

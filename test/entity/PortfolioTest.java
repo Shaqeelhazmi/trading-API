@@ -5,25 +5,30 @@ import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class PortfolioInterfaceTest {
+public class PortfolioTest {
     private HashMap<String, Integer> stocksOwned;
 
     private Portfolio portfolio;
 
     @BeforeEach
     void init(){
-        stocksOwned = new HashMap<>();
-        stocksOwned.put("Tesla Inc", 100);
+        HashMap<String, Double> daily = new HashMap<String, Double>(5);
+        HashMap<String, Double> weekly = new HashMap<>();
+        HashMap<String, Double> monthly = new HashMap<>();
+        PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
+        Stock stock = new Stock("TSLA", "Tesla Inc", priceHistory);
+        stocksOwned = new HashMap<String, Integer>();
+        stocksOwned.put(stock.getStockName(), 100);
         portfolio = new Portfolio(stocksOwned, 10000);
-    }
 
+    }
     @Test
     void getPortfolio() {
         HashMap<String, Integer> stocksOwned2 = new HashMap<>();
         stocksOwned2.put("Tesla Inc", 100);
-        assertEquals(stocksOwned2 ,portfolio.getPortfolio());
+        assertEquals(stocksOwned2, portfolio.getPortfolio());
     }
 
     @Test

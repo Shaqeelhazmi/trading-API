@@ -1,8 +1,10 @@
 package view;
 
+import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.SignupViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +20,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     public final String viewName = "log in";
     private final LoginViewModel loginViewModel;
 
+    private final ViewManagerModel viewManagerModel;
+    private  final SignupViewModel signupViewModel;
+
     final JTextField usernameInputField = new JTextField(15);
     private final JLabel usernameErrorField = new JLabel();
 
@@ -28,25 +33,46 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     final JButton cancel;
     private final LoginController loginController;
 
-    public LoginView(LoginViewModel loginViewModel, LoginController controller) {
+    public LoginView(LoginViewModel loginViewModel, LoginController controller,
+                     ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) {
 
         this.loginController = controller;
         this.loginViewModel = loginViewModel;
+        this.viewManagerModel = viewManagerModel;
+        this.signupViewModel = signupViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
+        this.setBackground(new Color(199, 0, 57));
 
-        JLabel title = new JLabel("Login Screen");
+
+        JLabel title = new JLabel("The Wolf of Bay Street");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setBackground(new Color(199, 0, 57));
+        title.setFont(new Font("Times New Roman", Font.BOLD, 100));
 
+        JLabel username = new JLabel("Username");
         LabelTextPanel usernameInfo = new LabelTextPanel(
-                new JLabel("Username"), usernameInputField);
+                username, usernameInputField);
+        username.setFont(new Font("Helvetica", Font.ITALIC, 50));
+        usernameInfo.setBackground(new Color(199, 0, 57));
+        usernameInputField.setFont(new Font("Helvetica", Font.ITALIC, 50));
+
+        JLabel password = new JLabel("Password");
         LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel("Password"), passwordInputField);
+                password, passwordInputField);
+        password.setFont(new Font("Helvetica", Font.ITALIC, 50));
+        passwordInfo.setBackground(new Color(199, 0, 57));
+        passwordInputField.setFont(new Font("Helvetica", Font.ITALIC, 50));
+
 
         JPanel buttons = new JPanel();
         logIn = new JButton(loginViewModel.LOGIN_BUTTON_LABEL);
         buttons.add(logIn);
+        logIn.setFont(new Font("Helvetica", Font.ITALIC, 50));
         cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
+        buttons.setBackground(new Color(218, 247, 166));
+        cancel.setFont(new Font("Helvetica", Font.ITALIC, 50));
+
 
         logIn.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
@@ -63,7 +89,16 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 }
         );
 
-        cancel.addActionListener(this);
+        cancel.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(cancel)){
+                            switch_to_signup();
+                        }
+                    }
+                }
+        );
 
         usernameInputField.addKeyListener(new KeyListener() {
             @Override
@@ -124,6 +159,11 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     private void setFields(LoginState state) {
         usernameInputField.setText(state.getUsername());
+    }
+
+    private void switch_to_signup(){
+        viewManagerModel.setActiveView(signupViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 
 }

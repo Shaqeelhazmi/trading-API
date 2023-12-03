@@ -26,7 +26,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 
     private final JButton search;
 
-    private JPanel stocks = new JPanel();
+    private JButton stocks = new JButton();
 
 
     public SearchView(SearchController controller, SearchViewModel searchViewModel) {
@@ -54,8 +54,6 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                             SearchState currentState = searchViewModel.getSearchState();
                             searchController.search(currentState.getSearchName());
                         }
-                        HashMap<String, String> storedStock = searchViewModel.getSearchState().getStoredStocks();
-                        stocks.add(storedStock.toString());
                     }
                 }
         );
@@ -71,8 +69,8 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                         SearchState current = searchViewModel.getSearchState();
                         searchController.search(current.getSearchName());
                         HashMap<String, String> storedStock = searchViewModel.getSearchState().getStoredStocks();
-                        JButton
-                    }
+
+                   }
 
                     @Override
                     public void keyPressed(KeyEvent e) {
@@ -82,8 +80,6 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                     public void keyReleased(KeyEvent e) {
                     }
                 });
-
-
     this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
     this.add(title);

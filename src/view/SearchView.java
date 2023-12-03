@@ -55,8 +55,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                             searchController.search(currentState.getSearchName());
                         }
                         HashMap<String, String> storedStock = searchViewModel.getSearchState().getStoredStocks();
-                        JCheckBoxMenuItem stock = new JCheckBoxMenuItem(storedStock.keySet().toString());
-                        stocks.add(stock);
+                        stocks.add(storedStock.toString());
                     }
                 }
         );
@@ -71,6 +70,8 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                         searchViewModel.setState(currentState);
                         SearchState current = searchViewModel.getSearchState();
                         searchController.search(current.getSearchName());
+                        HashMap<String, String> storedStock = searchViewModel.getSearchState().getStoredStocks();
+                        JButton
                     }
 
                     @Override
@@ -87,6 +88,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 
     this.add(title);
     this.add(stocknameInfo);
+    this.add(stocks);
     this.add(buttons);
     }
 

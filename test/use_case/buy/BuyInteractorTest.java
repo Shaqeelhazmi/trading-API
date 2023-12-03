@@ -3,6 +3,7 @@ package use_case.buy;
 import data_access.FileUserDataAccessObject;
 import data_access.InMemoryStockDataAccessObject;
 import data_access.InMemoryUserDataAccessObject;
+import data_access.StockDataAccessObject;
 import entity.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ class BuyInteractorTest {
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        stock1 = new Stock("TSLA", "TESLA", priceHistory);
+        stock1 = new Stock("GOOGL", "Alphabet Inc - Class A", priceHistory);
         
 
         ArrayList<String> favourites = new ArrayList<>(5);
@@ -49,7 +50,7 @@ class BuyInteractorTest {
     @Test
     void failureNotEnough() throws IOException {
         BuyInputData buyInputData = new BuyInputData(stock1.getStockSymbol(), 2500, user.getUsername());
-        BuyDataAccessInterface buyDataAccessInterface = new InMemoryStockDataAccessObject();
+        BuyDataAccessInterface buyDataAccessInterface = new StockDataAccessObject("./stocks.json");
         FileUserDataAccessObject userDataAccessObject = new FileUserDataAccessObject("./testUsers.json");
         userDataAccessObject.get("test").getPortfolio().setAccountBalance(10000);
 
@@ -58,7 +59,7 @@ class BuyInteractorTest {
             @Override
             public void prepareFailView(String message) {
                 assertEquals("You do not have enough non-liquid balance to make this purchase, you " +
-                        "can only afford " + 952 + " stocks", message);
+                        "can only afford " + 75 + " stocks", message);
             }
 
             @Override
@@ -73,7 +74,7 @@ class BuyInteractorTest {
     @Test
     void successView() throws IOException {
         BuyInputData buyInputData = new BuyInputData(stock1.getStockSymbol(), 5, user.getUsername());
-        BuyDataAccessInterface buyDataAccessInterface = new InMemoryStockDataAccessObject();
+        BuyDataAccessInterface buyDataAccessInterface = new StockDataAccessObject("./stocks.json");
         FileUserDataAccessObject userDataAccessObject = new FileUserDataAccessObject("./testUsers.json");
 
 
@@ -82,7 +83,7 @@ class BuyInteractorTest {
             @Override
             public void prepareSuccessView(BuyOutputData buyOutputData) {
                 assertNotNull(buyOutputData.getCreationTime());
-                assertEquals("TESLA",buyOutputData.getStockBought());
+                assertEquals("Alphabet Inc - Class A",buyOutputData.getStockBought());
             }
             @Override
             public void prepareFailView(String message) {

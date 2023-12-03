@@ -19,6 +19,7 @@ import java.io.IOException;
 
 public class BuyView extends JPanel implements ActionListener, PropertyChangeListener {
 
+    public final String viewName = "Buy Stock";
     private final BuyController buyController;
 
     private final BuyViewModel buyViewModel;
@@ -27,8 +28,10 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
 
     private final SearchViewModel searchViewModel;
 
-    private String stockSymbol;
     private String stockName;
+
+    private String stockSymbol;
+
 
     private final JTextField amount = new JTextField();
 
@@ -112,6 +115,9 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        BuyState state = (BuyState) evt.getNewValue();
+        stockName = state.getStockName();
+        stockSymbol = state.getStockSymbol();
 
     }
 }

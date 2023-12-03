@@ -20,7 +20,7 @@ class StockInterfaceTest {
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         priceHistory = new PriceHistory(daily, weekly, monthly);
-        stock = new Stock("TSLA", "TESLA", priceHistory);
+        stock = new Stock("TSLA", "Tesla Inc", priceHistory);
     }
     @Test
     void getStockSymbol() {
@@ -28,12 +28,13 @@ class StockInterfaceTest {
     }
 
     @Test
+    void getStockName() {
+        assertEquals("Tesla Inc", stock.getStockName());
+    }
+
+    @Test
     void getPriceHistory() {
         assertEquals(priceHistory, stock.getPriceHistory());
     }
 
-    @Test
-    void getStockName() {
-        assertEquals("TESLA", stock.getStockName());
-    }
 }

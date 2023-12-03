@@ -36,7 +36,11 @@ public class SellInteractor implements SellInputBoundary{
         String date = now.toLocalDate().toString();
 
         if (!stock.getPriceHistory().getDailyPriceHistory().containsKey(now.toLocalDate().toString())){
-            date = now.toLocalDate().minusDays(1).toString();
+            int i = 0;
+            while(!stock.getPriceHistory().getDailyPriceHistory().containsKey(date)) {
+                i++;
+                date = now.toLocalDate().minusDays(i).toString();
+            }
         }
 
         double amount_received = amount * stock.getPriceHistory().

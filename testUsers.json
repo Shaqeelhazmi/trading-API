@@ -46,10 +46,10 @@
             "portfolio": {
                 "GOOGL": 6,
                 "AAPL": 10,
-                "TSLA": 2,
+                "TSLA": 21,
                 "TESLA": 500
             },
-            "accountBalance": 5706.320000000001
+            "accountBalance": 1276.6600000000012
         },
         "transactionHistory": [
             {
@@ -233,6 +233,20 @@
                 "pricePerShare": 131.86,
                 "stock": "Alphabet Inc - Class A",
                 "timestamp": "2023-12-03T16:01:31.391569"
+            },
+            {
+                "amountOfShares": 20,
+                "action": "Buy",
+                "pricePerShare": 233.13999999999996,
+                "stock": "Tesla Inc",
+                "timestamp": "2023-12-03T18:52:17.156053"
+            },
+            {
+                "amountOfShares": 1,
+                "action": "Sell",
+                "pricePerShare": 233.14,
+                "stock": "Tesla Inc",
+                "timestamp": "2023-12-03T18:53:32.588569"
             }
         ],
         "username": "test"

@@ -129,7 +129,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         return accounts.containsKey(identifier);
     }
 
-    public static HashMap<String, Object> toMap(JSONObject jsonobj)  throws JSONException {
+    private static HashMap<String, Object> toMap(JSONObject jsonobj)  throws JSONException {
         HashMap<String, Object> map = new HashMap<String, Object>();
         Iterator<String> keys = jsonobj.keys();
         while(keys.hasNext()) {
@@ -143,7 +143,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
             map.put(key, value);
         }   return map;
     }
-    public static HashMap<String, Integer> toStringIntMap(JSONObject jsonobj)  throws JSONException {
+    private static HashMap<String, Integer> toStringIntMap(JSONObject jsonobj)  throws JSONException {
         HashMap<String, Integer> map = new HashMap<String, Integer>();
         Iterator<String> keys = jsonobj.keys();
         while(keys.hasNext()) {
@@ -152,14 +152,14 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
             map.put(key, value);
         }   return map;
     }
-    public static List<String> toStringList(JSONArray array) throws JSONException {
+    private static List<String> toStringList(JSONArray array) throws JSONException {
         List<String> list = new ArrayList<String>();
         for(int i = 0; i < array.length(); i++) {
             String value = array.getString(i);
             list.add(value);
         }   return list;
     }
-    public static List<Object> toList(JSONArray array) throws JSONException {
+    private static List<Object> toList(JSONArray array) throws JSONException {
         List<Object> list = new ArrayList<Object>();
         for(int i = 0; i < array.length(); i++) {
             Object value = array.get(i);
@@ -172,10 +172,4 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
             list.add(value);
         }   return list;
     }
-
-    public static JSONObject parseJSONFile(String filename) throws JSONException, IOException {
-        String content = new String(Files.readAllBytes(Paths.get(filename)));
-        return new JSONObject(content);
-    }
-
 }

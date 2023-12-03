@@ -1,8 +1,6 @@
 package use_case.buy;
 
 import data_access.FileUserDataAccessObject;
-import data_access.InMemoryStockDataAccessObject;
-//import data_access.StockDataAccessObject;
 import entity.CommonUser;
 import entity.Portfolio;
 import entity.Stock;
@@ -27,23 +25,29 @@ public class BuyInteractor implements BuyInputBoundary{
     @Override
     public void buy(BuyInputData buyInputData) throws IOException {
 
-        //FileUserDataAccessObject fileUserDataAccessObject = new FileUserDataAccessObject("./users.json");
-        //StockDataAccessObject stockDataAccessObject = new StockDataAccessObject("./stocks.json");
-        InMemoryStockDataAccessObject stockDataAccessObject = new InMemoryStockDataAccessObject();
-
-
-        //CommonUser commonUser = fileUserDataAccessObject.get(buyInputData.getUserName());
         CommonUser commonUser = userDataAccessObject.get(buyInputData.getUserName());
-        Stock stock = stockDataAccessObject.getStockObject(buyInputData.getStockSymbol());
-
+        Stock stock = buyDataAccessObject.getStock(buyInputData.getStockSymbol());
 
         LocalDateTime now = LocalDateTime.now();
         Portfolio portfolio = commonUser.getPortfolio();
 
         // If the account has enough money to buy, then they can buy
         int amount = buyInputData.getAmount();
-        double amount_used_for_purchase = amount * stock.getPriceHistory().getDailyPriceHistory().
-                get(String.valueOf(now.getDayOfMonth()));
+        String date = now.toLocalDate().toString();
+        double amount_used_for_purchase = 0;
+        double price_for_stock = 0;
+
+        //Check if date is in the database
+        if (stock.getPriceHistory().getDailyPriceHistory().containsKey(date)){
+            price_for_stock = stock.getPriceHistory().getDailyPriceHistory().
+                    get(date);
+            amount_used_for_purchase = amount * price_for_stock;
+        } else {
+            date = now.toLocalDate().minusDays(1).toString();
+            price_for_stock = stock.getPriceHistory().getDailyPriceHistory().
+                    get(date);
+            amount_used_for_purchase = amount * price_for_stock;
+        }
 
         if (portfolio.getAccountBalance() >= amount_used_for_purchase) {
 
@@ -52,7 +56,7 @@ public class BuyInteractor implements BuyInputBoundary{
                 int new_value = old_value + amount;
                 portfolio.getPortfolio().replace(stock.getStockSymbol(), old_value, new_value);
             } else {
-                portfolio.getPortfolio().put(stock.getStockName(), amount);
+                portfolio.getPortfolio().put(stock.getStockSymbol(), amount);
             }
             // Get the amount of money you have in portfolio
             double current_balance_portfolio = commonUser.getPortfolio().getAccountBalance();
@@ -71,13 +75,10 @@ public class BuyInteractor implements BuyInputBoundary{
             BuyOutputData buyOutputData = new BuyOutputData(stock.getStockName(), now.toString());
             buyPresenter.prepareSuccessView(buyOutputData);
         } else {
-                double price_for_stock = stock.getPriceHistory().getDailyPriceHistory().
-                        get(String.valueOf(now.getDayOfMonth()));
                 double new_purchase_amount = amount * price_for_stock;
                 while (portfolio.getAccountBalance() - new_purchase_amount <= 0) {
                     amount--;
-                    new_purchase_amount = amount * stock.getPriceHistory().
-                            getDailyPriceHistory().get(String.valueOf(now.getDayOfMonth()));
+                    new_purchase_amount = amount * price_for_stock;
                 }
                 buyPresenter.prepareFailView("You do not have enough non-liquid balance to make this purchase, you " +
                         "can only afford " + amount + " stocks");

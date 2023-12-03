@@ -1,7 +1,6 @@
 package interface_adapter.sell;
 
 import interface_adapter.ViewManagerModel;
-import use_case.sell.SellInputBoundary;
 import use_case.sell.SellOutputBoundary;
 import use_case.sell.SellOutputData;
 

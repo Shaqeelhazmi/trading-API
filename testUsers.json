@@ -1,194 +1,240 @@
-{"test": {
-    "password": "1234",
-    "creationTime": "2023-11-25T17:27:02.239028800",
-    "favourites": [
-        "TSLA",
-        "AAPL"
-    ],
-    "portfolio": {
+{
+    "tom": {
+        "password": "2222",
+        "creationTime": "2023-12-03T16:03:37.519336",
+        "favourites": [],
         "portfolio": {
-            "AAPL": 10,
-            "TSLA": 2,
-            "TESLA": 500
+            "portfolio": {
+                "GOOGL": 6,
+                "TSLA": 12
+            },
+            "accountBalance": 5411.16
         },
-        "accountBalance": 6497.4800000000005
+        "transactionHistory": [
+            {
+                "amountOfShares": 6,
+                "action": "Buy",
+                "pricePerShare": 131.86,
+                "stock": "Alphabet Inc - Class A",
+                "timestamp": "2023-12-03T16:04:50.350933"
+            },
+            {
+                "amountOfShares": 14,
+                "action": "Buy",
+                "pricePerShare": 233.14000000000001,
+                "stock": "Tesla Inc",
+                "timestamp": "2023-12-03T16:06:33.652845"
+            },
+            {
+                "amountOfShares": 2,
+                "action": "Sell",
+                "pricePerShare": 233.14,
+                "stock": "Tesla Inc",
+                "timestamp": "2023-12-03T16:10:30.211355"
+            }
+        ],
+        "username": "tom"
     },
-    "transactionHistory": [
-        {
-            "amountOfShares": 5,
-            "action": "buy",
-            "pricePerShare": 100,
-            "stock": "TSLA",
-            "timestamp": "2023-11-25T17:27:02.239028800"
+    "test": {
+        "password": "1234",
+        "creationTime": "2023-11-25T17:27:02.239028800",
+        "favourites": [
+            "TSLA",
+            "AAPL"
+        ],
+        "portfolio": {
+            "portfolio": {
+                "GOOGL": 6,
+                "AAPL": 10,
+                "TSLA": 2,
+                "TESLA": 500
+            },
+            "accountBalance": 5706.320000000001
         },
-        {
-            "amountOfShares": 5,
-            "action": "Buy",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-01T17:07:16.168333"
-        },
-        {
-            "amountOfShares": 5,
-            "action": "Buy",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-01T17:07:49.678835"
-        },
-        {
-            "amountOfShares": 5,
-            "action": "Buy",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-01T17:09:28.114879"
-        },
-        {
-            "amountOfShares": 5,
-            "action": "Buy",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-01T17:11:53.088309"
-        },
-        {
-            "amountOfShares": 5,
-            "action": "Buy",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-01T17:13:35.369734"
-        },
-        {
-            "amountOfShares": 5,
-            "action": "Buy",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-01T17:14:34.384667"
-        },
-        {
-            "amountOfShares": 5,
-            "action": "Buy",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-01T17:18:16.203709"
-        },
-        {
-            "amountOfShares": 5,
-            "action": "Buy",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-02T14:16:17.062466"
-        },
-        {
-            "amountOfShares": 5,
-            "action": "Sell",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-02T14:19:17.217655"
-        },
-        {
-            "amountOfShares": 24,
-            "action": "Sell",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-02T14:22:39.059244"
-        },
-        {
-            "amountOfShares": 1,
-            "action": "Sell",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-02T14:25:12.191555"
-        },
-        {
-            "amountOfShares": 1,
-            "action": "Sell",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-02T14:26:04.814646"
-        },
-        {
-            "amountOfShares": 2,
-            "action": "Sell",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-02T14:32:24.071701"
-        },
-        {
-            "amountOfShares": 12,
-            "action": "Sell",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-02T14:34:38.749355"
-        },
-        {
-            "amountOfShares": 5,
-            "action": "Buy",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-02T14:40:32.028391"
-        },
-        {
-            "amountOfShares": 500,
-            "action": "Buy",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-02T14:59:17.526741"
-        },
-        {
-            "amountOfShares": 5,
-            "action": "Buy",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-02T15:13:29.514075"
-        },
-        {
-            "amountOfShares": 5,
-            "action": "Buy",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-02T15:14:10.439576"
-        },
-        {
-            "amountOfShares": 1,
-            "action": "Sell",
-            "pricePerShare": 10.5,
-            "stock": "TESLA",
-            "timestamp": "2023-12-02T15:14:26.470609"
-        },
-        {
-            "amountOfShares": 1,
-            "action": "Sell",
-            "pricePerShare": 233.14,
-            "stock": "Tesla Inc",
-            "timestamp": "2023-12-02T22:40:44.415538"
-        },
-        {
-            "amountOfShares": 1,
-            "action": "Sell",
-            "pricePerShare": 233.14,
-            "stock": "Tesla Inc",
-            "timestamp": "2023-12-02T22:41:40.892418"
-        },
-        {
-            "amountOfShares": 2,
-            "action": "Sell",
-            "pricePerShare": 233.14,
-            "stock": "Tesla Inc",
-            "timestamp": "2023-12-02T22:48:57.860353"
-        },
-        {
-            "amountOfShares": 2,
-            "action": "Sell",
-            "pricePerShare": 233.14,
-            "stock": "Tesla Inc",
-            "timestamp": "2023-12-02T22:49:09.225831"
-        },
-        {
-            "amountOfShares": 1,
-            "action": "Sell",
-            "pricePerShare": 233.14,
-            "stock": "Tesla Inc",
-            "timestamp": "2023-12-02T22:50:18.656085"
-        }
-    ],
-    "username": "test"
-}}
+        "transactionHistory": [
+            {
+                "amountOfShares": 5,
+                "action": "buy",
+                "pricePerShare": 100,
+                "stock": "TSLA",
+                "timestamp": "2023-11-25T17:27:02.239028800"
+            },
+            {
+                "amountOfShares": 5,
+                "action": "Buy",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-01T17:07:16.168333"
+            },
+            {
+                "amountOfShares": 5,
+                "action": "Buy",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-01T17:07:49.678835"
+            },
+            {
+                "amountOfShares": 5,
+                "action": "Buy",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-01T17:09:28.114879"
+            },
+            {
+                "amountOfShares": 5,
+                "action": "Buy",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-01T17:11:53.088309"
+            },
+            {
+                "amountOfShares": 5,
+                "action": "Buy",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-01T17:13:35.369734"
+            },
+            {
+                "amountOfShares": 5,
+                "action": "Buy",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-01T17:14:34.384667"
+            },
+            {
+                "amountOfShares": 5,
+                "action": "Buy",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-01T17:18:16.203709"
+            },
+            {
+                "amountOfShares": 5,
+                "action": "Buy",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-02T14:16:17.062466"
+            },
+            {
+                "amountOfShares": 5,
+                "action": "Sell",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-02T14:19:17.217655"
+            },
+            {
+                "amountOfShares": 24,
+                "action": "Sell",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-02T14:22:39.059244"
+            },
+            {
+                "amountOfShares": 1,
+                "action": "Sell",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-02T14:25:12.191555"
+            },
+            {
+                "amountOfShares": 1,
+                "action": "Sell",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-02T14:26:04.814646"
+            },
+            {
+                "amountOfShares": 2,
+                "action": "Sell",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-02T14:32:24.071701"
+            },
+            {
+                "amountOfShares": 12,
+                "action": "Sell",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-02T14:34:38.749355"
+            },
+            {
+                "amountOfShares": 5,
+                "action": "Buy",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-02T14:40:32.028391"
+            },
+            {
+                "amountOfShares": 500,
+                "action": "Buy",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-02T14:59:17.526741"
+            },
+            {
+                "amountOfShares": 5,
+                "action": "Buy",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-02T15:13:29.514075"
+            },
+            {
+                "amountOfShares": 5,
+                "action": "Buy",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-02T15:14:10.439576"
+            },
+            {
+                "amountOfShares": 1,
+                "action": "Sell",
+                "pricePerShare": 10.5,
+                "stock": "TESLA",
+                "timestamp": "2023-12-02T15:14:26.470609"
+            },
+            {
+                "amountOfShares": 1,
+                "action": "Sell",
+                "pricePerShare": 233.14,
+                "stock": "Tesla Inc",
+                "timestamp": "2023-12-02T22:40:44.415538"
+            },
+            {
+                "amountOfShares": 1,
+                "action": "Sell",
+                "pricePerShare": 233.14,
+                "stock": "Tesla Inc",
+                "timestamp": "2023-12-02T22:41:40.892418"
+            },
+            {
+                "amountOfShares": 2,
+                "action": "Sell",
+                "pricePerShare": 233.14,
+                "stock": "Tesla Inc",
+                "timestamp": "2023-12-02T22:48:57.860353"
+            },
+            {
+                "amountOfShares": 2,
+                "action": "Sell",
+                "pricePerShare": 233.14,
+                "stock": "Tesla Inc",
+                "timestamp": "2023-12-02T22:49:09.225831"
+            },
+            {
+                "amountOfShares": 1,
+                "action": "Sell",
+                "pricePerShare": 233.14,
+                "stock": "Tesla Inc",
+                "timestamp": "2023-12-02T22:50:18.656085"
+            },
+            {
+                "amountOfShares": 6,
+                "action": "Buy",
+                "pricePerShare": 131.86,
+                "stock": "Alphabet Inc - Class A",
+                "timestamp": "2023-12-03T16:01:31.391569"
+            }
+        ],
+        "username": "test"
+    }
+}

@@ -1,5 +1,4 @@
 package use_case.sell;
-import java.time.LocalDateTime;
 
 public class SellOutputData {
     private final String stockName;

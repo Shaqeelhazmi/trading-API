@@ -85,7 +85,6 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
         return stocks.containsKey(identifier);
     }
 
-    @Override
     public Stock getStockObject(String stockSymbol) {
         return null;
     }

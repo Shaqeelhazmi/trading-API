@@ -37,13 +37,14 @@ public class BuyInteractor implements BuyInputBoundary{
         double amount_used_for_purchase = 0;
         double price_for_stock = 0;
 
+        int i = 0;
         //Check if date is in the database
+        while(!stock.getPriceHistory().getDailyPriceHistory().containsKey(date)) {
+            i++;
+            date = now.toLocalDate().minusDays(i).toString();
+        }
+
         if (stock.getPriceHistory().getDailyPriceHistory().containsKey(date)){
-            price_for_stock = stock.getPriceHistory().getDailyPriceHistory().
-                    get(date);
-            amount_used_for_purchase = amount * price_for_stock;
-        } else {
-            date = now.toLocalDate().minusDays(1).toString();
             price_for_stock = stock.getPriceHistory().getDailyPriceHistory().
                     get(date);
             amount_used_for_purchase = amount * price_for_stock;

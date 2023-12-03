@@ -9,18 +9,14 @@ import java.util.HashMap;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionTest {
-
     private Transaction transaction;
-
 
     @BeforeEach
     void init(){
         HashMap<String, Double> daily = new HashMap<String, Double>(5);
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
-        PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        Stock stock = new Stock("TSLA", "TESLA", priceHistory);
-        transaction = new Transaction(LocalDateTime.now(), stock.getStockName(), "Bought TESLA", 5, 10);
+        transaction = new Transaction(LocalDateTime.now(), "Tesla Inc", "Bought Tesla Inc", 5, 10);
     }
 
     @Test
@@ -30,17 +26,12 @@ class TransactionTest {
 
     @Test
     void getStock() {
-        HashMap<String, Double> daily = new HashMap<String, Double>(5);
-        HashMap<String, Double> weekly = new HashMap<>();
-        HashMap<String, Double> monthly = new HashMap<>();
-        PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        Stock stock = new Stock("TSLA", "TESLA", priceHistory);
-        assertEquals(stock.getStockName(), transaction.getStock());
+        assertEquals("Tesla Inc", transaction.getStock());
     }
 
     @Test
     void getAction() {
-        assertEquals("Bought TESLA", transaction.getAction());
+        assertEquals("Bought Tesla Inc", transaction.getAction());
     }
 
     @Test

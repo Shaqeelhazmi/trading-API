@@ -24,10 +24,6 @@ public class SearchInteractor implements SearchInputBoundary{
         AlphaVantage alphaVantage = new AlphaVantage("SYMBOL_SEARCH", searchInputData.getStockName());
         JSONObject jsonObject = alphaVantage.getJsonObject();
         List result_list = toList(jsonObject.getJSONArray("bestMatches"));
-        if (result_list.isEmpty()) {
-            // No such stock in the market
-            searchPresenter.prepareFailView("No such stock found in the whole market");
-        } else {
             // There exist such stocks
             ArrayList symbol_list = new ArrayList<String>();
             ArrayList name_list = new ArrayList<String>();
@@ -45,7 +41,6 @@ public class SearchInteractor implements SearchInputBoundary{
             searchPresenter.prepareSuccessView(searchOutputData);
         }
 
-    }
     public static HashMap<String, Object> toMap(JSONObject jsonobj)  throws JSONException {
         HashMap<String, Object> map = new HashMap<String, Object>();
         Iterator<String> keys = jsonobj.keys();

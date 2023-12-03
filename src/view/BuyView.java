@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.ViewManagerModel;
 import interface_adapter.buy.BuyController;
 import interface_adapter.buy.BuyState;
 import interface_adapter.buy.BuyViewModel;
@@ -28,6 +29,10 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
 
     private final SearchViewModel searchViewModel;
 
+    private final JButton home;
+
+    private final JButton back;
+
     private String stockName;
 
     private String stockSymbol;
@@ -37,7 +42,7 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
 
     private final JButton buy;
 
-    public BuyView(BuyController buyController, BuyViewModel buyViewModel, LoggedInViewModel loggedInViewModel, SearchViewModel searchViewModel){
+    public BuyView(BuyController buyController, BuyViewModel buyViewModel, LoggedInViewModel loggedInViewModel, SearchViewModel searchViewModel, ViewManagerModel viewManagerModel){
         this.buyController = buyController;
         this.buyViewModel = buyViewModel;
         this.loggedInViewModel = loggedInViewModel;
@@ -57,6 +62,12 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
         JPanel buttons = new JPanel();
         buy = new JButton(BuyViewModel.Buy_Button_Label);
         buttons.add(buy);
+
+        home = new JButton(BuyViewModel.HOME);
+        buttons.add(home);
+
+        back = new JButton(BuyViewModel.GOBACK);
+        buttons.add(back);
 
 
         buy.addActionListener(
@@ -101,6 +112,30 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
                     }
                 }
         );
+
+        back.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(back)){
+                            viewManagerModel.setActiveView(searchViewModel.getViewName());
+                            viewManagerModel.firePropertyChanged();
+                        }
+                    }
+                }
+        );
+
+        home.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(home)){
+                            viewManagerModel.setActiveView(loggedInViewModel.getViewName());
+                            viewManagerModel.firePropertyChanged();
+                        }
+                    }
+                }
+        );
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
@@ -118,6 +153,5 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
         BuyState state = (BuyState) evt.getNewValue();
         stockName = state.getStockName();
         stockSymbol = state.getStockSymbol();
-
     }
 }

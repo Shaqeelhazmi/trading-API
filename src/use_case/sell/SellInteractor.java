@@ -1,43 +1,78 @@
 package use_case.sell;
 
+import data_access.FileUserDataAccessObject;
+import data_access.StockDataAccessObject;
 import entity.CommonUser;
 import entity.Portfolio;
 import entity.Stock;
+import entity.Transaction;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class SellInteractor implements SellInputBoundary{
     final SellDataAccessInterface sellDataAccessObject;
     final SellOutputBoundary sellPresenter;
-    CommonUser commonUser;
-    Stock stock;
+    FileUserDataAccessObject userDataAccessObject;
 
-    public SellInteractor(SellDataAccessInterface sellDataAccessInterface,
-                          CommonUser commonUser, SellOutputBoundary sellOutputBoundary, Stock stock){
+    public SellInteractor(SellDataAccessInterface sellDataAccessInterface, SellOutputBoundary sellPresenter,
+                          FileUserDataAccessObject userDataAccessObject){
         this.sellDataAccessObject = sellDataAccessInterface;
-        this.sellPresenter = sellOutputBoundary;
-        this.commonUser = commonUser;
-        this.stock = stock;
+        this.sellPresenter = sellPresenter;
+        this.userDataAccessObject = userDataAccessObject;
     }
 
     @Override
-    public void sell(SellInputData sellInputData){
+    public void sell(SellInputData sellInputData) throws IOException {
+
+        CommonUser commonUser = userDataAccessObject.get(sellInputData.getUserName());
+        Stock stock = sellDataAccessObject.getStock(sellInputData.getStockSymbol());
+
+
         LocalDateTime now = LocalDateTime.now();
         Portfolio portfolio = commonUser.getPortfolio();
 
-        double amount_received = sellInputData.getAmount() * stock.getPriceHistory().
-                getDailyPriceHistory().get(String.valueOf(now.getDayOfMonth()));
+        int amount = sellInputData.getAmount();
+        String date = now.toLocalDate().toString();
 
-        if (sellInputData.getAmount() <= portfolio.getPortfolio().get(stock.getStockSymbol())){
-            int amount = sellInputData.getAmount();
-            portfolio.getPortfolio().put(stock.getStockSymbol(), portfolio.getPortfolio().get(stock.getStockSymbol()) - amount);
-            double current_balance_portfolio = portfolio.getAccountBalance();
-            portfolio.setAccountBalance(current_balance_portfolio + amount_received);
+        if (!stock.getPriceHistory().getDailyPriceHistory().containsKey(now.toLocalDate().toString())){
+            date = now.toLocalDate().minusDays(1).toString();
+        }
 
-            SellOutputData sellOutputData = new SellOutputData(stock.getStockName(), now.toString());
-            sellPresenter.prepareSuccessView(sellOutputData);
+        double amount_received = amount * stock.getPriceHistory().
+                getDailyPriceHistory().get(date);
+
+        if (portfolio.getPortfolio().containsKey(stock.getStockSymbol())){
+            if (amount <= portfolio.getPortfolio().get(stock.getStockSymbol())){
+
+                if (amount < portfolio.getPortfolio().get(stock.getStockSymbol())){
+
+                    int old_value = commonUser.getPortfolio().getPortfolio().get(stock.getStockSymbol());
+                    int new_value = old_value - amount;
+                    portfolio.getPortfolio().replace(stock.getStockSymbol(), old_value, new_value);
+
+                } else {
+                    portfolio.getPortfolio().remove(stock.getStockSymbol());
+                }
+
+                double current_balance_portfolio = portfolio.getAccountBalance();
+                portfolio.setAccountBalance(current_balance_portfolio + amount_received);
+
+                Transaction transaction = new Transaction(LocalDateTime.now(), stock.getStockName(), "Sell",
+                        (amount_received/amount), amount);
+                commonUser.getTransactionHistory().add(transaction);
+
+                userDataAccessObject.save(commonUser);
+
+                SellOutputData sellOutputData = new SellOutputData(stock.getStockName(), now.toString());
+                sellPresenter.prepareSuccessView(sellOutputData);
+
+            } else {
+                sellPresenter.prepareFailView("You do not own enough of the stock to sell this amount.");
+            }
         } else {
             sellPresenter.prepareFailView("You do not own enough of the stock to sell this amount.");
         }
+
     }
 }

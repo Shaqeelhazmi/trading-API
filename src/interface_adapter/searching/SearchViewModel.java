@@ -14,6 +14,10 @@ public class SearchViewModel extends ViewModel {
 
     public static final String STOCK = "Buy Stock";
 
+    public static final String CANCEL = "Cancel Search";
+
+    public static final String GOBACK = "Go to Main Menu";
+
     private SearchState searchState = new SearchState();
 
     public SearchViewModel() {super("Search Stock"); }

@@ -2,18 +2,18 @@ package data_access;
 
 import api.AlphaVantage;
 import entity.*;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.buy.BuyDataAccessInterface;
+import use_case.sell.SellDataAccessInterface;
+
 
 import java.io.*;
 import java.util.*;
 
-public class StockDataAccessObject implements BuyDataAccessInterface {
+public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAccessInterface {
     private final File jsonFile;
     private final JSONObject jsonObject;
-
     private final Map<String, Stock> stocks = new HashMap<>();
 
     public StockDataAccessObject(String jsonPath) throws IOException {
@@ -124,15 +124,20 @@ public class StockDataAccessObject implements BuyDataAccessInterface {
     }
 
     public Stock getStock(String stockSymbol) {
-        if (this.existsByName(stockSymbol)) {
-            return stocks.get(stockSymbol);
-        } else {
+        if (!this.existsByName(stockSymbol)) {
             this.addNewStock(stockSymbol);
-            return stocks.get(stockSymbol);
+        }
+        return stocks.get(stockSymbol);
+    }
+
+    public void updateStockDatabase() {
+        for (String stockSymbol : stocks.keySet()) {
+            this.addNewStock(stockSymbol);
         }
     }
 
-    public static HashMap<String, Double> toStringDoubleMap(JSONObject jsonobj) throws JSONException {
+    private static HashMap<String, Double> toStringDoubleMap(JSONObject jsonobj) throws JSONException {
+
         HashMap<String, Double> map = new HashMap<String, Double>();
         Iterator<String> keys = jsonobj.keys();
         while (keys.hasNext()) {

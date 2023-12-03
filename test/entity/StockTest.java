@@ -11,17 +11,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class StockTest {
     private Stock stock;
     private PriceHistory priceHistory;
+    private String stockSymbol = "TSLA";
+    private String stockName = "Tesla Inc";
+
     @BeforeEach
     void setUp() {
         HashMap<String, Double> dailyPriceHistory = new HashMap<>();
         HashMap<String, Double> weeklyPriceHistory = new HashMap<>();
         HashMap<String, Double> monthlyPriceHistory = new HashMap<>();
-        dailyPriceHistory.put("TSLA", 10.0);
-        weeklyPriceHistory.put("AMZN", 150.0);
-        monthlyPriceHistory.put("AAPL", 300.0);
+        dailyPriceHistory.put("2023-11-10", 130.0);
+        weeklyPriceHistory.put("2020-08-07", 1491.0);
+        monthlyPriceHistory.put("2014-12-31", 545.0);
+
         priceHistory = new PriceHistory(dailyPriceHistory, weeklyPriceHistory, monthlyPriceHistory);
-        String stockSymbol = "TSLA";
-        String stockName = "Tesla";
         stock = new Stock(stockSymbol, stockName, priceHistory);
     }
 
@@ -35,20 +37,20 @@ class StockTest {
     }
 
     @Test
+    void getStockName() {
+        assertEquals("Tesla Inc", stock.getStockName());
+    }
+
+    @Test
     void getPriceHistory() {
         HashMap<String, Double> dailyPriceHistory = new HashMap<>();
         HashMap<String, Double> weeklyPriceHistory = new HashMap<>();
         HashMap<String, Double> monthlyPriceHistory = new HashMap<>();
-        dailyPriceHistory.put("TSLA", 10.0);
-        weeklyPriceHistory.put("AMZN", 150.0);
-        monthlyPriceHistory.put("AAPL", 300.0);
-        priceHistory = new PriceHistory(dailyPriceHistory, weeklyPriceHistory, monthlyPriceHistory);
-        assertEquals(priceHistory.getDailyPriceHistory().get("TSLA"), stock.getPriceHistory().getDailyPriceHistory().get("TSLA"));
-    }
-
-    @Test
-    void getStockName() {
-        assertEquals("Tesla", stock.getStockName());
+        dailyPriceHistory.put("2023-11-10", 130.0);
+        weeklyPriceHistory.put("2020-08-07", 1491.0);
+        monthlyPriceHistory.put("2014-12-31", 545.0);
+        PriceHistory priceHistory2 = new PriceHistory(dailyPriceHistory, weeklyPriceHistory, monthlyPriceHistory);
+        assertEquals(priceHistory2, stock.getPriceHistory());
     }
 
     @Test
@@ -56,11 +58,11 @@ class StockTest {
         HashMap<String, Double> dailyPriceHistory = new HashMap<>();
         HashMap<String, Double> weeklyPriceHistory = new HashMap<>();
         HashMap<String, Double> monthlyPriceHistory = new HashMap<>();
-        dailyPriceHistory.put("TSLA", 20.0);
-        weeklyPriceHistory.put("AMZN", 250.0);
-        monthlyPriceHistory.put("AAPL", 100.0);
-        priceHistory = new PriceHistory(dailyPriceHistory, weeklyPriceHistory, monthlyPriceHistory);
-        stock.setPriceHistory(priceHistory);
-        assertEquals(priceHistory.getDailyPriceHistory().get("TSLA"), stock.getPriceHistory().getDailyPriceHistory().get("TSLA"));
+        dailyPriceHistory.put("2023-11-09", 150.0);
+        weeklyPriceHistory.put("2020-08-14", 2491.0);
+        monthlyPriceHistory.put("2014-11-31", 645.0);
+        PriceHistory priceHistory3 = new PriceHistory(dailyPriceHistory, weeklyPriceHistory, monthlyPriceHistory);
+        stock.setPriceHistory(priceHistory3);
+        assertEquals(priceHistory3, stock.getPriceHistory());
     }
 }

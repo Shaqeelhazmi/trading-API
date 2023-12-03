@@ -2,7 +2,6 @@ package data_access;
 
 import api.AlphaVantage;
 import entity.*;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.buy.BuyDataAccessInterface;
@@ -126,7 +125,14 @@ public class StockDataAccessObject implements BuyDataAccessInterface, SellDataAc
         return stocks.get(stockSymbol);
     }
 
+    public void updateStockDatabase() {
+        for (String stockSymbol : stocks.keySet()) {
+            this.addNewStock(stockSymbol);
+        }
+    }
+
     private static HashMap<String, Double> toStringDoubleMap(JSONObject jsonobj) throws JSONException {
+
         HashMap<String, Double> map = new HashMap<String, Double>();
         Iterator<String> keys = jsonobj.keys();
         while (keys.hasNext()) {

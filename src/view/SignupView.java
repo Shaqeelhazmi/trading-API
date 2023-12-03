@@ -31,7 +31,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JButton signUp;
     private final JButton quit;
 
-
     private final JButton login;
 
 

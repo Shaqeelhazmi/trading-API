@@ -22,7 +22,6 @@ public class AlphaVantage {
             }
             InputStream inputStream = connection.getInputStream();
             String response = new String(inputStream.readAllBytes());
-            System.out.println(response);
             this.jsonObject = new JSONObject(response);
         } catch (Exception e) {
             e.printStackTrace();

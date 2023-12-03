@@ -37,8 +37,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
     final JButton logOut;
 
-
-
     /**
      * A window with a title and a JButton.
      */

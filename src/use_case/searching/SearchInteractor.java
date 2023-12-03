@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,19 +24,36 @@ public class SearchInteractor implements SearchInputBoundary{
     public void search(SearchInputData searchInputData) {
         AlphaVantage alphaVantage = new AlphaVantage("SYMBOL_SEARCH", searchInputData.getStockName());
         JSONObject jsonObject = alphaVantage.getJsonObject();
-        List result_list = toList(jsonObject.getJSONArray("bestMatches"));
+        List<Object> result_list = toList(jsonObject.getJSONArray("bestMatches"));
             // There exist such stocks
-            ArrayList symbol_list = new ArrayList<String>();
-            ArrayList name_list = new ArrayList<String>();
-            HashMap<String, String> stock_list = new HashMap<String, String>();
+            ArrayList<String> symbol_list = new ArrayList<String>();
+            ArrayList<String> name_list = new ArrayList<String>();
+            HashMap<String, ArrayList<String>> stock_list = new HashMap<String, ArrayList<String>>();
             for (Object primary_result: result_list){
+                if (symbol_list.size() <= 4){
+                    HashMap<String, Object> result = (HashMap<String, Object>) primary_result;
+                    String stocksymbol = result.get("1. symbol").toString();
+                    String stockname = result.get("2. name").toString();
+                    ArrayList<String> information = new ArrayList<>();
+                    information.add(stockname);
+                    symbol_list.add(stocksymbol);
+                    name_list.add(stockname);
+                    stock_list.put(stocksymbol, information);
+                }
+            }
+            for (String symbol: stock_list.keySet()){
+                AlphaVantage alphaVantage1 = new AlphaVantage("TIME_SERIES_DAILY", symbol);
+                JSONObject jsonObject1 = alphaVantage1.getJsonObject();
+                Object object1 = toMap(jsonObject1).get("Time Series (Daily)");
+                HashMap<String, HashMap<String, String>> daily = (HashMap<String, HashMap<String, String>>) object1;
 
-                HashMap<String, Object> result = (HashMap<String, Object>) primary_result;
-                String stocksymbol = result.get("1. symbol").toString();
-                String stockname = result.get("2. name").toString();
-                symbol_list.add(stocksymbol);
-                name_list.add(stockname);
-                stock_list.put(stocksymbol, stockname);
+                int i = 31;
+                int days;
+                for (days = 0; days < 31; days++) {
+                    LocalDate date = LocalDate.now().minusDays(i);
+                    String open = daily.get(date.toString()).get("1. open");
+                    stock_list.get(symbol).add(open);
+                }
             }
             SearchOutputData searchOutputData = new SearchOutputData(stock_list);
             searchPresenter.prepareSuccessView(searchOutputData);

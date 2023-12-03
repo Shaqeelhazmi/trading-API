@@ -9,6 +9,7 @@ import interface_adapter.login.LoginViewModel;
 import interface_adapter.searching.SearchViewModel;
 import interface_adapter.sell.SellViewModel;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.stock.StockViewModel;
 import view.*;
 
 import javax.swing.*;
@@ -50,6 +51,7 @@ public class Main {
         BuyViewModel buyViewModel = new BuyViewModel();
         SellViewModel sellViewModel = new SellViewModel();
         SearchViewModel searchViewModel = new SearchViewModel();
+        StockViewModel stockViewModel = new StockViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -78,7 +80,7 @@ public class Main {
                 loggedInViewModel, searchViewModel, userDataAccessObject);
         views.add(buyView, buyView.viewName);
 
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, loggedInViewModel);
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, loggedInViewModel, stockViewModel);
         views.add(searchView, searchView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);

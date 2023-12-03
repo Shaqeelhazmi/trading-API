@@ -1,11 +1,35 @@
-{"test": {
-    "password": "1234",
-    "creationTime": "2023-12-01T17:14:57.182972800",
-    "favourites": [],
-    "portfolio": {
-        "portfolio": {},
-        "accountBalance": 100
+{
+    "test": {
+        "password": "1234",
+        "creationTime": "2023-12-01T17:14:57.182972800",
+        "favourites": [],
+        "portfolio": {
+            "portfolio": {},
+            "accountBalance": 100
+        },
+        "transactionHistory": [],
+        "username": "test"
     },
-    "transactionHistory": [],
-    "username": "test"
-}}
+    "billy": {
+        "password": "password",
+        "creationTime": "2023-12-02T19:29:07.916164",
+        "favourites": [],
+        "portfolio": {
+            "portfolio": {},
+            "accountBalance": 10000
+        },
+        "transactionHistory": [],
+        "username": "billy"
+    },
+    "murat": {
+        "password": "1111",
+        "creationTime": "2023-12-02T22:25:09.439568",
+        "favourites": [],
+        "portfolio": {
+            "portfolio": {},
+            "accountBalance": 9999
+        },
+        "transactionHistory": [],
+        "username": "murat"
+    }
+}

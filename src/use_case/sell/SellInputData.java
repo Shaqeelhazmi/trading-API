@@ -3,19 +3,22 @@ import java.time.LocalDateTime;
 
 import entity.Stock;
 public class SellInputData {
-    private final String stockName;
+    private final String stockSymbol;
     private final int amount;
+    private final String userName;
 
-    public SellInputData(String stockName, int amount){
-        this.stockName = stockName;
+    public SellInputData(String stockSymbol, int amount, String userName){
+        this.stockSymbol = stockSymbol;
         this.amount = amount;
+        this.userName = userName;
     }
 
-    String getStockname() {
-        return stockName;
+    String getStockSymbol() {
+        return stockSymbol;
     }
 
     int getAmount() {
         return amount;
     }
+    String getUserName() { return userName; }
 }

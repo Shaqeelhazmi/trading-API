@@ -2,20 +2,30 @@ package interface_adapter.sell;
 
 public class SellState {
     private String error;
-
     private String success;
-
-    public SellState(SellState copy){
-        error = copy.error;
-        success = copy.success;
-    }
-    public SellState(){}
+    private int amount;
+    private String username;
+    private String stockSymbol;
+    private String stockName;
 
     public void setSellError(String error) {this.error = error;}
     public String getSellError(){
         return error;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+    public String getStockSymbol(){return stockSymbol;}
+    public void setStockSymbol(String stockSymbol){this.stockSymbol = stockSymbol;}
+    public String getStockName(){return stockName;}
+    public void setStockName(String stockName) {this.stockName = stockName;}
+    public String getUsername(){return username;}
+    public void setUsername(String username) {this.username = username;}
 
     @Override
     public String toString(){

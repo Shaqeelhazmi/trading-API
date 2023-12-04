@@ -19,7 +19,9 @@ class SearchingOutputDataTest {
         information.add("Tesla Inc");
         information.add("158.0");
         stocks.put("TSLA", information);
-        searchOutputData = new SearchOutputData(stocks);
+        ArrayList<String> day_list = new ArrayList<>();
+        day_list.add("2023-12-01");
+        searchOutputData = new SearchOutputData(stocks, day_list);
     }
 
     @Test

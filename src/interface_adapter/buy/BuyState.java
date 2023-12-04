@@ -41,5 +41,7 @@ public class BuyState {
 
     public String getStockName(){return stockName;}
 
+    public void setUsername(String username) {this.username = username;}
+
 
 }

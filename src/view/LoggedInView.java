@@ -5,6 +5,7 @@ import interface_adapter.buy.BuyViewModel;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginState;
+import interface_adapter.portfolio.PortfolioController;
 import interface_adapter.portfolio.PortfolioViewModel;
 import interface_adapter.searching.SearchViewModel;
 import interface_adapter.signup.SignupViewModel;

@@ -165,8 +165,9 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
         if(state.getSuccessed()) {
             JOptionPane.showMessageDialog(this, state.getBuySuccess());
             state.setSuccessed(false);
-        } else {
+        } else if (state.getFailed()){
             JOptionPane.showMessageDialog(this, state.getError());
+            state.setFailed(false);
         }
     }
 }

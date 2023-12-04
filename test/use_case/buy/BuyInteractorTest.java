@@ -30,7 +30,7 @@ class BuyInteractorTest {
         HashMap<String, Double> weekly = new HashMap<>();
         HashMap<String, Double> monthly = new HashMap<>();
         PriceHistory priceHistory = new PriceHistory(daily, weekly, monthly);
-        stock1 = new Stock("GOOGL", "Alphabet Inc - Class A", priceHistory);
+        stock1 = new Stock("TSLA", "TESLA", priceHistory);
         
 
         ArrayList<String> favourites = new ArrayList<>(5);
@@ -58,7 +58,7 @@ class BuyInteractorTest {
             @Override
             public void prepareFailView(String message) {
                 assertEquals("You do not have enough non-liquid balance to make this purchase, you " +
-                        "can only afford " + 75 + " stocks", message);
+                        "can only afford " + 64 + " stocks", message);
             }
 
             @Override
@@ -75,6 +75,7 @@ class BuyInteractorTest {
         BuyInputData buyInputData = new BuyInputData(stock1.getStockSymbol(), 5, user.getUsername());
         BuyDataAccessInterface buyDataAccessInterface = new StockDataAccessObject("./teststocks.json");
         FileUserDataAccessObject userDataAccessObject = new FileUserDataAccessObject("./testUsers.json");
+        userDataAccessObject.get("test").getPortfolio().setAccountBalance(10000);
 
 
 
@@ -82,7 +83,7 @@ class BuyInteractorTest {
             @Override
             public void prepareSuccessView(BuyOutputData buyOutputData) {
                 assertNotNull(buyOutputData.getCreationTime());
-                assertEquals("Alphabet Inc - Class A",buyOutputData.getStockBought());
+                assertEquals("Tesla Inc",buyOutputData.getStockBought());
             }
             @Override
             public void prepareFailView(String message) {

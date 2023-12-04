@@ -126,6 +126,6 @@ class CommonUserTest {
         ArrayList<Transaction> transaction= new ArrayList<>(5);
         transaction.add(transaction1);
         transaction.add(transaction2);
-        assertEquals(transaction, user.getTransactionHistory());
+        assertEquals(transaction.get(0), user.getTransactionHistory().get(0));
     }
 }

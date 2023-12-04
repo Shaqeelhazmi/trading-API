@@ -6,10 +6,13 @@ public class BuyOutputData {
 
     private final int amount;
 
-    public BuyOutputData (String stock, String creationTime, int amount){
+    private final double balance;
+
+    public BuyOutputData (String stock, String creationTime, int amount, double balance){
         this.creationTime = creationTime;
         this.stock = stock;
         this.amount = amount;
+        this.balance = balance;
     }
 
     public void setCreationTime(String creationTime){ this.creationTime = creationTime;}
@@ -19,4 +22,8 @@ public class BuyOutputData {
     public String getStockBought() {return stock;}
 
     public int getAmount(){return amount;}
+
+    public double getBalance() {
+        return balance;
+    }
 }

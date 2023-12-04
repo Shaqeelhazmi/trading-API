@@ -124,7 +124,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                     public void actionPerformed(ActionEvent e) {
                         stocks_you_own.removeAll();
                         LoggedInState balance = loggedInViewModel.getState();
-                        accountBalance.setText(LoggedInViewModel.ACCOUNT_BALANCE + balance.getAccountBalance());
+                        accountBalance.setText(LoggedInViewModel.ACCOUNT_BALANCE + Math.round((balance.getAccountBalance() * 100.00)) / 100.00);
                         stocks_you_own.add(accountBalance);
                         PortfolioState current = portfolioViewModel.getState();
                         HashMap<String, Integer> stocks = current.getStocksOwned();
@@ -143,7 +143,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                                             SearchState state = searchViewModel.getSearchState();
                                             state.setSearchName(stock1.getText());
                                             StockState stockState = stockViewModel.getStockState();
-                                            stockState.setStockSymbol(stock1.getText());
+                                            stockState.setStockSymbol(stock);
                                             ArrayList<String> information = state.getStoredStocks().get(stock1.getText());
                                             state.setInformation(information);
                                             viewManagerModel.setActiveView(stockViewModel.getViewName());

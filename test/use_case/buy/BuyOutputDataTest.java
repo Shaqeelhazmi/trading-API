@@ -26,7 +26,7 @@ class BuyOutputDataTest {
 
     @BeforeEach
     void init(){
-        buyOutputData = new BuyOutputData(stock.getStockName(), LocalDateTime.now().toString(), 5);
+        buyOutputData = new BuyOutputData(stock.getStockName(), LocalDateTime.now().toString(), 5, 10000);
     }
 
     @Test

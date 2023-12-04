@@ -5,10 +5,15 @@ import interface_adapter.buy.BuyViewModel;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginState;
+import interface_adapter.login.LoginViewModel;
 import interface_adapter.portfolio.PortfolioController;
+import interface_adapter.portfolio.PortfolioState;
 import interface_adapter.portfolio.PortfolioViewModel;
+import interface_adapter.searching.SearchState;
 import interface_adapter.searching.SearchViewModel;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.stock.StockState;
+import interface_adapter.stock.StockViewModel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -17,6 +22,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LoggedInView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -25,14 +32,20 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
     private final ViewManagerModel viewManagerModel;
 
-    private final SignupViewModel signupViewModel;
+    private final LoginViewModel loginViewModel;
 
     private final SearchViewModel searchViewModel;
     private final PortfolioViewModel portfolioViewModel;
 
+    private final StockViewModel stockViewModel;
+
     private final JButton search_stock;
 
     private final JButton portfolio;
+
+    private final JButton update;
+
+
 
     Border gridBorder;
 
@@ -43,12 +56,14 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     /**
      * A window with a title and a JButton.
      */
-    public LoggedInView(LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, SearchViewModel searchViewModel, PortfolioViewModel portfolioViewModel) {
+    public LoggedInView(LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel, LoginViewModel loginViewModel,
+                        SearchViewModel searchViewModel, PortfolioViewModel portfolioViewModel, StockViewModel stockViewModel) {
         this.loggedInViewModel = loggedInViewModel;
         this.viewManagerModel = viewManagerModel;
-        this.signupViewModel = signupViewModel;
+        this.loginViewModel = loginViewModel;
         this.searchViewModel = searchViewModel;
         this.portfolioViewModel = portfolioViewModel;
+        this.stockViewModel = stockViewModel;
         loggedInViewModel.addPropertyChangeListener(this);
         this.setBackground(new Color(199, 0, 57));
 
@@ -69,6 +84,9 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         portfolio.setBorderPainted(false);
         portfolio.setFont(new Font("Helvetica", Font.ITALIC, 30));
 
+        update = new JButton(LoggedInViewModel.UPDATE);
+
+        JPanel stocks_you_own = new JPanel();
 
         JPanel bottom_buttons = new JPanel();
         logOut = new JButton(loggedInViewModel.LOGOUT_BUTTON_LABEL);
@@ -87,6 +105,37 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                 }
         );
 
+        update.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        PortfolioState current = portfolioViewModel.getState();
+                        HashMap<String, Integer> stocks = current.getStocksOwned();
+                        for(String stock: stocks.keySet()){
+                            JButton stock1 = new JButton();
+                            stock1.setText(stock + " , Amount you own: " + stocks.get(stock));
+                            stock1.addActionListener(
+                                    new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            SearchState state = searchViewModel.getSearchState();
+                                            state.setSearchName(stock1.getText());
+                                            StockState stockState = stockViewModel.getStockState();
+                                            stockState.setStockSymbol(stock1.getText());
+                                            ArrayList<String> information = state.getStoredStocks().get(stock1.getText());
+                                            state.setInformation(information);
+                                            viewManagerModel.setActiveView(stockViewModel.getViewName());
+                                            viewManagerModel.firePropertyChanged();
+                                        }
+                                    }
+                            );
+                            stocks_you_own.add(stock1);
+                        }
+                    }
+                }
+        );
+
+
         portfolio.addActionListener(
                 new ActionListener() {
                     @Override
@@ -104,7 +153,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(logOut)){
-                            switch_to_signUp();
+                            switch_to_login();
                         }
                     }
                 }
@@ -135,8 +184,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         this.setBorder(gridBorder);
     }
 
-    private void switch_to_signUp(){
-        viewManagerModel.setActiveView(signupViewModel.getViewName());
+    private void switch_to_login(){
+        viewManagerModel.setActiveView(loginViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 

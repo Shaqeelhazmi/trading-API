@@ -51,7 +51,6 @@ public class BuyInteractor implements BuyInputBoundary{
         }
 
         if (portfolio.getAccountBalance() >= amount_used_for_purchase) {
-
             if (portfolio.getPortfolio().containsKey(stock.getStockSymbol())) {
                 int old_value = portfolio.getPortfolio().get(stock.getStockSymbol());
                 int new_value = old_value + amount;
@@ -75,10 +74,10 @@ public class BuyInteractor implements BuyInputBoundary{
 
             BuyOutputData buyOutputData = new BuyOutputData(stock.getStockName(), now.toString(), buyInputData.getAmount());
             buyPresenter.prepareSuccessView(buyOutputData);
-        } else {
+        } else{
                 amount = (int) Math.round(portfolio.getAccountBalance() / price_for_stock);
-                }
                 buyPresenter.prepareFailView("You do not have enough non-liquid balance to make this purchase, you " +
-                        "can only afford " + amount + " stocks");
+                    "can only afford " + amount + " stocks");
+                }
         }
     }

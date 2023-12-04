@@ -7,6 +7,8 @@ public class BuyState {
 
     private String success;
 
+    private boolean failed = false;
+
     private boolean successed = false;
 
     private int amount;
@@ -23,6 +25,12 @@ public class BuyState {
     public String getError() {
         return error;
     }
+
+    public void setFailed(boolean failed) {
+        this.failed = failed;
+    }
+
+    public boolean getFailed(){return failed;}
 
     @Override
     public String toString(){

@@ -2,11 +2,14 @@ package view;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.buy.BuyState;
+import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.searching.SearchViewModel;
 import interface_adapter.sell.SellController;
 import interface_adapter.sell.SellState;
 import interface_adapter.sell.SellViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.stock.StockState;
+import interface_adapter.stock.StockViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +26,8 @@ public class SellView extends JPanel implements ActionListener, PropertyChangeLi
     private final SellViewModel sellViewModel;
     private final LoggedInViewModel loggedInViewModel;
     private final SearchViewModel searchViewModel;
+
+    private final StockViewModel stockViewModel;
     private final JTextField amountInputField = new JTextField(15);
     private final SellController sellController;
     private final JButton sell;
@@ -32,11 +37,12 @@ public class SellView extends JPanel implements ActionListener, PropertyChangeLi
     private String stockName;
 
     public SellView(SellController controller, SellViewModel sellViewModel, LoggedInViewModel loggedInViewModel,
-                    SearchViewModel searchViewModel, ViewManagerModel viewManagerModel){
+                    SearchViewModel searchViewModel, ViewManagerModel viewManagerModel, StockViewModel stockViewModel){
         this.sellController = controller;
         this.sellViewModel = sellViewModel;
         this.loggedInViewModel = loggedInViewModel;
         this.searchViewModel = searchViewModel;
+        this.stockViewModel = stockViewModel;
 
         String stockSymbol = sellViewModel.getSellState().getStockSymbol();
         String stockName = sellViewModel.getSellState().getStockName();
@@ -65,8 +71,10 @@ public class SellView extends JPanel implements ActionListener, PropertyChangeLi
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(sell)){
                             SellState currentState = sellViewModel.getSellState();
+                            StockState stock = stockViewModel.getStockState();
+                            LoggedInState user = loggedInViewModel.getState();
                             try {
-                                sellController.sell(stockSymbol, currentState.getAmount(), currentState.getUsername());
+                                sellController.sell(stock.getStockSymbol(), currentState.getAmount(), user.getUsername());
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -130,13 +138,11 @@ public class SellView extends JPanel implements ActionListener, PropertyChangeLi
         this.add(amountInfo);
         this.add(buttons);
     }
-    public void actionPerformed(ActionEvent e) {
-
-    }
+    public void actionPerformed(ActionEvent e) { System.out.println("Click" + e.getActionCommand());}
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        BuyState state = (BuyState) evt.getNewValue();
+        SellState state = (SellState) evt.getNewValue();
         stockName = state.getStockName();
         stockSymbol = state.getStockSymbol();
     }

@@ -8,6 +8,7 @@ import interface_adapter.buy.BuyPresenter;
 import interface_adapter.buy.BuyViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.searching.SearchViewModel;
+import interface_adapter.stock.StockViewModel;
 import use_case.buy.BuyDataAccessInterface;
 import use_case.buy.BuyInputBoundary;
 import use_case.buy.BuyInteractor;
@@ -21,10 +22,10 @@ public class BuyUseCaseFactory {
 
     public static BuyView create(ViewManagerModel viewManagerModel, BuyViewModel buyViewModel,
                                  BuyDataAccessInterface buyDataAccessObject, LoggedInViewModel loggedInViewModel, SearchViewModel searchViewModel,
-                                 FileUserDataAccessObject userDataAccessObject) {
+                                 FileUserDataAccessObject userDataAccessObject, StockViewModel stockViewModel) {
         try {
             BuyController buyController =  createBuyUseCase(viewManagerModel, buyViewModel, buyDataAccessObject, userDataAccessObject, searchViewModel);
-            return new BuyView(buyController, buyViewModel, loggedInViewModel, searchViewModel, viewManagerModel);
+            return new BuyView(buyController, buyViewModel, loggedInViewModel, searchViewModel, viewManagerModel, stockViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Failed to create");
         }

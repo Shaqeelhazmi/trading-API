@@ -11,7 +11,9 @@ public class LoggedInViewModel extends ViewModel {
 
     private LoggedInState state = new LoggedInState();
 
-    private static final String STOCKS_YOU_OWN = "Stocks you own: ";
+    public static final String ACCOUNT_BALANCE = "Account Balance: ";
+
+    public static final String STOCKS_YOU_OWN = "Stocks you own: ";
 
     public static final String LOGOUT_BUTTON_LABEL = "Log out";
     public static final String SEARCH_STOCK = "Search For Stock";

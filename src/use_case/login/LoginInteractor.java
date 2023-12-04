@@ -1,5 +1,7 @@
 package use_case.login;
 
+import entity.CommonUser;
+import entity.Portfolio;
 import entity.User;
 
 public class LoginInteractor implements LoginInputBoundary {
@@ -24,9 +26,10 @@ public class LoginInteractor implements LoginInputBoundary {
                 loginPresenter.prepareFailView("Incorrect password for " + username + ".");
             } else {
 
-                User user = userDataAccessObject.get(loginInputData.getUsername());
-
-                LoginOutputData loginOutputData = new LoginOutputData(user.getUsername(), false);
+                CommonUser user = userDataAccessObject.get(loginInputData.getUsername());
+                Portfolio portfolio = user.getPortfolio();
+                double account_balance = portfolio.getAccountBalance();
+                LoginOutputData loginOutputData = new LoginOutputData(user.getUsername(), false, account_balance );
                 loginPresenter.prepareSuccessView(loginOutputData);
             }
         }

@@ -1,5 +1,6 @@
 package view;
 
+import app.SearchUseCaseFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.buy.BuyViewModel;
 import interface_adapter.logged_in.LoggedInState;
@@ -9,12 +10,14 @@ import interface_adapter.login.LoginViewModel;
 import interface_adapter.portfolio.PortfolioController;
 import interface_adapter.portfolio.PortfolioState;
 import interface_adapter.portfolio.PortfolioViewModel;
+import interface_adapter.searching.SearchController;
 import interface_adapter.searching.SearchState;
 import interface_adapter.searching.SearchViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.stock.StockState;
 import interface_adapter.stock.StockViewModel;
 
+import javax.sound.sampled.Port;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -91,7 +94,12 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         portfolio.setFont(new Font("Helvetica", Font.ITALIC, 30));
 
         JPanel stocks_you_own = new JPanel();
+        JButton accountBalance = new JButton("");
+        accountBalance.setAlignmentX(Component.CENTER_ALIGNMENT);
+        accountBalance.setFont(new Font("Helvetica", Font.ITALIC, 30));
+        accountBalance.setBackground(new Color(255, 244, 230));
         stocks_you_own.setBackground(new Color(255, 244, 230));
+        stocks_you_own.add(accountBalance);
 
         JPanel bottom_buttons = new JPanel();
         logOut = new JButton(loggedInViewModel.LOGOUT_BUTTON_LABEL);
@@ -115,6 +123,9 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         stocks_you_own.removeAll();
+                        LoggedInState balance = loggedInViewModel.getState();
+                        accountBalance.setText(LoggedInViewModel.ACCOUNT_BALANCE + balance.getAccountBalance());
+                        stocks_you_own.add(accountBalance);
                         PortfolioState current = portfolioViewModel.getState();
                         HashMap<String, Integer> stocks = current.getStocksOwned();
 //                        stocks_you_own.setText(stocks.keySet().toString());

@@ -8,5 +8,5 @@ public interface LoginUserDataAccessInterface {
 
     void save(CommonUser user);
 
-    User get(String username);
+    CommonUser get(String username);
 }

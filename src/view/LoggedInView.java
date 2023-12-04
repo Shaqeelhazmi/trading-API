@@ -111,9 +111,14 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                     public void actionPerformed(ActionEvent e) {
                         PortfolioState current = portfolioViewModel.getState();
                         HashMap<String, Integer> stocks = current.getStocksOwned();
+//                        stocks_you_own.setText(stocks.keySet().toString());
                         for(String stock: stocks.keySet()){
                             JButton stock1 = new JButton();
                             stock1.setText(stock + " , Amount you own: " + stocks.get(stock));
+                            stocks_you_own.add(stock1);
+                            stocks_you_own.revalidate();
+
+
                             stock1.addActionListener(
                                     new ActionListener() {
                                         @Override
@@ -129,7 +134,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                                         }
                                     }
                             );
-                            stocks_you_own.add(stock1);
                         }
                     }
                 }
@@ -159,15 +163,15 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                 }
         );
 
-
         this.setLayout(new GridLayout(3, 2, 5, 10));
         this.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         this.add(search_stock);
         this.add(portfolio);
+        this.add(update);
+        this.add(stocks_you_own);
         this.add(bottom_buttons);
 
     }
-
 
     /**
      * React to a button click that results in evt.

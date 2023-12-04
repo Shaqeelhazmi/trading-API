@@ -4,8 +4,12 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.buy.BuyController;
 import interface_adapter.buy.BuyState;
 import interface_adapter.buy.BuyViewModel;
+import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.searching.SearchState;
 import interface_adapter.searching.SearchViewModel;
+import interface_adapter.stock.StockState;
+import interface_adapter.stock.StockViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +33,8 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
 
     private final SearchViewModel searchViewModel;
 
+    private final StockViewModel stockViewModel;
+
     private final JButton home;
 
     private final JButton back;
@@ -38,15 +44,17 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
     private String stockSymbol;
 
 
-    private final JTextField amount = new JTextField();
+    private final JTextField amount = new JTextField(15);
 
     private final JButton buy;
 
-    public BuyView(BuyController buyController, BuyViewModel buyViewModel, LoggedInViewModel loggedInViewModel, SearchViewModel searchViewModel, ViewManagerModel viewManagerModel){
+    public BuyView(BuyController buyController, BuyViewModel buyViewModel, LoggedInViewModel loggedInViewModel,
+                   SearchViewModel searchViewModel, ViewManagerModel viewManagerModel, StockViewModel stockViewModel){
         this.buyController = buyController;
         this.buyViewModel = buyViewModel;
         this.loggedInViewModel = loggedInViewModel;
         this.searchViewModel = searchViewModel;
+        this.stockViewModel = stockViewModel;
 
 
         String stockSymbol = buyViewModel.getBuyState().getStockSymbol();
@@ -78,9 +86,11 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
                     @Override
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(buy)){
-                            BuyState currentState = buyViewModel.getBuyState();
+                            StockState currentState = stockViewModel.getStockState();
+                            BuyState state = buyViewModel.getBuyState();
+                            LoggedInState user = loggedInViewModel.getState();
                             try {
-                                buyController.buy(stockSymbol, currentState.getAmount(), currentState.getUsername());
+                                buyController.buy(currentState.getStockSymbol(), state.getAmount(), user.getUsername());
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -147,9 +157,7 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
+    public void actionPerformed(ActionEvent e) {System.out.println("Click" + e.getActionCommand());}
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {

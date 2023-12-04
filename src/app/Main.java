@@ -72,15 +72,19 @@ public class Main {
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject, signupViewModel);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject, signupViewModel, portfolioViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
         LoggedInView loggedInView = new LoggedInView(loggedInViewModel, viewManagerModel, signupViewModel, searchViewModel, portfolioViewModel);
         views.add(loggedInView, loggedInView.viewName);
 
         BuyView buyView = BuyUseCaseFactory.create(viewManagerModel, buyViewModel, stockDataAccessObject,
-                loggedInViewModel, searchViewModel, userDataAccessObject);
+                loggedInViewModel, searchViewModel, userDataAccessObject, stockViewModel);
         views.add(buyView, buyView.viewName);
+
+        SellView sellView = SellUseCaseFactory.create(viewManagerModel, sellViewModel, stockDataAccessObject,
+                loggedInViewModel, searchViewModel, userDataAccessObject, stockViewModel);
+        views.add(sellView, sellView.viewName);
 
         SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, loggedInViewModel, stockViewModel);
         views.add(searchView, searchView.viewName);

@@ -29,6 +29,7 @@ public class SearchPresenter implements SearchOutputBoundary {
     public void prepareSuccessView(SearchOutputData searchOutputData) {
         SearchState state = searchViewModel.getSearchState();
         state.updatedStoredStocks(searchOutputData.getStocks());
+        state.setDay_list(searchOutputData.getDay_list());
         searchViewModel.setState(state);
         searchViewModel.firePropertyChanged();
     }

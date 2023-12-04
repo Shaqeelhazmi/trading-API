@@ -5,6 +5,7 @@ import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.searching.SearchController;
 import interface_adapter.searching.SearchState;
 import interface_adapter.searching.SearchViewModel;
+import interface_adapter.stock.StockState;
 import interface_adapter.stock.StockViewModel;
 
 import javax.swing.*;
@@ -96,8 +97,11 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                         if (e.getSource().equals(stock1)){
                             SearchState state = searchViewModel.getSearchState();
                             state.setSearchName(stock1.getText());
+                            StockState stockState = stockViewModel.getStockState();
+                            stockState.setStockSymbol(stock1.getText());
                             ArrayList<String> information = state.getStoredStocks().get(stock1.getText());
                             state.setInformation(information);
+
                             viewManagerModel.setActiveView(stockViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
                         }
@@ -111,6 +115,8 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                         if (e.getSource().equals(stock2)){
                             SearchState state = searchViewModel.getSearchState();
                             state.setSearchName(stock2.getText());
+                            StockState stockState = stockViewModel.getStockState();
+                            stockState.setStockSymbol(stock1.getText());
                             ArrayList<String> information = state.getStoredStocks().get(stock2.getText());
                             state.setInformation(information);
                             viewManagerModel.setActiveView(stockViewModel.getViewName());
@@ -126,6 +132,8 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                         if (e.getSource().equals(stock3)){
                             SearchState state = searchViewModel.getSearchState();
                             state.setSearchName(stock3.getText());
+                            StockState stockState = stockViewModel.getStockState();
+                            stockState.setStockSymbol(stock1.getText());
                             ArrayList<String> information = state.getStoredStocks().get(stock3.getText());
                             state.setInformation(information);
                             viewManagerModel.setActiveView(stockViewModel.getViewName());
@@ -141,6 +149,8 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                         if (e.getSource().equals(stock4)){
                             SearchState state = searchViewModel.getSearchState();
                             state.setSearchName(stock4.getText());
+                            StockState stockState = stockViewModel.getStockState();
+                            stockState.setStockSymbol(stock1.getText());
                             ArrayList<String> information = state.getStoredStocks().get(stock4.getText());
                             state.setInformation(information);
                             viewManagerModel.setActiveView(stockViewModel.getViewName());
@@ -156,6 +166,8 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                         if (e.getSource().equals(stock5)){
                             SearchState state = searchViewModel.getSearchState();
                             state.setSearchName(stock5.getText());
+                            StockState stockState = stockViewModel.getStockState();
+                            stockState.setStockSymbol(stock1.getText());
                             ArrayList<String> information = state.getStoredStocks().get(stock5.getText());
                             state.setInformation(information);
                             viewManagerModel.setActiveView(stockViewModel.getViewName());
@@ -164,6 +176,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                     }
                 }
         );
+
 
         stocknameInputField.addKeyListener(
                 new KeyListener() {

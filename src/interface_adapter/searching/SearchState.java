@@ -7,12 +7,14 @@ import java.util.HashMap;
 public class SearchState {
     private String search_name = null;
 
+    private String stocksymbol = null;
     private String error = null;
 
     private ArrayList<String> information = null;
 
     private HashMap<String, ArrayList<String>> stocks;
 
+    private ArrayList<String> day_list;
 
 
 
@@ -21,6 +23,8 @@ public class SearchState {
         error = copy.error;
         stocks = copy.stocks;
         information = copy.information;
+        stocksymbol = copy.stocksymbol;
+        day_list = copy.day_list;
 
     }
 
@@ -31,6 +35,7 @@ public class SearchState {
     public String getSearchError(){
         return error;
     }
+
 
     public String getSearchName() {return search_name; }
 
@@ -50,6 +55,10 @@ public class SearchState {
     }
 
     public void updatedStoredStocks(HashMap<String, ArrayList<String>> stocks){this.stocks = stocks;}
+
+    public void setDay_list(ArrayList<String> day_list){this.day_list = day_list;}
+
+    public ArrayList<String> getDay_list(){ return day_list;}
 
 
     public HashMap<String, ArrayList<String>> getStoredStocks(){return stocks;}

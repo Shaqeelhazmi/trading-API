@@ -39,7 +39,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.signupController = controller;
         this.signupViewModel = signupViewModel;
         this.viewManagerModel = viewManagerModel;
-        this.setBackground(new Color(199, 0, 57));
+        this.setBackground(new Color(255, 244, 230));
         signupViewModel.addPropertyChangeListener(this);
 
 
@@ -51,7 +51,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         username.setFont(new Font("Cambria", Font.ITALIC, 50));
         LabelTextPanel usernameInfo = new LabelTextPanel(
                 username, usernameInputField);
-        usernameInfo.setBackground(new Color(199, 0, 57));
+        usernameInfo.setBackground(new Color(255, 244, 230));
         usernameInputField.setFont(new Font("Helvetica", Font.ITALIC, 50));
 
 
@@ -59,26 +59,26 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         password.setFont(new Font("Cambria", Font.ITALIC, 50));
         LabelTextPanel passwordInfo = new LabelTextPanel(
                 password, passwordInputField);
-        passwordInfo.setBackground(new Color(199, 0, 57));
+        passwordInfo.setBackground(new Color(255, 244, 230));
         passwordInputField.setFont(new Font("Helvetica", Font.ITALIC, 50));
 
         JLabel repeatpassword = new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL);
         repeatpassword.setFont(new Font("Cambria", Font.ITALIC, 50));
         LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
                 repeatpassword, repeatPasswordInputField);
-        repeatPasswordInfo.setBackground(new Color(199, 0, 57));
+        repeatPasswordInfo.setBackground(new Color(255, 244, 230));
         repeatPasswordInputField.setFont(new Font("Helvetica", Font.ITALIC, 50));
 
         JLabel balance = new JLabel(SignupViewModel.STARTING_AMOUNT);
         balance.setFont(new Font("Cambria", Font.ITALIC, 50));
         LabelTextPanel startingBalanceInfo = new LabelTextPanel(
                 balance, starting_balance);
-        startingBalanceInfo.setBackground(new Color(199, 0, 57));
+        startingBalanceInfo.setBackground(new Color(255, 244, 230));
         starting_balance.setFont(new Font("Helvetica", Font.ITALIC, 50));
 
 
         JPanel buttons = new JPanel();
-        buttons.setBackground(new Color(218, 247, 166  ));
+        buttons.setBackground(new Color(60, 47, 47  ));
         signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
         signUp.setFont(new Font("Helvetica", Font.ITALIC, 30));

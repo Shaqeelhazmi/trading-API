@@ -4,9 +4,12 @@ public class BuyOutputData {
 
     private final String stock;
 
-    public BuyOutputData (String stock, String creationTime){
+    private final int amount;
+
+    public BuyOutputData (String stock, String creationTime, int amount){
         this.creationTime = creationTime;
         this.stock = stock;
+        this.amount = amount;
     }
 
     public void setCreationTime(String creationTime){ this.creationTime = creationTime;}
@@ -14,4 +17,6 @@ public class BuyOutputData {
     public String getCreationTime(){return creationTime;}
 
     public String getStockBought() {return stock;}
+
+    public int getAmount(){return amount;}
 }

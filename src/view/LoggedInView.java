@@ -65,7 +65,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         this.portfolioViewModel = portfolioViewModel;
         this.stockViewModel = stockViewModel;
         loggedInViewModel.addPropertyChangeListener(this);
-        this.setBackground(new Color(199, 0, 57));
+        this.setBackground(new Color(60, 47, 47));
 
 
         JLabel usernameInfo = new JLabel("Currently logged in: ");
@@ -73,25 +73,30 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         usernameInfo.setBackground(new Color(199, 0, 57));
 
         search_stock = new JButton(LoggedInViewModel.SEARCH_STOCK);
-        search_stock.setBackground(new Color(253, 253, 84));
+        search_stock.setBackground(new Color(190, 155, 123));
         search_stock.setOpaque(true);
         search_stock.setBorderPainted(false);
         search_stock.setFont(new Font("Helvetica", Font.ITALIC, 30));
 
         portfolio = new JButton(LoggedInViewModel.PORTFOLIO);
-        portfolio.setBackground(new Color(84, 128, 245));
+        portfolio.setBackground(new Color(60, 47, 47  ));
         portfolio.setOpaque(true);
         portfolio.setBorderPainted(false);
         portfolio.setFont(new Font("Helvetica", Font.ITALIC, 30));
 
         update = new JButton(LoggedInViewModel.UPDATE);
+        portfolio.setBackground(new Color(255, 244, 230));
+        portfolio.setOpaque(true);
+        portfolio.setBorderPainted(false);
+        portfolio.setFont(new Font("Helvetica", Font.ITALIC, 30));
 
         JPanel stocks_you_own = new JPanel();
+        stocks_you_own.setBackground(new Color(255, 244, 230));
 
         JPanel bottom_buttons = new JPanel();
         logOut = new JButton(loggedInViewModel.LOGOUT_BUTTON_LABEL);
         bottom_buttons.add(logOut);
-        bottom_buttons.setBackground(new Color(218, 247, 166));
+        bottom_buttons.setBackground(new Color(60, 47, 47  ));
 
 
         search_stock.addActionListener(
@@ -109,6 +114,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        stocks_you_own.removeAll();
                         PortfolioState current = portfolioViewModel.getState();
                         HashMap<String, Integer> stocks = current.getStocksOwned();
 //                        stocks_you_own.setText(stocks.keySet().toString());
@@ -185,6 +191,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         LoggedInState state = (LoggedInState) evt.getNewValue();
         username.setText(state.getUsername());
         gridBorder = BorderFactory.createTitledBorder("Currently logged in: " + username.getText());
+
         this.setBorder(gridBorder);
     }
 

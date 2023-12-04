@@ -16,6 +16,8 @@ public class SearchState {
 
     private ArrayList<String> day_list;
 
+    private ArrayList<String> temp_day_list;
+
 
 
     public SearchState(SearchState copy) {
@@ -62,4 +64,12 @@ public class SearchState {
 
 
     public HashMap<String, ArrayList<String>> getStoredStocks(){return stocks;}
+
+    public ArrayList<String> getTemp_day_list() {
+        return temp_day_list;
+    }
+
+    public void setTemp_day_list(ArrayList<String> temp_day_list) {
+        this.temp_day_list = temp_day_list;
+    }
 }

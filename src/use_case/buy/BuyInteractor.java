@@ -73,17 +73,12 @@ public class BuyInteractor implements BuyInputBoundary{
             //Save the new information
             userDataAccessObject.save(commonUser);
 
-            BuyOutputData buyOutputData = new BuyOutputData(stock.getStockName(), now.toString());
+            BuyOutputData buyOutputData = new BuyOutputData(stock.getStockName(), now.toString(), buyInputData.getAmount());
             buyPresenter.prepareSuccessView(buyOutputData);
         } else {
-                double new_purchase_amount = amount * price_for_stock;
-                while (portfolio.getAccountBalance() - new_purchase_amount <= 0) {
-                    amount--;
-                    new_purchase_amount = amount * price_for_stock;
+                amount = (int) Math.round(portfolio.getAccountBalance() / price_for_stock);
                 }
                 buyPresenter.prepareFailView("You do not have enough non-liquid balance to make this purchase, you " +
                         "can only afford " + amount + " stocks");
         }
     }
-
-}

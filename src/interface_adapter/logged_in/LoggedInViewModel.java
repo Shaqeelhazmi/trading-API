@@ -16,9 +16,9 @@ public class LoggedInViewModel extends ViewModel {
     public static final String LOGOUT_BUTTON_LABEL = "Log out";
     public static final String SEARCH_STOCK = "Search For Stock";
 
-    public static final String UPDATE = "Update Information";
+    public static final String UPDATE = "Show Portfolio";
 
-    public static final String PORTFOLIO = "Open Portfolio";
+    public static final String PORTFOLIO = "Written by Shaq, Matt, Leo, Murat";
     private String loggedInUser;
 
     public LoggedInViewModel() {

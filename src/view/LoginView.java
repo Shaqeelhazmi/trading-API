@@ -45,26 +45,26 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.signupViewModel = signupViewModel;
         this.portfolioController = portfolioController;
         this.loginViewModel.addPropertyChangeListener(this);
-        this.setBackground(new Color(199, 0, 57));
+        this.setBackground(new Color(255, 244, 230));
 
 
         JLabel title = new JLabel("The Wolf of Bay Street");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        title.setBackground(new Color(199, 0, 57));
+        title.setBackground(new Color(255, 244, 230));
         title.setFont(new Font("Times New Roman", Font.BOLD, 100));
 
         JLabel username = new JLabel("Username");
         LabelTextPanel usernameInfo = new LabelTextPanel(
                 username, usernameInputField);
         username.setFont(new Font("Helvetica", Font.ITALIC, 50));
-        usernameInfo.setBackground(new Color(199, 0, 57));
+        usernameInfo.setBackground(new Color(255, 244, 230));
         usernameInputField.setFont(new Font("Helvetica", Font.ITALIC, 50));
 
         JLabel password = new JLabel("Password");
         LabelTextPanel passwordInfo = new LabelTextPanel(
                 password, passwordInputField);
         password.setFont(new Font("Helvetica", Font.ITALIC, 50));
-        passwordInfo.setBackground(new Color(199, 0, 57));
+        passwordInfo.setBackground(new Color(255, 244, 230));
         passwordInputField.setFont(new Font("Helvetica", Font.ITALIC, 50));
 
 
@@ -74,7 +74,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         logIn.setFont(new Font("Helvetica", Font.ITALIC, 50));
         cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
-        buttons.setBackground(new Color(218, 247, 166));
+        buttons.setBackground(new Color(60, 47, 47  ));
         cancel.setFont(new Font("Helvetica", Font.ITALIC, 50));
 
 

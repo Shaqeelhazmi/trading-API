@@ -143,8 +143,12 @@ public class SellView extends JPanel implements ActionListener, PropertyChangeLi
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         SellState state = (SellState) evt.getNewValue();
-        stockName = state.getStockName();
-        stockSymbol = state.getStockSymbol();
+        if(state.getSuccess()){
+            JOptionPane.showMessageDialog(this, state.getSellSuccess());
+            state.setSuccessed(false);
+        } else {
+            JOptionPane.showMessageDialog(this, state.getSellError());
+        }
     }
 
 }

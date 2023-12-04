@@ -19,9 +19,10 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class SearchUseCaseFactory {
-    public static SearchView create(ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, LoggedInViewModel loggedInViewModel, StockViewModel stockViewModel) {
+    public static SearchView create(ViewManagerModel viewManagerModel, SearchViewModel searchViewModel,
+                                    LoggedInViewModel loggedInViewModel, StockViewModel stockViewModel) {
         try {
-            SearchController searchController =  createSearchUseCase(viewManagerModel, searchViewModel);
+            SearchController searchController =  createSearchUseCase(viewManagerModel, searchViewModel, stockViewModel);
             return new SearchView(searchController, searchViewModel, viewManagerModel, loggedInViewModel, stockViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open file");
@@ -29,8 +30,8 @@ public class SearchUseCaseFactory {
         return null;
     }
 
-    private static SearchController createSearchUseCase(ViewManagerModel viewManagerModel, SearchViewModel searchViewModel) throws IOException{
-        SearchOutputBoundary searchOutputBoundary = new SearchPresenter(viewManagerModel, searchViewModel);
+    private static SearchController createSearchUseCase(ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, StockViewModel stockViewModel) throws IOException{
+        SearchOutputBoundary searchOutputBoundary = new SearchPresenter(viewManagerModel, searchViewModel, stockViewModel);
         SearchInputBoundary userSearchInteractor = new SearchInteractor(searchOutputBoundary);
 
         return new SearchController(userSearchInteractor);

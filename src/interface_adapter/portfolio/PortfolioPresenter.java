@@ -20,6 +20,7 @@ public class PortfolioPresenter implements PortfolioOutputBoundary{
     @Override
     public void prepareSuccessView(PortfolioOutputData portfolioOutputData) {
         PortfolioState portfolioState = portfolioViewModel.getState();
+        portfolioState.setStocksOwned(portfolioOutputData.getStocksOwned());
         portfolioState.setSuccess();
         portfolioViewModel.firePropertyChanged();
     }

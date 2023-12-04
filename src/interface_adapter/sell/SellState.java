@@ -8,9 +8,19 @@ public class SellState {
     private String stockSymbol;
     private String stockName;
 
+    private boolean successed = false;
+
     public void setSellError(String error) {this.error = error;}
     public String getSellError(){
         return error;
+    }
+
+    public void setSuccessed(boolean successed) {
+        this.successed = successed;
+    }
+
+    public boolean getSuccess() {
+        return successed;
     }
 
     public int getAmount() {
@@ -32,7 +42,7 @@ public class SellState {
         return "Error: " + error;
     }
 
-    public void setSellSuccess() {this.success = success; }
+    public void setSellSuccess(String success) {this.success = success; }
     public String getSellSuccess(){
         return success;
     }

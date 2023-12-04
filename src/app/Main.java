@@ -79,8 +79,12 @@ public class Main {
         views.add(loggedInView, loggedInView.viewName);
 
         BuyView buyView = BuyUseCaseFactory.create(viewManagerModel, buyViewModel, stockDataAccessObject,
-                loggedInViewModel, searchViewModel, userDataAccessObject);
+                loggedInViewModel, searchViewModel, userDataAccessObject, stockViewModel);
         views.add(buyView, buyView.viewName);
+
+        SellView sellView = SellUseCaseFactory.create(viewManagerModel, sellViewModel, stockDataAccessObject,
+                loggedInViewModel, searchViewModel, userDataAccessObject, stockViewModel);
+        views.add(sellView, sellView.viewName);
 
         SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, loggedInViewModel, stockViewModel);
         views.add(searchView, searchView.viewName);

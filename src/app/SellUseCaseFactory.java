@@ -8,6 +8,7 @@ import interface_adapter.sell.SellPresenter;
 import interface_adapter.sell.SellViewModel;
 import entity.CommonUser;
 import entity.Stock;
+import interface_adapter.stock.StockViewModel;
 import use_case.sell.SellDataAccessInterface;
 import use_case.sell.SellInputBoundary;
 import use_case.sell.SellInteractor;
@@ -24,10 +25,10 @@ public class SellUseCaseFactory {
     private SellUseCaseFactory() {}
     public static SellView create(ViewManagerModel viewManagerModel, SellViewModel sellViewModel,
                                   SellDataAccessInterface userDataAccessObject, LoggedInViewModel loggedInViewModel,
-                                  SearchViewModel searchViewModel, FileUserDataAccessObject fileUserDataAccessObject){
+                                  SearchViewModel searchViewModel, FileUserDataAccessObject fileUserDataAccessObject ,StockViewModel stockViewModel){
         try {
             SellController sellController = createSellUseCase(viewManagerModel, sellViewModel, userDataAccessObject, searchViewModel,fileUserDataAccessObject);
-            return new SellView(sellController, sellViewModel, loggedInViewModel, searchViewModel, viewManagerModel);
+            return new SellView(sellController, sellViewModel, loggedInViewModel, searchViewModel, viewManagerModel, stockViewModel );
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Failed to create");
         }

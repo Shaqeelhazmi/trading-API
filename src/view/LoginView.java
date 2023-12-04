@@ -74,7 +74,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         cancel.setFont(new Font("Helvetica", Font.ITALIC, 50));
 
 
-        logIn.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
+        logIn.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(logIn)) {

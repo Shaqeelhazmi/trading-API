@@ -27,7 +27,7 @@ public class SellUseCaseFactory {
                                   SellDataAccessInterface userDataAccessObject, LoggedInViewModel loggedInViewModel,
                                   SearchViewModel searchViewModel, FileUserDataAccessObject fileUserDataAccessObject ,StockViewModel stockViewModel){
         try {
-            SellController sellController = createSellUseCase(viewManagerModel, sellViewModel, userDataAccessObject, searchViewModel,fileUserDataAccessObject);
+            SellController sellController = createSellUseCase(viewManagerModel, sellViewModel, userDataAccessObject, searchViewModel,fileUserDataAccessObject, stockViewModel);
             return new SellView(sellController, sellViewModel, loggedInViewModel, searchViewModel, viewManagerModel, stockViewModel );
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Failed to create");
@@ -37,8 +37,9 @@ public class SellUseCaseFactory {
 
     private static SellController createSellUseCase(ViewManagerModel viewManagerModel, SellViewModel sellViewModel,
                                                     SellDataAccessInterface userDataAccessObject,
-                                                    SearchViewModel searchViewModel, FileUserDataAccessObject fileUserDataAccessObject) throws IOException{
-        SellOutputBoundary sellOutputBoundary = new SellPresenter(viewManagerModel, sellViewModel, searchViewModel);
+                                                    SearchViewModel searchViewModel, FileUserDataAccessObject fileUserDataAccessObject,
+                                                    StockViewModel stockViewModel) throws IOException{
+        SellOutputBoundary sellOutputBoundary = new SellPresenter(viewManagerModel, sellViewModel, searchViewModel, stockViewModel);
         SellInputBoundary userSellInteractor = new SellInteractor(userDataAccessObject, sellOutputBoundary, fileUserDataAccessObject);
 
         return new SellController(userSellInteractor);

@@ -131,7 +131,7 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(back)){
-                            viewManagerModel.setActiveView(searchViewModel.getViewName());
+                            viewManagerModel.setActiveView(stockViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
                         }
                     }
@@ -162,7 +162,11 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         BuyState state = (BuyState) evt.getNewValue();
-        stockName = state.getStockName();
-        stockSymbol = state.getStockSymbol();
+        if(state.getSuccessed()) {
+            JOptionPane.showMessageDialog(this, state.getBuySuccess());
+            state.setSuccessed(false);
+        } else {
+            JOptionPane.showMessageDialog(this, state.getError());
+        }
     }
 }

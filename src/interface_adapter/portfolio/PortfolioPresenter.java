@@ -1,7 +1,6 @@
 package interface_adapter.portfolio;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.login.LoginState;
 import interface_adapter.sell.SellState;
 import use_case.portfolio.PortfolioOutputBoundary;
 import use_case.portfolio.PortfolioOutputData;
@@ -21,9 +20,8 @@ public class PortfolioPresenter implements PortfolioOutputBoundary{
     @Override
     public void prepareSuccessView(PortfolioOutputData portfolioOutputData) {
         PortfolioState portfolioState = portfolioViewModel.getState();
-        portfolioState.setSuccess();
         portfolioState.setStocksOwned(portfolioOutputData.getStocksOwned());
-        portfolioState.setAccountBalance(portfolioOutputData.getAccountBalance());
+        portfolioState.setSuccess();
         portfolioViewModel.firePropertyChanged();
     }
 

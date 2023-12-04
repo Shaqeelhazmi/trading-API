@@ -55,14 +55,14 @@ public class StockView extends JPanel implements ActionListener, PropertyChangeL
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        List<Date> xData = new ArrayList<>();
-        List<Double> yData = new ArrayList<>();
-
-        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-        ArrayList<String> priceHistory = searchState.getInformation();
-
-        if (priceHistory != null) {
+//        List<Date> xData = new ArrayList<>();
+//        List<Double> yData = new ArrayList<>();
+//
+//        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        Date date = null;
+//        ArrayList<String> priceHistory = searchState.getInformation();
+//
+//        if (priceHistory != null) {
 //            priceHistory.remove(0);
 //            for (int i = 0; i < searchState.getDay_list().size() - 1; i++) {
 //                try {
@@ -83,14 +83,11 @@ public class StockView extends JPanel implements ActionListener, PropertyChangeL
 //
 //            XChartPanel chartPanel = new XChartPanel<>(chart);
 
-            double[] testdata = new double[2];
-            double[] testdata2 = new double[2];
+//            double[] testdata = new double[2];
+//            double[] testdata2 = new double[2];
+//
+//            this.add(chartPanel);
 
-            XYChart chart = QuickChart.getChart("Test", "x", "y", "test", testdata, testdata2);
-            XChartPanel chartPanel = new XChartPanel<>(chart);
-
-            this.add(chartPanel);
-        }
 
 
         JPanel buttons = new JPanel();
@@ -162,5 +159,47 @@ public class StockView extends JPanel implements ActionListener, PropertyChangeL
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getSource() != null) {
+            if (this.getComponents().length > 1) {
+                this.remove(1);
+            }
+            List<Date> xData = new ArrayList<>();
+            List<Double> yData = new ArrayList<>();
+            StockState stockState = stockViewModel.getStockState();
+            SearchState searchState = searchViewModel.getSearchState();
+            String stockSymbol = stockState.getStockSymbol();
+//            String stockName = searchState.getInformation().get(0);
+            ArrayList<String> priceHistory = searchState.getStoredStocks().get(stockSymbol);
+
+            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = null;
+//            ArrayList<String> priceHistory = searchState.getInformation();
+
+            if (priceHistory != null) {
+                String stockName = priceHistory.remove(0);
+            for (int i = 0; i < priceHistory.size(); i++) {
+                try {
+                    date = sdf.parse(searchState.getTemp_day_list().get(i));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                xData.add(date);
+                yData.add(Double.parseDouble(priceHistory.get(i)));
+            }
+            priceHistory.add(0, stockName);
+
+            XYChart chart = new XYChartBuilder().width(800).height(600).title(stockName).xAxisTitle("Date").yAxisTitle("Price").build();
+            XYSeries series = chart.addSeries(stockSymbol, xData, yData);
+            series.setLineColor(Color.BLUE);
+            series.setLineStyle(SeriesLines.SOLID);
+            series.setMarker(SeriesMarkers.CIRCLE);
+            series.setMarkerColor(Color.RED);
+
+            XChartPanel chartPanel = new XChartPanel<>(chart);
+
+            this.add(chartPanel);
+            }
+        }
     }
 }
+

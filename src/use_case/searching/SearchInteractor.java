@@ -107,7 +107,7 @@ public class SearchInteractor implements SearchInputBoundary{
 
             String finalString = tempStringBuilder.toString();
             sortedDateStrings.add(finalString);
-            if (sortedDateStrings.size() == 100) {break;}
+            if (sortedDateStrings.size() == 30) {break;}
         }
 
         return sortedDateStrings;

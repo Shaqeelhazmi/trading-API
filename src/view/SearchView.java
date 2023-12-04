@@ -101,6 +101,12 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                             stockState.setStockSymbol(stock1.getText());
                             ArrayList<String> information = state.getStoredStocks().get(stock1.getText());
                             state.setInformation(information);
+                            ArrayList<String> subday = new ArrayList<>();
+                            for (int i = 0; i < 30; i++) {
+                                subday.add(state.getDay_list().get(i));
+                            }
+                            state.setTemp_day_list(subday);
+                            stockViewModel.firePropertyChanged();
 
                             viewManagerModel.setActiveView(stockViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
@@ -116,9 +122,16 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                             SearchState state = searchViewModel.getSearchState();
                             state.setSearchName(stock2.getText());
                             StockState stockState = stockViewModel.getStockState();
-                            stockState.setStockSymbol(stock1.getText());
+                            stockState.setStockSymbol(stock2.getText());
                             ArrayList<String> information = state.getStoredStocks().get(stock2.getText());
                             state.setInformation(information);
+                            ArrayList<String> subday = new ArrayList<>();
+                            for (int i = 30; i < 60; i++) {
+                                subday.add(state.getDay_list().get(i));
+                            }
+                            state.setTemp_day_list(subday);
+                            stockViewModel.firePropertyChanged();
+
                             viewManagerModel.setActiveView(stockViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
                         }
@@ -133,9 +146,15 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                             SearchState state = searchViewModel.getSearchState();
                             state.setSearchName(stock3.getText());
                             StockState stockState = stockViewModel.getStockState();
-                            stockState.setStockSymbol(stock1.getText());
+                            stockState.setStockSymbol(stock3.getText());
                             ArrayList<String> information = state.getStoredStocks().get(stock3.getText());
                             state.setInformation(information);
+                            ArrayList<String> subday = new ArrayList<>();
+                            for (int i = 60; i < 90; i++) {
+                                subday.add(state.getDay_list().get(i));
+                            }
+                            state.setTemp_day_list(subday);
+                            stockViewModel.firePropertyChanged();
                             viewManagerModel.setActiveView(stockViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
                         }
@@ -150,9 +169,16 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                             SearchState state = searchViewModel.getSearchState();
                             state.setSearchName(stock4.getText());
                             StockState stockState = stockViewModel.getStockState();
-                            stockState.setStockSymbol(stock1.getText());
+                            stockState.setStockSymbol(stock4.getText());
                             ArrayList<String> information = state.getStoredStocks().get(stock4.getText());
                             state.setInformation(information);
+                            ArrayList<String> subday = new ArrayList<>();
+                            for (int i = 90; i < 120; i++) {
+                                subday.add(state.getDay_list().get(i));
+                            }
+                            state.setTemp_day_list(subday);
+                            stockViewModel.firePropertyChanged();
+
                             viewManagerModel.setActiveView(stockViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
                         }
@@ -167,9 +193,16 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                             SearchState state = searchViewModel.getSearchState();
                             state.setSearchName(stock5.getText());
                             StockState stockState = stockViewModel.getStockState();
-                            stockState.setStockSymbol(stock1.getText());
+                            stockState.setStockSymbol(stock5.getText());
                             ArrayList<String> information = state.getStoredStocks().get(stock5.getText());
                             state.setInformation(information);
+                            ArrayList<String> subday = new ArrayList<>();
+                            for (int i = 120; i < 150; i++) {
+                                subday.add(state.getDay_list().get(i));
+                            }
+                            state.setTemp_day_list(subday);
+                            stockViewModel.firePropertyChanged();
+
                             viewManagerModel.setActiveView(stockViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
                         }

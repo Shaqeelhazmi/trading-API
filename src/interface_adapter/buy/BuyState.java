@@ -7,6 +7,8 @@ public class BuyState {
 
     private String success;
 
+    private boolean successed = false;
+
     private int amount;
 
     private String username;
@@ -18,12 +20,24 @@ public class BuyState {
 
     public void SetBuyError(String error) {this.error = error;}
 
+    public String getError() {
+        return error;
+    }
+
     @Override
     public String toString(){
         return "Error: " + error;
     }
 
-    public void SetBuySuccess() {this.success = success; }
+    public void SetBuySuccess(String success) {this.success = success; }
+
+    public String getBuySuccess(){return success;}
+
+    public boolean getSuccessed(){return successed;}
+
+    public void setSuccessed(boolean successed) {
+        this.successed = successed;
+    }
 
     public void setAmount(int amount) {
         this.amount = amount;

@@ -2,6 +2,7 @@ package interface_adapter.buy;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.searching.SearchViewModel;
+import interface_adapter.stock.StockViewModel;
 import use_case.buy.BuyOutputBoundary;
 import use_case.buy.BuyOutputData;
 
@@ -16,11 +17,14 @@ public class BuyPresenter implements BuyOutputBoundary {
 
     private SearchViewModel searchViewModel;
 
+    private StockViewModel stockViewModel;
 
-    public BuyPresenter(ViewManagerModel viewManagerModel, BuyViewModel buyViewModel, SearchViewModel searchViewModel){
+
+    public BuyPresenter(ViewManagerModel viewManagerModel, BuyViewModel buyViewModel, SearchViewModel searchViewModel, StockViewModel stockViewModel){
         this.viewManagerModel = viewManagerModel;
         this.buyViewModel = buyViewModel;
         this.searchViewModel = searchViewModel;
+        this.stockViewModel =stockViewModel;
     }
     @Override
     public void prepareFailView(String message) {
@@ -34,8 +38,9 @@ public class BuyPresenter implements BuyOutputBoundary {
         LocalDateTime responseTime = LocalDateTime.parse(response.getCreationTime());
         response.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
         BuyState buyState = buyViewModel.getBuyState();
-        buyState.SetBuySuccess();
-        viewManagerModel.setActiveView(searchViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
+        buyState.setSuccessed(true);
+        buyState.SetBuySuccess("You bought " + response.getAmount() +" "+ response.getStockBought());
+
+        buyViewModel.firePropertyChanged();
     }
 }

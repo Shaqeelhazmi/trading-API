@@ -2,6 +2,7 @@ package app;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.buy.BuyController;
+import interface_adapter.searching.SearchViewModel;
 import interface_adapter.sell.SellController;
 import interface_adapter.sell.SellPresenter;
 import interface_adapter.sell.SellViewModel;
@@ -23,18 +24,20 @@ public class SellUseCaseFactory {
     private SellUseCaseFactory() {}
     public static SellView create(ViewManagerModel viewManagerModel, SellViewModel sellViewModel,
                                   SellDataAccessInterface userDataAccessObject, LoggedInViewModel loggedInViewModel,
-                                  FileUserDataAccessObject fileUserDataAccessObject){
+                                  SearchViewModel searchViewModel, FileUserDataAccessObject fileUserDataAccessObject){
         try {
-            SellController sellController = createSellUseCase(viewManagerModel, sellViewModel, userDataAccessObject, fileUserDataAccessObject);
-            return new SellView(sellController, sellViewModel, loggedInViewModel);
+            SellController sellController = createSellUseCase(viewManagerModel, sellViewModel, userDataAccessObject, searchViewModel,fileUserDataAccessObject);
+            return new SellView(sellController, sellViewModel, loggedInViewModel, searchViewModel, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Failed to create");
         }
         return null;
     }
 
-    private static SellController createSellUseCase(ViewManagerModel viewManagerModel, SellViewModel sellViewModel, SellDataAccessInterface userDataAccessObject, FileUserDataAccessObject fileUserDataAccessObject) throws IOException{
-        SellOutputBoundary sellOutputBoundary = new SellPresenter(viewManagerModel, sellViewModel);
+    private static SellController createSellUseCase(ViewManagerModel viewManagerModel, SellViewModel sellViewModel,
+                                                    SellDataAccessInterface userDataAccessObject,
+                                                    SearchViewModel searchViewModel, FileUserDataAccessObject fileUserDataAccessObject) throws IOException{
+        SellOutputBoundary sellOutputBoundary = new SellPresenter(viewManagerModel, sellViewModel, searchViewModel);
         SellInputBoundary userSellInteractor = new SellInteractor(userDataAccessObject, sellOutputBoundary, fileUserDataAccessObject);
 
         return new SellController(userSellInteractor);

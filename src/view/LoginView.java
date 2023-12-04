@@ -4,6 +4,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.portfolio.PortfolioController;
 import interface_adapter.signup.SignupViewModel;
 
 import javax.swing.*;
@@ -33,13 +34,16 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     final JButton cancel;
     private final LoginController loginController;
 
+    private final PortfolioController portfolioController;
+
     public LoginView(LoginViewModel loginViewModel, LoginController controller,
-                     ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) {
+                     ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, PortfolioController portfolioController) {
 
         this.loginController = controller;
         this.loginViewModel = loginViewModel;
         this.viewManagerModel = viewManagerModel;
         this.signupViewModel = signupViewModel;
+        this.portfolioController = portfolioController;
         this.loginViewModel.addPropertyChangeListener(this);
         this.setBackground(new Color(199, 0, 57));
 
@@ -84,6 +88,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                                     currentState.getUsername(),
                                     currentState.getPassword()
                             );
+                            portfolioController.execute(currentState.getUsername());
+
                         }
                     }
                 }

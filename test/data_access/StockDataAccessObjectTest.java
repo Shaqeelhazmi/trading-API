@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Set;
 
 class StockDataAccessObjectTest {
 
@@ -74,30 +75,40 @@ class StockDataAccessObjectTest {
     @Test
     void sandbox() {
         // this was made just to play around with how java works
-        String date = "2023-07-31";
-        String date2 = "2023-04-31";
-        Integer dateInt = Integer.parseInt(date.replace("-", ""));
-        Integer dateInt2 = Integer.parseInt(date2.replace("-", ""));
-        ArrayList<Integer> ints = new ArrayList<>();
 
-        ints.add(dateInt);
-        ints.add(dateInt2);
+        StockDataAccessObject sdao;
+        try {
+            sdao = new StockDataAccessObject("./stocks.json");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        Collections.sort(ints);
-        System.out.println(ints);
+        System.out.println(sdao.getStock("TSLA").getPriceHistory().getDailyPriceHistory().get("2023-11-18"));
+
+        Set<String> dateStrings = sdao.getStock("TSLA").getPriceHistory().getDailyPriceHistory().keySet();
 
         ArrayList<Integer> datesAsIntegers = new ArrayList<>();
-        datesAsIntegers.add(20230431);
+        for (String date : dateStrings) {
+            int intValueDate = Integer.parseInt(date.replace("-", ""));
+            datesAsIntegers.add(intValueDate);
+        }
+        Collections.sort(datesAsIntegers);
+        Collections.reverse(datesAsIntegers);
 
 
+        ArrayList<String> sortedDateStrings = new ArrayList<>();
         for (int intValueDate : datesAsIntegers) {
             StringBuilder tempStringBuilder = new StringBuilder(Integer.toString(intValueDate));
             tempStringBuilder.insert(4, "-");
             tempStringBuilder.insert(7, "-");
+
             String finalString = tempStringBuilder.toString();
+            sortedDateStrings.add(finalString);
             System.out.println(finalString);
+//            if (sortedDateStrings.size() == 100) {break;}
         }
     }
+
 
     @Test
     void updateStockDatabase() {

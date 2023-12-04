@@ -58,6 +58,9 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
 
         LabelTextPanel amountInfo = new LabelTextPanel(
         new JLabel(BuyViewModel.Amount_Label), amount);
+        title.setFont(new Font("Cambria", Font.ITALIC, 50));
+        amountInfo.setBackground(new Color(199, 0, 57));
+        amount.setFont(new Font("Helvetica", Font.ITALIC, 50));
 
         JPanel buttons = new JPanel();
         buy = new JButton(BuyViewModel.Buy_Button_Label);
@@ -90,11 +93,11 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent e) {
+                        BuyState currentState = buyViewModel.getBuyState();
                         char c = e.getKeyChar();
                         if (!Character.isDigit(c)){
                             e.consume();
                         } else {
-                            BuyState currentState = buyViewModel.getBuyState();
                             int amount_buy = Integer.parseInt(amount.getText() + e.getKeyChar());
                             currentState.setAmount(amount_buy);
                             buyViewModel.setBuyState(currentState);

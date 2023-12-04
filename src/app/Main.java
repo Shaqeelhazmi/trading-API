@@ -88,6 +88,9 @@ public class Main {
         PortfolioView portfolioView = PortfolioUseCaseFactory.create(viewManagerModel, portfolioViewModel, loggedInViewModel, userDataAccessObject);
         views.add(portfolioView, portfolioView.viewName);
 
+        StockView stockView = new StockView(stockViewModel, buyViewModel, sellViewModel, loggedInViewModel, viewManagerModel, searchViewModel);
+        views.add(stockView, stockView.viewName);
+
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();
 

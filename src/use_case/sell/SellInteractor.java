@@ -68,7 +68,7 @@ public class SellInteractor implements SellInputBoundary{
 
                 userDataAccessObject.save(commonUser);
 
-                SellOutputData sellOutputData = new SellOutputData(stock.getStockName(), now.toString());
+                SellOutputData sellOutputData = new SellOutputData(stock.getStockName(), now.toString(), commonUser.getPortfolio().getAccountBalance());
                 sellPresenter.prepareSuccessView(sellOutputData);
 
             } else {

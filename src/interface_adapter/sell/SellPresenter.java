@@ -1,6 +1,8 @@
 package interface_adapter.sell;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.logged_in.LoggedInState;
+import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.searching.SearchViewModel;
 import interface_adapter.stock.StockViewModel;
 import use_case.sell.SellOutputBoundary;
@@ -17,12 +19,16 @@ public class SellPresenter implements SellOutputBoundary {
 
     private StockViewModel stockViewModel;
 
+    private LoggedInViewModel loggedInViewModel;
 
-    public SellPresenter(ViewManagerModel viewManagerModel, SellViewModel sellViewModel, SearchViewModel searchViewModel, StockViewModel stockViewModel){
+
+    public SellPresenter(ViewManagerModel viewManagerModel, SellViewModel sellViewModel, SearchViewModel searchViewModel, StockViewModel stockViewModel
+    , LoggedInViewModel loggedInViewModel){
         this.viewManagerModel = viewManagerModel;
         this.sellViewModel = sellViewModel;
         this.searchViewModel = searchViewModel;
         this.stockViewModel = stockViewModel;
+        this.loggedInViewModel = loggedInViewModel;
     }
     @Override
     public void prepareFailView(String message) {
@@ -36,6 +42,8 @@ public class SellPresenter implements SellOutputBoundary {
         LocalDateTime responseTime = LocalDateTime.parse(response.getCreationTime());
         response.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
         SellState sellState = sellViewModel.getSellState();
+        LoggedInState balance  = loggedInViewModel.getState();
+        balance.setAccountBalance(response.getAccountBalance());
         sellState.setSuccessed(true);
         sellState.setSellSuccess("You sold " + response.getStockSold());
 

@@ -25,7 +25,7 @@ class SellOutputDataTest {
     SellOutputData sellOutputData;
     @BeforeEach
     void setUp() {
-        sellOutputData = new SellOutputData(stock.getStockName(), LocalDateTime.now().toString());
+        sellOutputData = new SellOutputData(stock.getStockName(), LocalDateTime.now().toString(), 10000);
     }
 
 

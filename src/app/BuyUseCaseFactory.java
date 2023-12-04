@@ -24,7 +24,7 @@ public class BuyUseCaseFactory {
                                  BuyDataAccessInterface buyDataAccessObject, LoggedInViewModel loggedInViewModel, SearchViewModel searchViewModel,
                                  FileUserDataAccessObject userDataAccessObject, StockViewModel stockViewModel) {
         try {
-            BuyController buyController =  createBuyUseCase(viewManagerModel, buyViewModel, buyDataAccessObject, userDataAccessObject, searchViewModel, stockViewModel);
+            BuyController buyController =  createBuyUseCase(viewManagerModel, buyViewModel, buyDataAccessObject, userDataAccessObject, searchViewModel, stockViewModel, loggedInViewModel);
             return new BuyView(buyController, buyViewModel, loggedInViewModel, searchViewModel, viewManagerModel, stockViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Failed to create");
@@ -33,8 +33,9 @@ public class BuyUseCaseFactory {
     }
     private static BuyController createBuyUseCase(ViewManagerModel viewManagerModel, BuyViewModel buyViewModel,
                                                   BuyDataAccessInterface buyDataAccessInterface,
-                                                  FileUserDataAccessObject userDataAccessObject, SearchViewModel searchViewModel, StockViewModel stockViewModel) throws IOException{
-        BuyOutputBoundary buyOutputBoundary = new BuyPresenter(viewManagerModel, buyViewModel, searchViewModel, stockViewModel);
+                                                  FileUserDataAccessObject userDataAccessObject, SearchViewModel searchViewModel,
+                                                  StockViewModel stockViewModel, LoggedInViewModel loggedInViewModel) throws IOException{
+        BuyOutputBoundary buyOutputBoundary = new BuyPresenter(viewManagerModel, buyViewModel, searchViewModel, stockViewModel, loggedInViewModel);
         BuyInputBoundary userBuyInteractor = new BuyInteractor(buyDataAccessInterface, buyOutputBoundary, userDataAccessObject);
 
         return new BuyController(userBuyInteractor);

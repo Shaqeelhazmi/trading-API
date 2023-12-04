@@ -72,7 +72,7 @@ public class BuyInteractor implements BuyInputBoundary{
             //Save the new information
             userDataAccessObject.save(commonUser);
 
-            BuyOutputData buyOutputData = new BuyOutputData(stock.getStockName(), now.toString(), buyInputData.getAmount());
+            BuyOutputData buyOutputData = new BuyOutputData(stock.getStockName(), now.toString(), buyInputData.getAmount(), commonUser.getPortfolio().getAccountBalance());
             buyPresenter.prepareSuccessView(buyOutputData);
         } else{
                 amount = (int) Math.round(portfolio.getAccountBalance() / price_for_stock);

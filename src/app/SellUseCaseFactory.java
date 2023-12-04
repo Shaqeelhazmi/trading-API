@@ -27,7 +27,7 @@ public class SellUseCaseFactory {
                                   SellDataAccessInterface userDataAccessObject, LoggedInViewModel loggedInViewModel,
                                   SearchViewModel searchViewModel, FileUserDataAccessObject fileUserDataAccessObject ,StockViewModel stockViewModel){
         try {
-            SellController sellController = createSellUseCase(viewManagerModel, sellViewModel, userDataAccessObject, searchViewModel,fileUserDataAccessObject, stockViewModel);
+            SellController sellController = createSellUseCase(viewManagerModel, sellViewModel, userDataAccessObject, searchViewModel,fileUserDataAccessObject, stockViewModel, loggedInViewModel);
             return new SellView(sellController, sellViewModel, loggedInViewModel, searchViewModel, viewManagerModel, stockViewModel );
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Failed to create");
@@ -38,8 +38,8 @@ public class SellUseCaseFactory {
     private static SellController createSellUseCase(ViewManagerModel viewManagerModel, SellViewModel sellViewModel,
                                                     SellDataAccessInterface userDataAccessObject,
                                                     SearchViewModel searchViewModel, FileUserDataAccessObject fileUserDataAccessObject,
-                                                    StockViewModel stockViewModel) throws IOException{
-        SellOutputBoundary sellOutputBoundary = new SellPresenter(viewManagerModel, sellViewModel, searchViewModel, stockViewModel);
+                                                    StockViewModel stockViewModel, LoggedInViewModel loggedInViewModel) throws IOException{
+        SellOutputBoundary sellOutputBoundary = new SellPresenter(viewManagerModel, sellViewModel, searchViewModel, stockViewModel, loggedInViewModel);
         SellInputBoundary userSellInteractor = new SellInteractor(userDataAccessObject, sellOutputBoundary, fileUserDataAccessObject);
 
         return new SellController(userSellInteractor);

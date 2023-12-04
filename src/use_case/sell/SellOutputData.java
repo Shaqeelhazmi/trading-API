@@ -4,9 +4,12 @@ public class SellOutputData {
     private final String stockName;
     private String creationTime;
 
-    public SellOutputData(String stockName, String creationTime) {
+    private double accountBalance;
+    public SellOutputData(String stockName, String creationTime, double accountBalance) {
         this.stockName = stockName;
         this.creationTime = creationTime;
+        this.accountBalance =accountBalance;
+
     }
 
     public String getStockSold() {
@@ -15,4 +18,12 @@ public class SellOutputData {
     public void setCreationTime(String creationTime){ this.creationTime = creationTime;}
 
     public String getCreationTime(){return creationTime;}
+
+    public void setAccountBalance(double accountBalance) {
+        this.accountBalance = accountBalance;
+    }
+
+    public double getAccountBalance() {
+        return accountBalance;
+    }
 }

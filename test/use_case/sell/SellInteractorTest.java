@@ -39,9 +39,9 @@ class SellInteractorTest {
         HashMap<String, Integer> hashMap =  new HashMap<>();
         hashMap.put(stock1.getStockSymbol(), 99);
         transaction1 = new Transaction(LocalDateTime.now(), stock1.getStockName(),
-                "Sold Tesla Inc", 5, 10);
+                "Sell", 5, 10);
         transaction2 = new Transaction(LocalDateTime.now(), stock2.getStockName(),
-                "Sold Alphabet Inc - Class A", 10, 20);
+                "Sell", 10, 20);
         ArrayList<Transaction> transactions= new ArrayList<>(5);
         transactions.add(transaction1);
         transactions.add(transaction2);
